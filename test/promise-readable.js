@@ -13,9 +13,14 @@ Feature('Test promise-readable module', () => {
   const PromiseReadable = require('../lib/promise-readable')
   const EventEmitter = require('events')
 
+  class MockStream extends EventEmitter {
+    pause () {}
+    resume () {}
+  }
+
   Scenario('Read chunks from stream', function () {
     Given('Readable object', () => {
-      this.readable = new EventEmitter()
+      this.readable = new MockStream()
     })
 
     Given('PromiseReadable object', () => {
@@ -49,7 +54,7 @@ Feature('Test promise-readable module', () => {
 
   Scenario('Read empty stream', function () {
     Given('Readable object', () => {
-      this.readable = new EventEmitter()
+      this.readable = new MockStream()
     })
 
     Given('PromiseReadable object', () => {
@@ -71,7 +76,7 @@ Feature('Test promise-readable module', () => {
 
   Scenario('Read stream with error', function () {
     Given('Readable object', () => {
-      this.readable = new EventEmitter()
+      this.readable = new MockStream()
     })
 
     Given('PromiseReadable object', () => {
@@ -93,7 +98,7 @@ Feature('Test promise-readable module', () => {
 
   Scenario('Read all from stream', function () {
     Given('Readable object', () => {
-      this.readable = new EventEmitter()
+      this.readable = new MockStream()
     })
 
     Given('PromiseReadable object', () => {
@@ -123,7 +128,7 @@ Feature('Test promise-readable module', () => {
 
   Scenario('Read all from stream with error', function () {
     Given('Readable object', () => {
-      this.readable = new EventEmitter()
+      this.readable = new MockStream()
     })
 
     Given('PromiseReadable object', () => {
@@ -149,7 +154,7 @@ Feature('Test promise-readable module', () => {
 
   Scenario('Wait for end from stream', function () {
     Given('Readable object', () => {
-      this.readable = new EventEmitter()
+      this.readable = new MockStream()
     })
 
     Given('PromiseReadable object', () => {
@@ -179,7 +184,7 @@ Feature('Test promise-readable module', () => {
 
   Scenario('Wait for end from stream with error', function () {
     Given('Readable object', () => {
-      this.readable = new EventEmitter()
+      this.readable = new MockStream()
     })
 
     Given('PromiseReadable object', () => {
