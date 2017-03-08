@@ -14,6 +14,10 @@ Feature('Test promise-readable module', () => {
   const EventEmitter = require('events')
 
   class MockStream extends EventEmitter {
+    constructor () {
+      super()
+      this.readable = true
+    }
     pause () {}
     resume () {}
   }
