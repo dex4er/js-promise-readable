@@ -1,0 +1,43 @@
+{
+  "name": "promise-readable",
+  "version": "0.0.1",
+  "description": "Return promise for readable stream",
+  "main": "lib/promise-readable.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dex4er/js-promise-readable"
+  },
+  "keywords": [
+    "promise",
+    "readable",
+    "stream"
+  ],
+  "author": "Piotr Roszatycki",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dex4er/js-promise-readable/issues"
+  },
+  "homepage": "http://github.com/dex4er/js-promise-readable",
+  "engines": {
+    "node": ">=4.0.0"
+  },
+  "dependencies": {
+    "any-promise": "^1.3.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-as-promised": "^6.0.0",
+    "nyc": "^10.1.2",
+    "snazzy": "^6.0.0",
+    "standard": "^9.0.0",
+    "tap": "^10.3.0",
+    "tap-given": "^0.2.0"
+  },
+  "scripts": {
+    "test": "standard --verbose | snazzy && tap test/*.js",
+    "test-coverage": "npm test -- --coverage"
+  },
+  "nyc": {
+    "exclude": []
+  }
+}
