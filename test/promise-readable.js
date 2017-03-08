@@ -61,7 +61,7 @@ Feature('Test promise-readable module', () => {
     })
 
     When('close event is emitted', () => {
-      this.readable.emit('close')
+      this.readable.emit('end')
     })
 
     Then('promise returns null value', () => {
@@ -113,7 +113,7 @@ Feature('Test promise-readable module', () => {
     })
 
     When('close event is emitted', () => {
-      this.readable.emit('close')
+      this.readable.emit('end')
     })
 
     Then('promise returns all chunks in one buffer', () => {
@@ -169,7 +169,7 @@ Feature('Test promise-readable module', () => {
     })
 
     When('close event is emitted', () => {
-      this.readable.emit('close')
+      this.readable.emit('end')
     })
 
     Then('promise returns no result', () => {
