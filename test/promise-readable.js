@@ -90,4 +90,116 @@ Feature('Test promise-readable module', () => {
       return this.promise.should.be.rejectedWith(Error, 'boom')
     })
   })
+
+  Scenario('Read all from stream', function () {
+    Given('Readable object', () => {
+      this.readable = new EventEmitter()
+    })
+
+    Given('PromiseReadable object', () => {
+      this.promiseReadable = new PromiseReadable(this.readable)
+    })
+
+    When('I call readAll method', () => {
+      this.promise = this.promiseReadable.readAll()
+    })
+
+    When('data event is emitted', () => {
+      this.readable.emit('data', new Buffer('chunk1'))
+    })
+
+    When('another data event is emitted', () => {
+      this.readable.emit('data', new Buffer('chunk2'))
+    })
+
+    When('close event is emitted', () => {
+      this.readable.emit('close')
+    })
+
+    Then('promise returns all chunks in one buffer', () => {
+      return this.promise.should.eventually.deep.equal(new Buffer('chunk1chunk2'))
+    })
+  })
+
+  Scenario('Read all from stream with error', function () {
+    Given('Readable object', () => {
+      this.readable = new EventEmitter()
+    })
+
+    Given('PromiseReadable object', () => {
+      this.promiseReadable = new PromiseReadable(this.readable)
+    })
+
+    When('I call readAll method', () => {
+      this.promise = this.promiseReadable.readAll()
+    })
+
+    When('data event is emitted', () => {
+      this.readable.emit('data', new Buffer('chunk1'))
+    })
+
+    When('error event is emitted', () => {
+      this.readable.emit('error', new Error('boom'))
+    })
+
+    Then('promise is rejected', () => {
+      return this.promise.should.be.rejectedWith(Error, 'boom')
+    })
+  })
+
+  Scenario('Wait for end from stream', function () {
+    Given('Readable object', () => {
+      this.readable = new EventEmitter()
+    })
+
+    Given('PromiseReadable object', () => {
+      this.promiseReadable = new PromiseReadable(this.readable)
+    })
+
+    When('I call end method', () => {
+      this.promise = this.promiseReadable.end()
+    })
+
+    When('data event is emitted', () => {
+      this.readable.emit('data', new Buffer('chunk1'))
+    })
+
+    When('another data event is emitted', () => {
+      this.readable.emit('data', new Buffer('chunk2'))
+    })
+
+    When('close event is emitted', () => {
+      this.readable.emit('close')
+    })
+
+    Then('promise returns no result', () => {
+      return this.promise.should.eventually.be.null
+    })
+  })
+
+  Scenario('Wait for end from stream with error', function () {
+    Given('Readable object', () => {
+      this.readable = new EventEmitter()
+    })
+
+    Given('PromiseReadable object', () => {
+      this.promiseReadable = new PromiseReadable(this.readable)
+    })
+
+    When('I call end method', () => {
+      this.promise = this.promiseReadable.end()
+    })
+
+    When('data event is emitted', () => {
+      this.readable.emit('data', new Buffer('chunk1'))
+    })
+
+    When('error event is emitted', () => {
+      this.readable.emit('error', new Error('boom'))
+    })
+
+    Then('promise is rejected', () => {
+      return this.promise.should.be.rejectedWith(Error, 'boom')
+    })
+  })
 })
