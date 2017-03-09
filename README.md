@@ -2,8 +2,14 @@
 
 [![Build Status](https://secure.travis-ci.org/dex4er/js-promise-readable.svg)](http://travis-ci.org/dex4er/js-promise-readable) [![Coverage Status](https://coveralls.io/repos/github/dex4er/js-promise-readable/badge.svg)](https://coveralls.io/github/dex4er/js-promise-readable) [![npm](https://img.shields.io/npm/v/promise-readable.svg)](https://www.npmjs.com/package/promise-readable)
 
-This module allows to convert `Readable` stream into its promisified version, which returns [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
-object fulfilled when `data` or `close` events occurred.
+This module allows to convert
+[`Readable`](https://nodejs.org/api/stream.html#stream_class_stream_readable)
+stream into its promisified version, which returns [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
+object fulfilled when
+[`data`](https://nodejs.org/api/stream.html#stream_event_data),
+[`end`](https://nodejs.org/api/stream.html#stream_event_end) or
+[`error`](https://nodejs.org/api/stream.html#stream_event_error_1) events
+occurred.
 
 ### Requirements
 
@@ -36,10 +42,16 @@ console.log(promiseRstream.stream.flags)
 #### read
 
 This method returns `Promise` which is fulfilled when stream can return one
-chunk (`data` event) or stream is ended (`close` event).
+chunk (by `read` method or `data` event) or stream is ended (`end` event).
 
 ```js
 const chunk = await promiseRstream.read()
+```
+
+If stream2 API is available then additional argument `size` is accepted.
+
+```js
+const chunk = await promiseRstream.read(1024)
 ```
 
 Promise returns chunk data if something has been read or `null` value if it is
