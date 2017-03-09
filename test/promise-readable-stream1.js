@@ -78,6 +78,32 @@ Feature('Test promise-readable module with stream1 API', () => {
     })
   })
 
+  Scenario('Read ended stream', function () {
+    Given('Readable object', () => {
+      this.stream = new MockStream()
+    })
+
+    Given('PromiseReadable object', () => {
+      this.promiseReadable = new PromiseReadable(this.stream)
+    })
+
+    When('I call read method', () => {
+      this.promiseReadable.read()
+    })
+
+    When('close event is emitted', () => {
+      this.stream.emit('end')
+    })
+
+    When('I call read method again', () => {
+      this.promise = this.promiseReadable.read()
+    })
+
+    Then('promise returns null value', () => {
+      return this.promise.should.eventually.to.be.null
+    })
+  })
+
   Scenario('Read stream with error', function () {
     Given('Readable object', () => {
       this.stream = new MockStream()
@@ -127,6 +153,32 @@ Feature('Test promise-readable module with stream1 API', () => {
 
     Then('promise returns all chunks in one buffer', () => {
       return this.promise.should.eventually.deep.equal(new Buffer('chunk1chunk2'))
+    })
+  })
+
+  Scenario('Read all from ended stream', function () {
+    Given('Readable object', () => {
+      this.stream = new MockStream()
+    })
+
+    Given('PromiseReadable object', () => {
+      this.promiseReadable = new PromiseReadable(this.stream)
+    })
+
+    When('I call read method', () => {
+      this.promiseReadable.read()
+    })
+
+    When('close event is emitted', () => {
+      this.stream.emit('end')
+    })
+
+    When('I call readAll method', () => {
+      this.promise = this.promiseReadable.readAll()
+    })
+
+    Then('promise returns null value', () => {
+      return this.promise.should.eventually.to.be.null
     })
   })
 
@@ -183,6 +235,32 @@ Feature('Test promise-readable module with stream1 API', () => {
 
     Then('promise returns no result', () => {
       return this.promise.should.eventually.be.null
+    })
+  })
+
+  Scenario('Wait for end from ended stream', function () {
+    Given('Readable object', () => {
+      this.stream = new MockStream()
+    })
+
+    Given('PromiseReadable object', () => {
+      this.promiseReadable = new PromiseReadable(this.stream)
+    })
+
+    When('I call read method', () => {
+      this.promiseReadable.read()
+    })
+
+    When('close event is emitted', () => {
+      this.stream.emit('end')
+    })
+
+    When('I call end method', () => {
+      this.promise = this.promiseReadable.end()
+    })
+
+    Then('promise returns null value', () => {
+      return this.promise.should.eventually.to.be.null
     })
   })
 

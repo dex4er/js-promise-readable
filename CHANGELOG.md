@@ -6,6 +6,7 @@
   * Use `stream.read()` if stream2 is available.
   * Use `pause`/`resume` to be sure that `end` event won't be missed if stream1
     is available.
+  * Do not block on reading of already ended stream.
 
 ## v0.0.1 2017-03-08
 

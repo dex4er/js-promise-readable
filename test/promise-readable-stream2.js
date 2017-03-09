@@ -97,6 +97,28 @@ Feature('Test promise-readable module with stream2 API', () => {
     })
   })
 
+  Scenario('Read ended stream', function () {
+    Given('Readable object', () => {
+      this.stream = new MockStream()
+    })
+
+    Given('PromiseReadable object', () => {
+      this.promiseReadable = new PromiseReadable(this.stream)
+    })
+
+    When('I call read method', () => {
+      this.promiseReadable.read()
+    })
+
+    When('I call read method again', () => {
+      this.promise = this.promiseReadable.read()
+    })
+
+    Then('promise returns null value', () => {
+      return this.promise.should.eventually.to.be.null
+    })
+  })
+
   Scenario('Read stream with error', function () {
     Given('Readable object', () => {
       this.stream = new MockStream()
