@@ -9,7 +9,7 @@ const chaiAsPromised = require('chai-as-promised')
 chai.use(chaiAsPromised)
 chai.should()
 
-Feature('Test promise-readable module', () => {
+Feature('Test promise-readable module with stream1 API', () => {
   const PromiseReadable = require('../lib/promise-readable')
   const EventEmitter = require('events')
 
