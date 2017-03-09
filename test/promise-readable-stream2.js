@@ -107,7 +107,7 @@ Feature('Test promise-readable module with stream2 API', () => {
     })
 
     When('I call read method', () => {
-      this.promiseReadable.read()
+      return this.promiseReadable.read()
     })
 
     When('I call read method again', () => {
