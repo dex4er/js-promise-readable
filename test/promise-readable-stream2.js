@@ -23,7 +23,8 @@ Feature('Test promise-readable module with stream2 API', () => {
     read (size) {
       size = size || 1024
       if (this._error) {
-        throw this._error
+        this.emit('error', this._error)
+        return null
       }
       if (this._buffer.length === 0) {
         if (!this._ended) {
@@ -46,15 +47,15 @@ Feature('Test promise-readable module with stream2 API', () => {
 
   Scenario('Read chunks from stream', function () {
     Given('Readable object', () => {
-      this.readable = new MockStream()
+      this.stream = new MockStream()
     })
 
     Given('PromiseReadable object', () => {
-      this.promiseReadable = new PromiseReadable(this.readable)
+      this.promiseReadable = new PromiseReadable(this.stream)
     })
 
     When('stream contains some data', () => {
-      this.readable._append(new Buffer('chunk1'))
+      this.stream._append(new Buffer('chunk1'))
     })
 
     When('I call read method', () => {
@@ -66,7 +67,7 @@ Feature('Test promise-readable module with stream2 API', () => {
     })
 
     When('stream contains some another data', () => {
-      this.readable._append(new Buffer('chunk2'))
+      this.stream._append(new Buffer('chunk2'))
     })
 
     When('I call read method again', () => {
@@ -80,11 +81,11 @@ Feature('Test promise-readable module with stream2 API', () => {
 
   Scenario('Read empty stream', function () {
     Given('Readable object', () => {
-      this.readable = new MockStream()
+      this.stream = new MockStream()
     })
 
     Given('PromiseReadable object', () => {
-      this.promiseReadable = new PromiseReadable(this.readable)
+      this.promiseReadable = new PromiseReadable(this.stream)
     })
 
     When('I call read method', () => {
@@ -98,15 +99,15 @@ Feature('Test promise-readable module with stream2 API', () => {
 
   Scenario('Read stream with error', function () {
     Given('Readable object', () => {
-      this.readable = new MockStream()
+      this.stream = new MockStream()
     })
 
     Given('PromiseReadable object', () => {
-      this.promiseReadable = new PromiseReadable(this.readable)
+      this.promiseReadable = new PromiseReadable(this.stream)
     })
 
     When('stream will emit an error event', () => {
-      this.readable._throw(new Error('boom'))
+      this.stream._throw(new Error('boom'))
     })
 
     When('I call read method', () => {
@@ -115,6 +116,29 @@ Feature('Test promise-readable module with stream2 API', () => {
 
     Then('promise is rejected', () => {
       return this.promise.should.be.rejectedWith(Error, 'boom')
+    })
+  })
+
+  Scenario('Read non-Readable stream', function () {
+    Given('Non-Readable object', () => {
+      this.stream = new MockStream()
+      this.stream.readable = false
+    })
+
+    Given('PromiseReadable object', () => {
+      this.promiseReadable = new PromiseReadable(this.stream)
+    })
+
+    When('stream contains some data', () => {
+      this.stream._append(new Buffer('chunk1'))
+    })
+
+    When('I call read method', () => {
+      this.promise = this.promiseReadable.read()
+    })
+
+    Then('promise returns null value', () => {
+      return this.promise.should.eventually.to.be.null
     })
   })
 })
