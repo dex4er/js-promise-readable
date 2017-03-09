@@ -20,7 +20,8 @@ Feature('Test promise-readable module with stream2 API', () => {
       this._buffer = new Buffer(0)
       this._ended = false
     }
-    read (size = 1024) {
+    read (size) {
+      size = size || 1024
       if (this._error) {
         throw this._error
       }
