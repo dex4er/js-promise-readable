@@ -261,8 +261,8 @@ Feature('Test promise-readable module with stream1 API', () => {
       this.promiseReadable = new PromiseReadable(this.stream)
     })
 
-    When('I call end method', () => {
-      this.promise = this.promiseReadable.end()
+    When('I call open method', () => {
+      this.promise = this.promiseReadable.open()
     })
 
     When('error event is emitted', () => {
@@ -328,7 +328,7 @@ Feature('Test promise-readable module with stream1 API', () => {
     })
 
     When('I call end method', () => {
-      this.promise = this.promiseReadable.end()
+      this.promise = this.promiseReadable.close()
     })
 
     When('error event is emitted', () => {
