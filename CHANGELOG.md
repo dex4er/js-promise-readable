@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.1.0 2017-03-10
+
+  * New methods `open` and `close` for `fs.ReadStream` streams.
+
 ## v0.0.2 2017-03-09
 
   * Listen on `end` event rather than `close`.
