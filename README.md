@@ -74,6 +74,30 @@ content.
 const content = await promiseRstream.readAll()
 ```
 
+#### open
+
+This method returns `Promise` which is fulfilled when stream is opened. File
+descriptor is returned. It works only for
+[`fd.ReadStream`](https://nodejs.org/api/fs.html#fs_class_fs_readstream)
+streams. It returns `null` if stream was already ended.
+
+```js
+const promise = promiseRstream.open()
+promiseRstream.stream.pipe(process.stdout)
+const fd = await promise
+```
+
+#### close
+
+This method returns `Promise` which is fulfilled when stream is closed.
+`undefined` value is returned. It works only for
+[`fd.ReadStream`](https://nodejs.org/api/fs.html#fs_class_fs_readstream)
+streams. It returns `null` if stream was already ended.
+
+```js
+await promiseRstream.close()
+```
+
 #### end
 
 This method returns `Promise` which is fulfilled when stream is ended. No value

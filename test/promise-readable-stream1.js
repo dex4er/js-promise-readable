@@ -274,6 +274,72 @@ Feature('Test promise-readable module with stream1 API', () => {
     })
   })
 
+  Scenario('Wait for close from stream', function () {
+    Given('Readable object', () => {
+      this.stream = new MockStream()
+    })
+
+    Given('PromiseReadable object', () => {
+      this.promiseReadable = new PromiseReadable(this.stream)
+    })
+
+    When('I call close method', () => {
+      this.promise = this.promiseReadable.close()
+    })
+
+    When('close event is emitted', () => {
+      this.stream.emit('close')
+    })
+
+    Then('promise returns result with fd argument', () => {
+      return this.promise.should.eventually.be.undefined
+    })
+  })
+
+  Scenario('Wait for close from ended stream', function () {
+    Given('Readable object', () => {
+      this.stream = new MockStream()
+    })
+
+    Given('PromiseReadable object', () => {
+      this.promiseReadable = new PromiseReadable(this.stream)
+    })
+
+    When('I call close method', () => {
+      this.promise = this.promiseReadable.close()
+    })
+
+    When('end event is emitted', () => {
+      this.stream.emit('end')
+    })
+
+    Then('promise returns null value', () => {
+      return this.promise.should.eventually.to.be.null
+    })
+  })
+
+  Scenario('Wait for close from stream with error', function () {
+    Given('Readable object', () => {
+      this.stream = new MockStream()
+    })
+
+    Given('PromiseReadable object', () => {
+      this.promiseReadable = new PromiseReadable(this.stream)
+    })
+
+    When('I call end method', () => {
+      this.promise = this.promiseReadable.end()
+    })
+
+    When('error event is emitted', () => {
+      this.stream.emit('error', new Error('boom'))
+    })
+
+    Then('promise is rejected', () => {
+      return this.promise.should.be.rejectedWith(Error, 'boom')
+    })
+  })
+
   Scenario('Wait for end from stream', function () {
     Given('Readable object', () => {
       this.stream = new MockStream()
