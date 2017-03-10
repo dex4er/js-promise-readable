@@ -82,9 +82,8 @@ descriptor is returned. It works only for
 streams. It returns `null` if stream was already ended.
 
 ```js
-const promise = promiseRstream.open()
+const fd = await promiseRstream.open()
 promiseRstream.stream.pipe(process.stdout)
-const fd = await promise
 ```
 
 #### close
