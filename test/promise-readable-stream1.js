@@ -305,12 +305,16 @@ Feature('Test promise-readable module with stream1 API', () => {
       this.promiseReadable = new PromiseReadable(this.stream)
     })
 
-    When('I call close method', () => {
-      this.promise = this.promiseReadable.close()
+    When('I call end method', () => {
+      this.promiseReadable.end()
     })
 
     When('end event is emitted', () => {
       this.stream.emit('end')
+    })
+
+    When('I call close method', () => {
+      this.promise = this.promiseReadable.close()
     })
 
     Then('promise returns null value', () => {
