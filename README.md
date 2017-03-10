@@ -6,7 +6,9 @@ This module allows to convert
 [`Readable`](https://nodejs.org/api/stream.html#stream_class_stream_readable)
 stream into its promisified version, which returns [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
 object fulfilled when
+[`open`](https://nodejs.org/api/fs.html#fs_event_open),
 [`data`](https://nodejs.org/api/stream.html#stream_event_data),
+[`close`](https://nodejs.org/api/fs.html#fs_event_close),
 [`end`](https://nodejs.org/api/stream.html#stream_event_end) or
 [`error`](https://nodejs.org/api/stream.html#stream_event_error_1) events
 occurred.
