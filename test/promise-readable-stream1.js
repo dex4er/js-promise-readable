@@ -306,7 +306,7 @@ Feature('Test promise-readable module with stream1 API', () => {
     })
 
     When('I call end method', () => {
-      this.promiseReadable.end()
+      this.promiseReadable.onceEnd()
     })
 
     When('end event is emitted', () => {
@@ -354,7 +354,7 @@ Feature('Test promise-readable module with stream1 API', () => {
     })
 
     When('I call end method', () => {
-      this.promise = this.promiseReadable.end()
+      this.promise = this.promiseReadable.onceEnd()
     })
 
     When('data event is emitted', () => {
@@ -392,7 +392,7 @@ Feature('Test promise-readable module with stream1 API', () => {
     })
 
     When('I call end method', () => {
-      this.promise = this.promiseReadable.end()
+      this.promise = this.promiseReadable.onceEnd()
     })
 
     Then('promise returns null value', () => {
@@ -410,7 +410,7 @@ Feature('Test promise-readable module with stream1 API', () => {
     })
 
     When('I call end method', () => {
-      this.promise = this.promiseReadable.end()
+      this.promise = this.promiseReadable.onceEnd()
     })
 
     When('data event is emitted', () => {

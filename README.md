@@ -99,7 +99,7 @@ streams. It returns `null` if stream was already ended.
 await promiseRstream.onceClose()
 ```
 
-#### end
+#### onceEnd
 
 This method returns `Promise` which is fulfilled when stream is ended. No value
 is returned. It might be used when stream is handled with `data` event directly.
@@ -107,7 +107,7 @@ is returned. It might be used when stream is handled with `data` event directly.
 ```js
 promiseRstream.stream.on('data', chunk => console.log(chunk.length))
 
-await promiseRstream.end()
+await promiseRstream.onceEnd()
 ```
 
 ### Promise

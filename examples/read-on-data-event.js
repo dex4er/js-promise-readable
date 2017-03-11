@@ -11,7 +11,7 @@ rstream.stream.on('data', function (chunk) {
   total += chunk.length
 })
 
-rstream.end()
+rstream.onceEnd()
 .then(function () {
   console.log('Read', total, 'bytes in total')
 })

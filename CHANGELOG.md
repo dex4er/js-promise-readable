@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.3.0 2017-03-11
+
+  * Method `end` is renamed to `onceEnd`.
+
 ## v0.2.0 2017-03-11
 
   * Methods `onceOpen` and `onceClose` (with prefix).
