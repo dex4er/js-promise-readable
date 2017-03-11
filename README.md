@@ -76,7 +76,7 @@ content.
 const content = await promiseRstream.readAll()
 ```
 
-#### open
+#### onceOpen
 
 This method returns `Promise` which is fulfilled when stream is opened. File
 descriptor is returned. It works only for
@@ -84,11 +84,11 @@ descriptor is returned. It works only for
 streams. It returns `null` if stream was already ended.
 
 ```js
-const fd = await promiseRstream.open()
+const fd = await promiseRstream.onceOpen()
 promiseRstream.stream.pipe(process.stdout)
 ```
 
-#### close
+#### onceClose
 
 This method returns `Promise` which is fulfilled when stream is closed.
 `undefined` value is returned. It works only for
@@ -96,7 +96,7 @@ This method returns `Promise` which is fulfilled when stream is closed.
 streams. It returns `null` if stream was already ended.
 
 ```js
-await promiseRstream.close()
+await promiseRstream.onceClose()
 ```
 
 #### end

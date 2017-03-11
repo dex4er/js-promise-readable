@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.2.0 2017-03-11
+
+  * Methods `onceOpen` and `onceClose` (with prefix).
+
 ## v0.1.0 2017-03-10
 
   * New methods `open` and `close` for `fs.ReadStream` streams.
