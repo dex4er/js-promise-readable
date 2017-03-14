@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.4.0 2017-03-14
+
+  * New method `once` replaces other `once*` methods.
+
 ## v0.3.0 2017-03-11
 
   * Method `end` is renamed to `onceEnd`.

@@ -25,6 +25,8 @@ npm install promise-readable
 
 ### Usage
 
+#### constructor(stream)
+
 `PromiseReadable` object requires `Readable` object to work:
 
 ```js
@@ -41,7 +43,7 @@ Original stream is available with `stream` property:
 console.log(promiseRstream.stream.flags)
 ```
 
-#### read
+#### read([chunkSize])
 
 This method returns `Promise` which is fulfilled when stream can return one
 chunk (by `read` method or `data` event) or stream is ended (`end` event).
@@ -66,7 +68,7 @@ for (let chunk; (chunk = await promiseRstream.read()) !== null;) {
 console.log('stream is ended')
 ```
 
-#### readAll
+#### readAll()
 
 This method returns `Promise` which is fulfilled when stream is ended. The
 content from the stream is buffered and then Promise returns this concatenated
@@ -76,38 +78,19 @@ content.
 const content = await promiseRstream.readAll()
 ```
 
-#### onceOpen
+#### once(event)
 
-This method returns `Promise` which is fulfilled when stream is opened. File
-descriptor is returned. It works only for
-[`fd.ReadStream`](https://nodejs.org/api/fs.html#fs_class_fs_readstream)
-streams. It returns `null` if stream was already ended.
+This method returns `Promise` which is fulfilled when stream emits `event`. The
+result of this event is returned or `null` value if stream is already ended.
 
 ```js
-const fd = await promiseRstream.onceOpen()
+const fd = await promiseRstream.once('open')
 promiseRstream.stream.pipe(process.stdout)
-```
 
-#### onceClose
+await promiseRstream.once('close')
 
-This method returns `Promise` which is fulfilled when stream is closed.
-`undefined` value is returned. It works only for
-[`fd.ReadStream`](https://nodejs.org/api/fs.html#fs_class_fs_readstream)
-streams. It returns `null` if stream was already ended.
-
-```js
-await promiseRstream.onceClose()
-```
-
-#### onceEnd
-
-This method returns `Promise` which is fulfilled when stream is ended. No value
-is returned. It might be used when stream is handled with `data` event directly.
-
-```js
 promiseRstream.stream.on('data', chunk => console.log(chunk.length))
-
-await promiseRstream.onceEnd()
+await promiseRstream.once('end')
 ```
 
 ### Promise
