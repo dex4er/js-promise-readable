@@ -45,7 +45,11 @@ const promiseReadable = new PromiseReadable(stream)
 
 #### stream
 
-Original stream is available with `stream` property.
+```js
+const stream = promiseReadable.stream
+```
+
+Original stream object.
 
 _Example:_
 
