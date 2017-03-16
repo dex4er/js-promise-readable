@@ -60,7 +60,7 @@ console.log(promiseReadable.stream.flags)
 #### read
 
 ```js
-const chunk = await promiseReadable.read([chunkSize])
+const chunk = await promiseReadable.read(chunkSize)
 ```
 
 This method returns `Promise` which is fulfilled when stream can return one
