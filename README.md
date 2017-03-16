@@ -25,72 +25,92 @@ npm install promise-readable
 
 ### Usage
 
-#### constructor(stream)
+#### constructor
 
-`PromiseReadable` object requires `Readable` object to work:
+```js
+const promiseReadable = new PromiseReadable(stream)
+```
+
+`PromiseReadable` object requires `Readable` object to work.
+
+_Example:_
 
 ```js
 const PromiseReadable = require('promise-readable')
 
-const rstream = require('fs').createReadStream('/etc/hosts')
+const stream = require('fs').createReadStream('/etc/hosts')
 
-const promiseRstream = new PromiseReadable(rstream)
+const promiseReadable = new PromiseReadable(stream)
 ```
 
-Original stream is available with `stream` property:
+#### stream
+
+Original stream is available with `stream` property.
+
+_Example:_
 
 ```js
-console.log(promiseRstream.stream.flags)
+console.log(promiseReadable.stream.flags)
 ```
 
-#### read([chunkSize])
+#### read
+
+```js
+const chunk = await promiseReadable.read([chunkSize])
+```
 
 This method returns `Promise` which is fulfilled when stream can return one
 chunk (by `read` method or `data` event) or stream is ended (`end` event).
 
-```js
-const chunk = await promiseRstream.read()
-```
-
 If stream2 API is available then additional argument `size` is accepted.
 
+_Example:_
+
 ```js
-const chunk = await promiseRstream.read(1024)
+const chunk = await promiseReadable.read(1024)
 ```
 
 Promise returns chunk data if something has been read or `null` value if it is
 an end of the stream.
 
+_Example:_
+
 ```js
-for (let chunk; (chunk = await promiseRstream.read()) !== null;) {
+for (let chunk; (chunk = await promiseReadable.read()) !== null;) {
   console.log(chunk.length)
 }
 console.log('stream is ended')
 ```
 
-#### readAll()
+#### readAll
+
+```js
+const content = await promiseReadable.readAll()
+```
 
 This method returns `Promise` which is fulfilled when stream is ended. The
 content from the stream is buffered and then Promise returns this concatenated
 content.
 
-```js
-const content = await promiseRstream.readAll()
-```
+#### once
 
-#### once(event)
+```js
+const result = await promiseReadable.once(event)
+```
 
 This method returns `Promise` which is fulfilled when stream emits `event`. The
 result of this event is returned or `null` value if stream is already ended.
 
+_Example:_
+
 ```js
-const fd = await promiseRstream.once('open')
-promiseRstream.stream.pipe(process.stdout)
+const fd = await promiseReadable.once('open')
+promiseReadable.stream.pipe(process.stdout)
 
-await promiseRstream.once('close')
+await promiseReadable.once('close')
 
-promiseRstream.stream.on('data', chunk => console.log(chunk.length))
-await promiseRstream.once('end')
+promiseReadable.stream.on('data', chunk => console.log(chunk.length))
+await promiseReadable.once('end')
 ```
 
 ### Promise
