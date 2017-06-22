@@ -27,7 +27,6 @@
   "devDependencies": {
     "chai": "^4.0.2",
     "chai-as-promised": "^7.0.0",
-    "nyc": "^11.0.2",
     "snazzy": "^7.0.0",
     "standard": "^10.0.2",
     "tap": "^10.5.1",
