@@ -1,6 +1,5 @@
 'use strict'
 
-/* global Feature, Scenario, Given, When, Then */
 const t = require('tap')
 require('tap-given')(t)
 
@@ -22,486 +21,562 @@ Feature('Test promise-readable module with stream1 API', () => {
     resume () {}
   }
 
-  Scenario('Read chunks from stream', function () {
+  Scenario('Read chunks from stream', () => {
+    let promise
+    let promiseReadable
+    let stream
+
     Given('Readable object', () => {
-      this.stream = new MockStream()
+      stream = new MockStream()
     })
 
-    Given('PromiseReadable object', () => {
-      this.promiseReadable = new PromiseReadable(this.stream)
+    And('PromiseReadable object', () => {
+      promiseReadable = new PromiseReadable(stream)
     })
 
     When('I call read method', () => {
-      this.promise = this.promiseReadable.read()
+      promise = promiseReadable.read()
     })
 
-    When('data event is emitted', () => {
-      this.stream.emit('data', Buffer.from('chunk1'))
+    And('data event is emitted', () => {
+      stream.emit('data', Buffer.from('chunk1'))
     })
 
     Then('promise returns chunk', () => {
-      return this.promise.should.eventually.deep.equal(Buffer.from('chunk1'))
+      return promise.should.eventually.deep.equal(Buffer.from('chunk1'))
     })
 
     When('I call read method again', () => {
-      this.promise = this.promiseReadable.read()
+      promise = promiseReadable.read()
     })
 
-    When('another data event is emitted', () => {
-      this.stream.emit('data', Buffer.from('chunk2'))
+    And('another data event is emitted', () => {
+      stream.emit('data', Buffer.from('chunk2'))
     })
 
     Then('promise returns another chunk', () => {
-      return this.promise.should.eventually.deep.equal(Buffer.from('chunk2'))
+      return promise.should.eventually.deep.equal(Buffer.from('chunk2'))
     })
   })
 
-  Scenario('Read empty stream', function () {
+  Scenario('Read empty stream', () => {
+    let promise
+    let promiseReadable
+    let stream
+
     Given('Readable object', () => {
-      this.stream = new MockStream()
+      stream = new MockStream()
     })
 
-    Given('PromiseReadable object', () => {
-      this.promiseReadable = new PromiseReadable(this.stream)
+    And('PromiseReadable object', () => {
+      promiseReadable = new PromiseReadable(stream)
     })
 
     When('I call read method', () => {
-      this.promise = this.promiseReadable.read()
+      promise = promiseReadable.read()
     })
 
-    When('close event is emitted', () => {
-      this.stream.emit('end')
+    And('close event is emitted', () => {
+      stream.emit('end')
     })
 
     Then('promise returns null value', () => {
-      return this.promise.should.eventually.to.be.null
+      return promise.should.eventually.to.be.null
     })
   })
 
-  Scenario('Read ended stream', function () {
+  Scenario('Read ended stream', () => {
+    let promise
+    let promiseReadable
+    let stream
+
     Given('Readable object', () => {
-      this.stream = new MockStream()
+      stream = new MockStream()
     })
 
-    Given('PromiseReadable object', () => {
-      this.promiseReadable = new PromiseReadable(this.stream)
+    And('PromiseReadable object', () => {
+      promiseReadable = new PromiseReadable(stream)
     })
 
     When('I call read method', () => {
-      this.promiseReadable.read()
+      promiseReadable.read()
     })
 
-    When('close event is emitted', () => {
-      this.stream.emit('end')
+    And('close event is emitted', () => {
+      stream.emit('end')
     })
 
-    When('I call read method again', () => {
-      this.promise = this.promiseReadable.read()
+    And('I call read method again', () => {
+      promise = promiseReadable.read()
     })
 
     Then('promise returns null value', () => {
-      return this.promise.should.eventually.to.be.null
+      return promise.should.eventually.to.be.null
     })
   })
 
-  Scenario('Read stream with error', function () {
+  Scenario('Read stream with error', () => {
+    let promise
+    let promiseReadable
+    let stream
+
     Given('Readable object', () => {
-      this.stream = new MockStream()
+      stream = new MockStream()
     })
 
-    Given('PromiseReadable object', () => {
-      this.promiseReadable = new PromiseReadable(this.stream)
+    And('PromiseReadable object', () => {
+      promiseReadable = new PromiseReadable(stream)
     })
 
     When('I call read method', () => {
-      this.promise = this.promiseReadable.read()
+      promise = promiseReadable.read()
     })
 
-    When('error event is emitted', () => {
-      this.stream.emit('error', new Error('boom'))
+    And('error event is emitted', () => {
+      stream.emit('error', new Error('boom'))
     })
 
     Then('promise is rejected', () => {
-      return this.promise.should.be.rejectedWith(Error, 'boom')
+      return promise.should.be.rejectedWith(Error, 'boom')
     })
   })
 
-  Scenario('Read all from stream', function () {
+  Scenario('Read all from stream', () => {
+    let promise
+    let promiseReadable
+    let stream
+
     Given('Readable object', () => {
-      this.stream = new MockStream()
+      stream = new MockStream()
     })
 
-    Given('PromiseReadable object', () => {
-      this.promiseReadable = new PromiseReadable(this.stream)
+    And('PromiseReadable object', () => {
+      promiseReadable = new PromiseReadable(stream)
     })
 
     When('I call readAll method', () => {
-      this.promise = this.promiseReadable.readAll()
+      promise = promiseReadable.readAll()
     })
 
-    When('data event is emitted', () => {
-      this.stream.emit('data', Buffer.from('chunk1'))
+    And('data event is emitted', () => {
+      stream.emit('data', Buffer.from('chunk1'))
     })
 
-    When('another data event is emitted', () => {
-      this.stream.emit('data', Buffer.from('chunk2'))
+    And('another data event is emitted', () => {
+      stream.emit('data', Buffer.from('chunk2'))
     })
 
-    When('close event is emitted', () => {
-      this.stream.emit('end')
+    And('close event is emitted', () => {
+      stream.emit('end')
     })
 
     Then('promise returns all chunks in one buffer', () => {
-      return this.promise.should.eventually.deep.equal(Buffer.from('chunk1chunk2'))
+      return promise.should.eventually.deep.equal(Buffer.from('chunk1chunk2'))
     })
   })
 
-  Scenario('Read all from ended stream', function () {
+  Scenario('Read all from ended stream', () => {
+    let promise
+    let promiseReadable
+    let stream
+
     Given('Readable object', () => {
-      this.stream = new MockStream()
+      stream = new MockStream()
     })
 
-    Given('PromiseReadable object', () => {
-      this.promiseReadable = new PromiseReadable(this.stream)
+    And('PromiseReadable object', () => {
+      promiseReadable = new PromiseReadable(stream)
     })
 
     When('I call read method', () => {
-      this.promiseReadable.read()
+      promiseReadable.read()
     })
 
     When('close event is emitted', () => {
-      this.stream.emit('end')
+      stream.emit('end')
+    })
+
+    And('I call readAll method', () => {
+      promise = promiseReadable.readAll()
+    })
+
+    Then('promise returns null value', () => {
+      return promise.should.eventually.to.be.null
+    })
+  })
+
+  Scenario('Read all from stream with error', () => {
+    let promise
+    let promiseReadable
+    let stream
+
+    Given('Readable object', () => {
+      stream = new MockStream()
+    })
+
+    Given('PromiseReadable object', () => {
+      promiseReadable = new PromiseReadable(stream)
     })
 
     When('I call readAll method', () => {
-      this.promise = this.promiseReadable.readAll()
+      promise = promiseReadable.readAll()
     })
 
-    Then('promise returns null value', () => {
-      return this.promise.should.eventually.to.be.null
-    })
-  })
-
-  Scenario('Read all from stream with error', function () {
-    Given('Readable object', () => {
-      this.stream = new MockStream()
+    And('data event is emitted', () => {
+      stream.emit('data', Buffer.from('chunk1'))
     })
 
-    Given('PromiseReadable object', () => {
-      this.promiseReadable = new PromiseReadable(this.stream)
-    })
-
-    When('I call readAll method', () => {
-      this.promise = this.promiseReadable.readAll()
-    })
-
-    When('data event is emitted', () => {
-      this.stream.emit('data', Buffer.from('chunk1'))
-    })
-
-    When('error event is emitted', () => {
-      this.stream.emit('error', new Error('boom'))
+    And('error event is emitted', () => {
+      stream.emit('error', new Error('boom'))
     })
 
     Then('promise is rejected', () => {
-      return this.promise.should.be.rejectedWith(Error, 'boom')
+      return promise.should.be.rejectedWith(Error, 'boom')
     })
   })
 
-  Scenario('Wait for open from stream', function () {
+  Scenario('Wait for open from stream', () => {
+    let promise
+    let promiseReadable
+    let stream
+
     Given('Readable object', () => {
-      this.stream = new MockStream()
+      stream = new MockStream()
     })
 
-    Given('PromiseReadable object', () => {
-      this.promiseReadable = new PromiseReadable(this.stream)
+    And('PromiseReadable object', () => {
+      promiseReadable = new PromiseReadable(stream)
     })
 
     When('I call open method', () => {
-      this.promise = this.promiseReadable.once('open')
+      promise = promiseReadable.once('open')
     })
 
-    When('open event is emitted', () => {
-      this.stream.emit('open', 42)
+    And('open event is emitted', () => {
+      stream.emit('open', 42)
     })
 
     Then('promise returns result with fd argument', () => {
-      return this.promise.should.eventually.equal(42)
+      return promise.should.eventually.equal(42)
     })
   })
 
-  Scenario('Wait for open from ended stream', function () {
+  Scenario('Wait for open from ended stream', () => {
+    let promise
+    let promiseReadable
+    let stream
+
     Given('Readable object', () => {
-      this.stream = new MockStream()
+      stream = new MockStream()
     })
 
-    Given('PromiseReadable object', () => {
-      this.promiseReadable = new PromiseReadable(this.stream)
+    And('PromiseReadable object', () => {
+      promiseReadable = new PromiseReadable(stream)
     })
 
     When('I call open method', () => {
-      this.promise = this.promiseReadable.once('open')
+      promise = promiseReadable.once('open')
     })
 
-    When('end event is emitted', () => {
-      this.stream.emit('end')
+    And('end event is emitted', () => {
+      stream.emit('end')
     })
 
     Then('promise returns null value', () => {
-      return this.promise.should.eventually.to.be.null
+      return promise.should.eventually.to.be.null
     })
   })
 
-  Scenario('Wait for open from stream with error', function () {
+  Scenario('Wait for open from stream with error', () => {
+    let promise
+    let promiseReadable
+    let stream
+
     Given('Readable object', () => {
-      this.stream = new MockStream()
+      stream = new MockStream()
     })
 
-    Given('PromiseReadable object', () => {
-      this.promiseReadable = new PromiseReadable(this.stream)
+    And('PromiseReadable object', () => {
+      promiseReadable = new PromiseReadable(stream)
     })
 
     When('I call open method', () => {
-      this.promise = this.promiseReadable.once('open')
+      promise = promiseReadable.once('open')
     })
 
-    When('error event is emitted', () => {
-      this.stream.emit('error', new Error('boom'))
+    And('error event is emitted', () => {
+      stream.emit('error', new Error('boom'))
     })
 
     Then('promise is rejected', () => {
-      return this.promise.should.be.rejectedWith(Error, 'boom')
+      return promise.should.be.rejectedWith(Error, 'boom')
     })
   })
 
-  Scenario('Wait for close from stream', function () {
+  Scenario('Wait for close from stream', () => {
+    let promise
+    let promiseReadable
+    let stream
+
     Given('Readable object', () => {
-      this.stream = new MockStream()
+      stream = new MockStream()
     })
 
     Given('PromiseReadable object', () => {
-      this.promiseReadable = new PromiseReadable(this.stream)
+      promiseReadable = new PromiseReadable(stream)
     })
 
     When('I call close method', () => {
-      this.promise = this.promiseReadable.once('close')
+      promise = promiseReadable.once('close')
     })
 
     When('close event is emitted', () => {
-      this.stream.emit('close')
+      stream.emit('close')
     })
 
     Then('promise returns result with fd argument', () => {
-      return this.promise.should.eventually.be.undefined
+      return promise.should.eventually.be.undefined
     })
   })
 
-  Scenario('Wait for close from ended stream', function () {
+  Scenario('Wait for close from ended stream', () => {
+    let promise
+    let promiseReadable
+    let stream
+
     Given('Readable object', () => {
-      this.stream = new MockStream()
+      stream = new MockStream()
     })
 
-    Given('PromiseReadable object', () => {
-      this.promiseReadable = new PromiseReadable(this.stream)
+    And('PromiseReadable object', () => {
+      promiseReadable = new PromiseReadable(stream)
     })
 
     When('I call end method', () => {
-      this.promiseReadable.once('end')
+      promiseReadable.once('end')
     })
 
-    When('end event is emitted', () => {
-      this.stream.emit('end')
+    And('end event is emitted', () => {
+      stream.emit('end')
     })
 
-    When('I call close method', () => {
-      this.promise = this.promiseReadable.once('close')
+    And('I call close method', () => {
+      promise = promiseReadable.once('close')
     })
 
     Then('promise returns null value', () => {
-      return this.promise.should.eventually.to.be.null
+      return promise.should.eventually.to.be.null
     })
   })
 
-  Scenario('Wait for close from stream with error', function () {
+  Scenario('Wait for close from stream with error', () => {
+    let promise
+    let promiseReadable
+    let stream
+
     Given('Readable object', () => {
-      this.stream = new MockStream()
+      stream = new MockStream()
     })
 
-    Given('PromiseReadable object', () => {
-      this.promiseReadable = new PromiseReadable(this.stream)
+    And('PromiseReadable object', () => {
+      promiseReadable = new PromiseReadable(stream)
     })
 
     When('I call end method', () => {
-      this.promise = this.promiseReadable.once('close')
+      promise = promiseReadable.once('close')
     })
 
-    When('error event is emitted', () => {
-      this.stream.emit('error', new Error('boom'))
+    And('error event is emitted', () => {
+      stream.emit('error', new Error('boom'))
     })
 
     Then('promise is rejected', () => {
-      return this.promise.should.be.rejectedWith(Error, 'boom')
+      return promise.should.be.rejectedWith(Error, 'boom')
     })
   })
 
-  Scenario('Wait for end from stream', function () {
+  Scenario('Wait for end from stream', () => {
+    let promise
+    let promiseReadable
+    let stream
+
     Given('Readable object', () => {
-      this.stream = new MockStream()
+      stream = new MockStream()
     })
 
-    Given('PromiseReadable object', () => {
-      this.promiseReadable = new PromiseReadable(this.stream)
+    And('PromiseReadable object', () => {
+      promiseReadable = new PromiseReadable(stream)
     })
 
     When('I call end method', () => {
-      this.promise = this.promiseReadable.once('end')
+      promise = promiseReadable.once('end')
     })
 
-    When('data event is emitted', () => {
-      this.stream.emit('data', Buffer.from('chunk1'))
+    And('data event is emitted', () => {
+      stream.emit('data', Buffer.from('chunk1'))
     })
 
-    When('another data event is emitted', () => {
-      this.stream.emit('data', Buffer.from('chunk2'))
+    And('another data event is emitted', () => {
+      stream.emit('data', Buffer.from('chunk2'))
     })
 
-    When('close event is emitted', () => {
-      this.stream.emit('end')
+    And('close event is emitted', () => {
+      stream.emit('end')
     })
 
     Then('promise returns no result', () => {
-      return this.promise.should.eventually.be.null
+      return promise.should.eventually.be.null
     })
   })
 
-  Scenario('Wait for end from ended stream', function () {
+  Scenario('Wait for end from ended stream', () => {
+    let promise
+    let promiseReadable
+    let stream
+
     Given('Readable object', () => {
-      this.stream = new MockStream()
+      stream = new MockStream()
     })
 
-    Given('PromiseReadable object', () => {
-      this.promiseReadable = new PromiseReadable(this.stream)
+    And('PromiseReadable object', () => {
+      promiseReadable = new PromiseReadable(stream)
     })
 
     When('I call read method', () => {
-      this.promiseReadable.read()
+      promiseReadable.read()
     })
 
-    When('close event is emitted', () => {
-      this.stream.emit('end')
+    And('close event is emitted', () => {
+      stream.emit('end')
     })
 
-    When('I call end method', () => {
-      this.promise = this.promiseReadable.once('end')
+    And('I call end method', () => {
+      promise = promiseReadable.once('end')
     })
 
     Then('promise returns null value', () => {
-      return this.promise.should.eventually.to.be.null
+      return promise.should.eventually.to.be.null
     })
   })
 
-  Scenario('Wait for end from stream with error', function () {
+  Scenario('Wait for end from stream with error', () => {
+    let promise
+    let promiseReadable
+    let stream
+
     Given('Readable object', () => {
-      this.stream = new MockStream()
+      stream = new MockStream()
     })
 
-    Given('PromiseReadable object', () => {
-      this.promiseReadable = new PromiseReadable(this.stream)
+    And('PromiseReadable object', () => {
+      promiseReadable = new PromiseReadable(stream)
     })
 
     When('I call end method', () => {
-      this.promise = this.promiseReadable.once('end')
+      promise = promiseReadable.once('end')
     })
 
-    When('data event is emitted', () => {
-      this.stream.emit('data', Buffer.from('chunk1'))
+    And('data event is emitted', () => {
+      stream.emit('data', Buffer.from('chunk1'))
     })
 
-    When('error event is emitted', () => {
-      this.stream.emit('error', new Error('boom'))
+    And('error event is emitted', () => {
+      stream.emit('error', new Error('boom'))
     })
 
     Then('promise is rejected', () => {
-      return this.promise.should.be.rejectedWith(Error, 'boom')
+      return promise.should.be.rejectedWith(Error, 'boom')
     })
   })
 
-  Scenario('Wait for error from stream without error', function () {
+  Scenario('Wait for error from stream without error', () => {
+    let promise
+    let promiseReadable
+    let stream
+
     Given('Readable object', () => {
-      this.stream = new MockStream()
+      stream = new MockStream()
     })
 
-    Given('PromiseReadable object', () => {
-      this.promiseReadable = new PromiseReadable(this.stream)
+    And('PromiseReadable object', () => {
+      promiseReadable = new PromiseReadable(stream)
     })
 
     When('I call end method', () => {
-      this.promise = this.promiseReadable.once('error')
+      promise = promiseReadable.once('error')
     })
 
-    When('data event is emitted', () => {
-      this.stream.emit('data', Buffer.from('chunk1'))
+    And('data event is emitted', () => {
+      stream.emit('data', Buffer.from('chunk1'))
     })
 
-    When('another data event is emitted', () => {
-      this.stream.emit('data', Buffer.from('chunk2'))
+    And('another data event is emitted', () => {
+      stream.emit('data', Buffer.from('chunk2'))
     })
 
-    When('close event is emitted', () => {
-      this.stream.emit('end')
+    And('close event is emitted', () => {
+      stream.emit('end')
     })
 
     Then('promise returns no result', () => {
-      return this.promise.should.eventually.be.null
+      return promise.should.eventually.be.null
     })
   })
 
-  Scenario('Wait for error from stream with error', function () {
+  Scenario('Wait for error from stream with error', () => {
+    let promise
+    let promiseReadable
+    let stream
+
     Given('Readable object', () => {
-      this.stream = new MockStream()
+      stream = new MockStream()
     })
 
-    Given('PromiseReadable object', () => {
-      this.promiseReadable = new PromiseReadable(this.stream)
+    And('PromiseReadable object', () => {
+      promiseReadable = new PromiseReadable(stream)
     })
 
     When('I call end method', () => {
-      this.promise = this.promiseReadable.once('error')
+      promise = promiseReadable.once('error')
     })
 
-    When('data event is emitted', () => {
-      this.stream.emit('data', Buffer.from('chunk1'))
+    And('data event is emitted', () => {
+      stream.emit('data', Buffer.from('chunk1'))
     })
 
-    When('error event is emitted', () => {
-      this.stream.emit('error', new Error('boom'))
+    And('error event is emitted', () => {
+      stream.emit('error', new Error('boom'))
     })
 
     Then('promise is rejected', () => {
-      return this.promise.should.be.rejectedWith(Error, 'boom')
+      return promise.should.be.rejectedWith(Error, 'boom')
     })
   })
 
-  Scenario('Read non-Readable stream', function () {
+  Scenario('Read non-Readable stream', () => {
+    let promise
+    let promiseReadable
+    let stream
+
     Given('Non-Readable object', () => {
-      this.stream = new MockStream()
-      this.stream.readable = false
+      stream = new MockStream()
+      stream.readable = false
     })
 
-    Given('PromiseReadable object', () => {
-      this.promiseReadable = new PromiseReadable(this.stream)
+    And('PromiseReadable object', () => {
+      promiseReadable = new PromiseReadable(stream)
     })
 
     When('I call read method', () => {
-      this.promise = this.promiseReadable.read()
+      promise = promiseReadable.read()
     })
 
-    When('data event is emitted', () => {
-      this.stream.emit('data', Buffer.from('chunk1'))
+    And('data event is emitted', () => {
+      stream.emit('data', Buffer.from('chunk1'))
     })
 
     Then('promise returns null value', () => {
-      return this.promise.should.eventually.to.be.null
+      return promise.should.eventually.to.be.null
     })
   })
 })
