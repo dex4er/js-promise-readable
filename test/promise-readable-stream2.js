@@ -17,7 +17,7 @@ Feature('Test promise-readable module with stream2 API', () => {
     constructor () {
       super()
       this.readable = true
-      this._buffer = new Buffer(0)
+      this._buffer = Buffer.alloc(0)
       this._ended = false
     }
     read (size) {
@@ -55,7 +55,7 @@ Feature('Test promise-readable module with stream2 API', () => {
     })
 
     When('stream contains some data', () => {
-      this.stream._append(new Buffer('chunk1'))
+      this.stream._append(Buffer.from('chunk1'))
     })
 
     When('I call read method', () => {
@@ -63,11 +63,11 @@ Feature('Test promise-readable module with stream2 API', () => {
     })
 
     Then('promise returns chunk', () => {
-      return this.promise.should.eventually.deep.equal(new Buffer('chunk1'))
+      return this.promise.should.eventually.deep.equal(Buffer.from('chunk1'))
     })
 
     When('stream contains some another data', () => {
-      this.stream._append(new Buffer('chunk2'))
+      this.stream._append(Buffer.from('chunk2'))
     })
 
     When('I call read method again', () => {
@@ -75,7 +75,7 @@ Feature('Test promise-readable module with stream2 API', () => {
     })
 
     Then('promise returns another chunk', () => {
-      return this.promise.should.eventually.deep.equal(new Buffer('chunk2'))
+      return this.promise.should.eventually.deep.equal(Buffer.from('chunk2'))
     })
   })
 
@@ -152,7 +152,7 @@ Feature('Test promise-readable module with stream2 API', () => {
     })
 
     When('stream contains some data', () => {
-      this.stream._append(new Buffer('chunk1'))
+      this.stream._append(Buffer.from('chunk1'))
     })
 
     When('I call read method', () => {

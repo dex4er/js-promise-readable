@@ -13,4 +13,4 @@ async function main () {
   console.log(`Read ${total} bytes in total`)
 }
 
-main()
+main().catch(console.error)

@@ -9,4 +9,4 @@ async function main () {
   console.log(`Read ${data.length} bytes in total`)
 }
 
-main()
+main().catch(console.error)

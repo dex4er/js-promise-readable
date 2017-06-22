@@ -36,11 +36,11 @@ Feature('Test promise-readable module with stream1 API', () => {
     })
 
     When('data event is emitted', () => {
-      this.stream.emit('data', new Buffer('chunk1'))
+      this.stream.emit('data', Buffer.from('chunk1'))
     })
 
     Then('promise returns chunk', () => {
-      return this.promise.should.eventually.deep.equal(new Buffer('chunk1'))
+      return this.promise.should.eventually.deep.equal(Buffer.from('chunk1'))
     })
 
     When('I call read method again', () => {
@@ -48,11 +48,11 @@ Feature('Test promise-readable module with stream1 API', () => {
     })
 
     When('another data event is emitted', () => {
-      this.stream.emit('data', new Buffer('chunk2'))
+      this.stream.emit('data', Buffer.from('chunk2'))
     })
 
     Then('promise returns another chunk', () => {
-      return this.promise.should.eventually.deep.equal(new Buffer('chunk2'))
+      return this.promise.should.eventually.deep.equal(Buffer.from('chunk2'))
     })
   })
 
@@ -140,11 +140,11 @@ Feature('Test promise-readable module with stream1 API', () => {
     })
 
     When('data event is emitted', () => {
-      this.stream.emit('data', new Buffer('chunk1'))
+      this.stream.emit('data', Buffer.from('chunk1'))
     })
 
     When('another data event is emitted', () => {
-      this.stream.emit('data', new Buffer('chunk2'))
+      this.stream.emit('data', Buffer.from('chunk2'))
     })
 
     When('close event is emitted', () => {
@@ -152,7 +152,7 @@ Feature('Test promise-readable module with stream1 API', () => {
     })
 
     Then('promise returns all chunks in one buffer', () => {
-      return this.promise.should.eventually.deep.equal(new Buffer('chunk1chunk2'))
+      return this.promise.should.eventually.deep.equal(Buffer.from('chunk1chunk2'))
     })
   })
 
@@ -196,7 +196,7 @@ Feature('Test promise-readable module with stream1 API', () => {
     })
 
     When('data event is emitted', () => {
-      this.stream.emit('data', new Buffer('chunk1'))
+      this.stream.emit('data', Buffer.from('chunk1'))
     })
 
     When('error event is emitted', () => {
@@ -358,11 +358,11 @@ Feature('Test promise-readable module with stream1 API', () => {
     })
 
     When('data event is emitted', () => {
-      this.stream.emit('data', new Buffer('chunk1'))
+      this.stream.emit('data', Buffer.from('chunk1'))
     })
 
     When('another data event is emitted', () => {
-      this.stream.emit('data', new Buffer('chunk2'))
+      this.stream.emit('data', Buffer.from('chunk2'))
     })
 
     When('close event is emitted', () => {
@@ -414,7 +414,7 @@ Feature('Test promise-readable module with stream1 API', () => {
     })
 
     When('data event is emitted', () => {
-      this.stream.emit('data', new Buffer('chunk1'))
+      this.stream.emit('data', Buffer.from('chunk1'))
     })
 
     When('error event is emitted', () => {
@@ -440,11 +440,11 @@ Feature('Test promise-readable module with stream1 API', () => {
     })
 
     When('data event is emitted', () => {
-      this.stream.emit('data', new Buffer('chunk1'))
+      this.stream.emit('data', Buffer.from('chunk1'))
     })
 
     When('another data event is emitted', () => {
-      this.stream.emit('data', new Buffer('chunk2'))
+      this.stream.emit('data', Buffer.from('chunk2'))
     })
 
     When('close event is emitted', () => {
@@ -470,7 +470,7 @@ Feature('Test promise-readable module with stream1 API', () => {
     })
 
     When('data event is emitted', () => {
-      this.stream.emit('data', new Buffer('chunk1'))
+      this.stream.emit('data', Buffer.from('chunk1'))
     })
 
     When('error event is emitted', () => {
@@ -497,7 +497,7 @@ Feature('Test promise-readable module with stream1 API', () => {
     })
 
     When('data event is emitted', () => {
-      this.stream.emit('data', new Buffer('chunk1'))
+      this.stream.emit('data', Buffer.from('chunk1'))
     })
 
     Then('promise returns null value', () => {
