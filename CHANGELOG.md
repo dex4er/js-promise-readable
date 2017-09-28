@@ -4,8 +4,13 @@
 
   * Exports also as a class and namespace and the default.
   * Typings for Typescript.
+  * Additional safe checks for detecting already closed stream.
+
+  _Breaking change:_
+
   * Resolves to `undefined` rather than `null` if there is no data or stream is
-    closed.
+    closed. Please use double sign equality instead triple sign to check if
+    stream is closed, ie. `data == null`.
 
 ## v0.4.3 2017-06-22
 
