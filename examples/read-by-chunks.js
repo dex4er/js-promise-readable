@@ -6,7 +6,7 @@ const { createReadStream } = require('fs')
 async function main () {
   const rstream = new PromiseReadable(createReadStream(process.argv[2] || '/etc/hosts'))
   let total = 0
-  for (let chunk; (chunk = await rstream.read()) !== null;) {
+  for (let chunk; (chunk = await rstream.read()) != null;) {
     console.log(`Read ${chunk.length} bytes chunk`)
     total += chunk.length
   }
