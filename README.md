@@ -41,7 +41,7 @@ const stream = require('fs').createReadStream('/etc/hosts')
 const promiseReadable = new PromiseReadable(stream)
 ```
 
-# or
+_Typescript:_
 
 ```js
 import { PromiseReadable } from 'promise-readable'
