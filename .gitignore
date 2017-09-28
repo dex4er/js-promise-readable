@@ -2,6 +2,8 @@
 
 *.tgz
 
+ts-node-*
+
 /coverage/
 /node_modules/
 
