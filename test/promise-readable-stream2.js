@@ -9,8 +9,8 @@ chai.use(chaiAsPromised)
 chai.should()
 
 Feature('Test promise-readable module with stream2 API', () => {
-  const { PromiseReadable } = require('../lib/promise-readable')
-  const { EventEmitter } = require('events')
+  const PromiseReadable = require('../lib/promise-readable').PromiseReadable
+  const EventEmitter = require('events').EventEmitter
 
   class MockStream extends EventEmitter {
     constructor () {
