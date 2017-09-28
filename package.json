@@ -3,6 +3,7 @@
   "version": "0.5.0",
   "description": "Return promise for readable stream",
   "main": "lib/promise-readable.js",
+  "typings": "lib/promise-readable.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/dex4er/js-promise-readable"
