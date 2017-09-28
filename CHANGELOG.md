@@ -2,7 +2,7 @@
 
 ## v0.5.0 2017-09-28
 
-  *
+  * Exports as a class and namespace and the default.
 
 ## v0.4.3 2017-06-22
 

@@ -36,10 +36,18 @@ const promiseReadable = new PromiseReadable(stream)
 _Example:_
 
 ```js
-const PromiseReadable = require('promise-readable')
-
+const { PromiseReadable } = require('promise-readable')
 const stream = require('fs').createReadStream('/etc/hosts')
+const promiseReadable = new PromiseReadable(stream)
+```
 
+# or
+
+```js
+import { PromiseReadable } from 'promise-readable'
+import { createReadStream } from 'fs'
+
+const stream = createReadStream('/etc/hosts')
 const promiseReadable = new PromiseReadable(stream)
 ```
 
@@ -127,7 +135,7 @@ library for this module, if it is registered before.
 
 ```js
 require('any-promise/register/bluebird')
-const PromiseReadable = require('promise-readable')
+const { PromiseReadable } = require('promise-readable')
 ```
 
 ### License
