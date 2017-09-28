@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.5.0 2017-09-28
+
+  *
+
 ## v0.4.3 2017-06-22
 
   * Upgraded chai@4.0.2, chai-as-promised@7.0.0, snazzy@7.0.0
