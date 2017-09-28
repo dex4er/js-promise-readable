@@ -37,7 +37,9 @@ _Example:_
 
 ```js
 const { PromiseReadable } = require('promise-readable')
-const stream = require('fs').createReadStream('/etc/hosts')
+const { createReadStream } = require('fs')
+
+const stream = createReadStream('/etc/hosts')
 const promiseReadable = new PromiseReadable(stream)
 ```
 
@@ -82,13 +84,13 @@ _Example:_
 const chunk = await promiseReadable.read(1024)
 ```
 
-Promise returns chunk data if something has been read or `null` value if it is
-an end of the stream.
+Promise returns chunk data if something has been read or `undefined` value if
+it is an end of the stream.
 
 _Example:_
 
 ```js
-for (let chunk; (chunk = await promiseReadable.read()) !== null;) {
+for (let chunk; (chunk = await promiseReadable.read()) != null;) {
   console.log(chunk.length)
 }
 console.log('stream is ended')
@@ -100,9 +102,9 @@ console.log('stream is ended')
 const content = await promiseReadable.readAll()
 ```
 
-This method returns `Promise` which is fulfilled when stream is ended. The
-content from the stream is buffered and then Promise returns this concatenated
-content.
+This method returns `Promise` which is fulfilled when stream is ended or
+`undefined` value if stream is already ended. The content from the stream is
+buffered and then Promise returns this concatenated content.
 
 #### once
 
@@ -111,7 +113,10 @@ const result = await promiseReadable.once(event)
 ```
 
 This method returns `Promise` which is fulfilled when stream emits `event`. The
-result of this event is returned or `null` value if stream is already ended.
+result of this event is returned or `undefined` value if stream is already
+ended.
+
+The promise will reject on error.
 
 _Example:_
 
@@ -123,6 +128,8 @@ await promiseReadable.once('close')
 
 promiseReadable.stream.on('data', chunk => console.log(chunk.length))
 await promiseReadable.once('end')
+
+await promiseReadable.once('error') // undefined if already ended or throws error
 ```
 
 ### Promise

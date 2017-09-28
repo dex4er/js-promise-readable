@@ -1,10 +1,10 @@
 'use strict'
 
 const { PromiseReadable } = require('../lib/promise-readable')
-const fs = require('fs')
+const { createReadStream } = require('fs')
 
 async function main () {
-  const rstream = new PromiseReadable(fs.createReadStream(process.argv[2] || '/etc/hosts'))
+  const rstream = new PromiseReadable(createReadStream(process.argv[2] || '/etc/hosts'))
   let total = 0
   for (let chunk; (chunk = await rstream.read()) !== null;) {
     console.log(`Read ${chunk.length} bytes chunk`)

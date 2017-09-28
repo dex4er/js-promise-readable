@@ -80,8 +80,8 @@ Feature('Test promise-readable module with stream1 API', () => {
       stream.emit('end')
     })
 
-    Then('promise returns null value', () => {
-      return promise.should.eventually.to.be.null
+    Then('promise returns undefined value', () => {
+      return promise.should.eventually.to.be.undefined
     })
   })
 
@@ -110,8 +110,8 @@ Feature('Test promise-readable module with stream1 API', () => {
       promise = promiseReadable.read()
     })
 
-    Then('promise returns null value', () => {
-      return promise.should.eventually.to.be.null
+    Then('promise returns undefined value', () => {
+      return promise.should.eventually.to.be.undefined
     })
   })
 
@@ -200,8 +200,8 @@ Feature('Test promise-readable module with stream1 API', () => {
       promise = promiseReadable.readAll()
     })
 
-    Then('promise returns null value', () => {
-      return promise.should.eventually.to.be.null
+    Then('promise returns undefined value', () => {
+      return promise.should.eventually.to.be.undefined
     })
   })
 
@@ -282,8 +282,8 @@ Feature('Test promise-readable module with stream1 API', () => {
       stream.emit('end')
     })
 
-    Then('promise returns null value', () => {
-      return promise.should.eventually.to.be.null
+    Then('promise returns undefined value', () => {
+      return promise.should.eventually.to.be.undefined
     })
   })
 
@@ -364,8 +364,8 @@ Feature('Test promise-readable module with stream1 API', () => {
       promise = promiseReadable.once('close')
     })
 
-    Then('promise returns null value', () => {
-      return promise.should.eventually.to.be.null
+    Then('promise returns undefined value', () => {
+      return promise.should.eventually.to.be.undefined
     })
   })
 
@@ -425,7 +425,7 @@ Feature('Test promise-readable module with stream1 API', () => {
     })
 
     Then('promise returns no result', () => {
-      return promise.should.eventually.be.null
+      return promise.should.eventually.be.undefined
     })
   })
 
@@ -454,8 +454,8 @@ Feature('Test promise-readable module with stream1 API', () => {
       promise = promiseReadable.once('end')
     })
 
-    Then('promise returns null value', () => {
-      return promise.should.eventually.to.be.null
+    Then('promise returns undefined value', () => {
+      return promise.should.eventually.to.be.undefined
     })
   })
 
@@ -519,7 +519,7 @@ Feature('Test promise-readable module with stream1 API', () => {
     })
 
     Then('promise returns no result', () => {
-      return promise.should.eventually.be.null
+      return promise.should.eventually.be.undefined
     })
   })
 
@@ -575,8 +575,8 @@ Feature('Test promise-readable module with stream1 API', () => {
       stream.emit('data', Buffer.from('chunk1'))
     })
 
-    Then('promise returns null value', () => {
-      return promise.should.eventually.to.be.null
+    Then('promise returns undefined value', () => {
+      return promise.should.eventually.to.be.undefined
     })
   })
 })

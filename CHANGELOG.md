@@ -1,9 +1,11 @@
 # Changelog
 
-## v0.5.0 2017-09-28
+## v1.0.0 2017-09-28
 
   * Exports also as a class and namespace and the default.
   * Typings for Typescript.
+  * Resolves to `undefined` rather than `null` if there is no data or stream is
+    closed.
 
 ## v0.4.3 2017-06-22
 

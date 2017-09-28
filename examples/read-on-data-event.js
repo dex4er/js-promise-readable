@@ -1,9 +1,9 @@
 'use strict'
 
 var { PromiseReadable } = require('../lib/promise-readable')
-var fs = require('fs')
+var { createReadStream } = require('fs')
 
-var rstream = new PromiseReadable(fs.createReadStream(process.argv[2] || '/etc/hosts'))
+var rstream = new PromiseReadable(createReadStream(process.argv[2] || '/etc/hosts'))
 var total = 0
 
 rstream.stream.on('data', function (chunk) {
