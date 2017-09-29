@@ -32,7 +32,7 @@
     "snazzy": "^7.0.0",
     "standard": "^10.0.3",
     "tap": "^10.7.2",
-    "tap-given": "^0.5.0"
+    "tap-given": "^0.5.1"
   },
   "scripts": {
     "pretest": "standard --verbose | snazzy",
