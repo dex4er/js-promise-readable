@@ -36,6 +36,8 @@ Feature('Test promise-readable module with stream2 API', () => {
       this._buffer = this._buffer.slice(size)
       return chunk
     }
+    close () { this.closed = true }
+    destroy () { this.destroyed = true }
     _append (chunk) {
       this._buffer = Buffer.concat([this._buffer, chunk])
     }
@@ -122,6 +124,80 @@ Feature('Test promise-readable module with stream2 API', () => {
     })
 
     And('I call read method again', () => {
+      promise = promiseReadable.read()
+    })
+
+    Then('promise returns undefined value', () => {
+      return promise.should.eventually.to.be.undefined
+    })
+  })
+
+  Scenario('Read closed stream', () => {
+    let promise
+    let promiseReadable
+    let stream
+
+    Given('Readable object', () => {
+      stream = new MockStream()
+    })
+
+    And('PromiseReadable object', () => {
+      promiseReadable = new PromiseReadable(stream)
+    })
+
+    When('stream is closed', () => {
+      stream.close()
+    })
+
+    And('I call read method', () => {
+      promise = promiseReadable.read()
+    })
+
+    Then('promise returns undefined value', () => {
+      return promise.should.eventually.to.be.undefined
+    })
+  })
+
+  Scenario('Read destroyed stream', () => {
+    let promise
+    let promiseReadable
+    let stream
+
+    Given('Readable object', () => {
+      stream = new MockStream()
+    })
+
+    And('PromiseReadable object', () => {
+      promiseReadable = new PromiseReadable(stream)
+    })
+
+    When('stream is destroyed', () => {
+      stream.destroy()
+    })
+
+    And('I call read method', () => {
+      promise = promiseReadable.read()
+    })
+
+    Then('promise returns undefined value', () => {
+      return promise.should.eventually.to.be.undefined
+    })
+  })
+
+  Scenario('Read non-stream', () => {
+    let promise
+    let promiseReadable
+    let nonstream
+
+    Given('Not-Readable object', () => {
+      nonstream = {}
+    })
+
+    And('PromiseReadable object', () => {
+      promiseReadable = new PromiseReadable(nonstream)
+    })
+
+    When('I call read method', () => {
       promise = promiseReadable.read()
     })
 
