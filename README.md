@@ -45,7 +45,7 @@ const promiseReadable = new PromiseReadable(stream)
 
 _Typescript:_
 
-```js
+```ts
 import { PromiseReadable } from 'promise-readable'
 import { createReadStream } from 'fs'
 
