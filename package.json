@@ -35,7 +35,8 @@
     "tap-given": "^0.5.0"
   },
   "scripts": {
-    "test": "standard --verbose | snazzy && tap test/*.js",
+    "pretest": "standard --verbose | snazzy",
+    "test": "tap test/*.js",
     "test:coverage": "npm test -- --coverage",
     "test:onchange:lcovonly": "npm run -s test-coverage -- -R min --coverage-report lcovonly; onchange '**/*.js' -- npm run -s test-coverage -- -R min --coverage-report lcovonly",
     "update": "npm run update:upgrade && npm run update:reinstall",
