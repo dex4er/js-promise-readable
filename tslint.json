@@ -6,6 +6,7 @@
   "jsRules": {},
   "rules": {
     "no-conditional-assignment": false,
-    "no-console": [true, "log"]
+    "no-console": [true, "log"],
+    "triple-equals": [true, "allow-null-check"]
   }
 }

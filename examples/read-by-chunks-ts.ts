@@ -9,7 +9,7 @@ async function main () {
 
   let total = 0
 
-  for (let chunk: Maybe<Buffer>; (chunk = await rstream.read()) != null;) {
+  for (let chunk: Maybe<Buffer>; (chunk = await rstream.read());) {
     console.info(`Read ${chunk.length} bytes chunk`)
     total += chunk.length
   }
