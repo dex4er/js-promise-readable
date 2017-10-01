@@ -10,7 +10,8 @@ matrix:
 install:
   - npm install
   - if [ -n "$NPM_INSTALL_PACKAGES" ]; then npm install $NPM_INSTALL_PACKAGES; fi
-  - npm install typescript
+  - npm install typescript tslint
 script:
   - npm run ${NPM_RUN_SCRIPT:-test}
   - node_modules/.bin/tsc
+  - node_modules/.bin/tslint -p .
