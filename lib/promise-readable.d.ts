@@ -1,7 +1,7 @@
-export declare class PromiseReadable {
-  readonly stream: NodeJS.ReadableStream
+export declare class PromiseReadable<TReadable extends NodeJS.ReadableStream> {
+  readonly stream: TReadable
 
-  constructor (stream: NodeJS.ReadableStream)
+  constructor (stream: TReadable)
 
   read (size?: number): Promise<Buffer | undefined>
   readAll (): Promise<Buffer | undefined>

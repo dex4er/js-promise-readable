@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.1.0 2017-10-01
+
+  * Typescript: stream is `TReadable extends NodeJS.ReadableStream`
+
 ## v1.0.0 2017-09-28
 
   * Exports also as a class and namespace and the default.
