@@ -87,36 +87,6 @@ Feature('Test promise-readable module with stream1 API', () => {
     })
   })
 
-  Scenario('Read ended stream', () => {
-    let promise
-    let promiseReadable
-    let stream
-
-    Given('Readable object', () => {
-      stream = new MockStream()
-    })
-
-    And('PromiseReadable object', () => {
-      promiseReadable = new PromiseReadable(stream)
-    })
-
-    When('I call read method', () => {
-      promiseReadable.read()
-    })
-
-    And('close event is emitted', () => {
-      stream.emit('end')
-    })
-
-    And('I call read method again', () => {
-      promise = promiseReadable.read()
-    })
-
-    Then('promise returns undefined value', () => {
-      return promise.should.eventually.to.be.undefined
-    })
-  })
-
   Scenario('Read closed stream', () => {
     let promise
     let promiseReadable
@@ -161,28 +131,6 @@ Feature('Test promise-readable module with stream1 API', () => {
     })
 
     And('I call read method', () => {
-      promise = promiseReadable.read()
-    })
-
-    Then('promise returns undefined value', () => {
-      return promise.should.eventually.to.be.undefined
-    })
-  })
-
-  Scenario('Read non-stream', () => {
-    let promise
-    let promiseReadable
-    let nonstream
-
-    Given('Not-Readable object', () => {
-      nonstream = {}
-    })
-
-    And('PromiseReadable object', () => {
-      promiseReadable = new PromiseReadable(nonstream)
-    })
-
-    When('I call read method', () => {
       promise = promiseReadable.read()
     })
 
@@ -251,36 +199,6 @@ Feature('Test promise-readable module with stream1 API', () => {
     })
   })
 
-  Scenario('Read all from ended stream', () => {
-    let promise
-    let promiseReadable
-    let stream
-
-    Given('Readable object', () => {
-      stream = new MockStream()
-    })
-
-    And('PromiseReadable object', () => {
-      promiseReadable = new PromiseReadable(stream)
-    })
-
-    When('I call read method', () => {
-      promiseReadable.read()
-    })
-
-    When('close event is emitted', () => {
-      stream.emit('end')
-    })
-
-    And('I call readAll method', () => {
-      promise = promiseReadable.readAll()
-    })
-
-    Then('promise returns undefined value', () => {
-      return promise.should.eventually.to.be.undefined
-    })
-  })
-
   Scenario('Read all from closed stream', () => {
     let promise
     let promiseReadable
@@ -325,28 +243,6 @@ Feature('Test promise-readable module with stream1 API', () => {
     })
 
     And('I call readAll method', () => {
-      promise = promiseReadable.readAll()
-    })
-
-    Then('promise returns undefined value', () => {
-      return promise.should.eventually.to.be.undefined
-    })
-  })
-
-  Scenario('Read all from non-stream', () => {
-    let promise
-    let promiseReadable
-    let nonstream
-
-    Given('Not-Readable object', () => {
-      nonstream = {}
-    })
-
-    And('PromiseReadable object', () => {
-      promiseReadable = new PromiseReadable(nonstream)
-    })
-
-    When('I call readAll method', () => {
       promise = promiseReadable.readAll()
     })
 
@@ -411,32 +307,6 @@ Feature('Test promise-readable module with stream1 API', () => {
     })
   })
 
-  Scenario('Wait for open from ended stream', () => {
-    let promise
-    let promiseReadable
-    let stream
-
-    Given('Readable object', () => {
-      stream = new MockStream()
-    })
-
-    And('PromiseReadable object', () => {
-      promiseReadable = new PromiseReadable(stream)
-    })
-
-    When('I call open method', () => {
-      promise = promiseReadable.once('open')
-    })
-
-    And('end event is emitted', () => {
-      stream.emit('end')
-    })
-
-    Then('promise returns undefined value', () => {
-      return promise.should.eventually.to.be.undefined
-    })
-  })
-
   Scenario('Wait for open from closed stream', () => {
     let promise
     let promiseReadable
@@ -459,7 +329,7 @@ Feature('Test promise-readable module with stream1 API', () => {
     })
 
     Then('promise returns undefined value', () => {
-      return promise.should.eventually.to.be.undefined
+      return promise.should.rejectedWith(Error, 'once open after close')
     })
   })
 
@@ -485,29 +355,7 @@ Feature('Test promise-readable module with stream1 API', () => {
     })
 
     Then('promise returns undefined value', () => {
-      return promise.should.eventually.to.be.undefined
-    })
-  })
-
-  Scenario('Wait for open from non-stream', () => {
-    let promise
-    let promiseReadable
-    let nonstream
-
-    Given('Not-Readable object', () => {
-      nonstream = {}
-    })
-
-    And('PromiseReadable object', () => {
-      promiseReadable = new PromiseReadable(nonstream)
-    })
-
-    When('I call open method', () => {
-      promise = promiseReadable.once('open')
-    })
-
-    Then('promise returns undefined value', () => {
-      return promise.should.eventually.to.be.undefined
+      return promise.should.rejectedWith(Error, 'once open after destroy')
     })
   })
 
@@ -560,36 +408,6 @@ Feature('Test promise-readable module with stream1 API', () => {
 
     Then('promise returns result with fd argument', () => {
       return promise.should.eventually.be.undefined
-    })
-  })
-
-  Scenario('Wait for close from ended stream', () => {
-    let promise
-    let promiseReadable
-    let stream
-
-    Given('Readable object', () => {
-      stream = new MockStream()
-    })
-
-    And('PromiseReadable object', () => {
-      promiseReadable = new PromiseReadable(stream)
-    })
-
-    When('I call end method', () => {
-      promiseReadable.once('end')
-    })
-
-    And('end event is emitted', () => {
-      stream.emit('end')
-    })
-
-    And('I call close method', () => {
-      promise = promiseReadable.once('close')
-    })
-
-    Then('promise returns undefined value', () => {
-      return promise.should.eventually.to.be.undefined
     })
   })
 
@@ -650,36 +468,6 @@ Feature('Test promise-readable module with stream1 API', () => {
 
     Then('promise returns no result', () => {
       return promise.should.eventually.be.undefined
-    })
-  })
-
-  Scenario('Wait for end from ended stream', () => {
-    let promise
-    let promiseReadable
-    let stream
-
-    Given('Readable object', () => {
-      stream = new MockStream()
-    })
-
-    And('PromiseReadable object', () => {
-      promiseReadable = new PromiseReadable(stream)
-    })
-
-    When('I call read method', () => {
-      promiseReadable.read()
-    })
-
-    And('close event is emitted', () => {
-      stream.emit('end')
-    })
-
-    And('I call end method', () => {
-      promise = promiseReadable.once('end')
-    })
-
-    Then('promise returns undefined value', () => {
-      return promise.should.eventually.to.be.undefined
     })
   })
 

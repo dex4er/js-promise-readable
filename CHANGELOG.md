@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.2.0 2017-10-03
+
+  * `once` is resolved to `undefined` when stream is already closed or
+    destroyed for `"close"` or `"end"` events and rejects for others.
+  * `read` and `readAll` resolve when `"close"` event was occured.
+
 ## v1.1.0 2017-10-01
 
   * Typescript: stream is `TReadable extends NodeJS.ReadableStream`

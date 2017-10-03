@@ -106,7 +106,7 @@ Feature('Test promise-readable module with stream2 API', () => {
     })
   })
 
-  Scenario('Read ended stream', () => {
+  Scenario('Read closed stream', () => {
     let promise
     let promiseReadable
     let stream
@@ -119,11 +119,11 @@ Feature('Test promise-readable module with stream2 API', () => {
       promiseReadable = new PromiseReadable(stream)
     })
 
-    When('I call read method', () => {
-      return promiseReadable.read()
+    And('stream is closed', () => {
+      return stream.close()
     })
 
-    And('I call read method again', () => {
+    When('I call read method', () => {
       promise = promiseReadable.read()
     })
 
@@ -184,28 +184,6 @@ Feature('Test promise-readable module with stream2 API', () => {
     })
   })
 
-  Scenario('Read non-stream', () => {
-    let promise
-    let promiseReadable
-    let nonstream
-
-    Given('Not-Readable object', () => {
-      nonstream = {}
-    })
-
-    And('PromiseReadable object', () => {
-      promiseReadable = new PromiseReadable(nonstream)
-    })
-
-    When('I call read method', () => {
-      promise = promiseReadable.read()
-    })
-
-    Then('promise returns undefined value', () => {
-      return promise.should.eventually.to.be.undefined
-    })
-  })
-
   Scenario('Read stream with error', () => {
     let promise
     let promiseReadable
@@ -229,33 +207,6 @@ Feature('Test promise-readable module with stream2 API', () => {
 
     Then('promise is rejected', () => {
       return promise.should.be.rejectedWith(Error, 'boom')
-    })
-  })
-
-  Scenario('Read non-Readable stream', () => {
-    let promise
-    let promiseReadable
-    let stream
-
-    Given('Non-Readable object', () => {
-      stream = new MockStream()
-      stream.readable = false
-    })
-
-    And('PromiseReadable object', () => {
-      promiseReadable = new PromiseReadable(stream)
-    })
-
-    When('stream contains some data', () => {
-      stream._append(Buffer.from('chunk1'))
-    })
-
-    And('I call read method', () => {
-      promise = promiseReadable.read()
-    })
-
-    Then('promise returns undefined value', () => {
-      return promise.should.eventually.to.be.undefined
     })
   })
 })
