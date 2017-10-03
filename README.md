@@ -36,20 +36,20 @@ const promiseReadable = new PromiseReadable(stream)
 _Example:_
 
 ```js
+const fs = require('fs')
 const { PromiseReadable } = require('promise-readable')
-const { createReadStream } = require('fs')
 
-const stream = createReadStream('/etc/hosts')
+const stream = fs.createReadStream('/etc/hosts')
 const promiseReadable = new PromiseReadable(stream)
 ```
 
 _Typescript:_
 
 ```ts
+import * as fs from 'fs'
 import { PromiseReadable } from 'promise-readable'
-import { createReadStream } from 'fs'
 
-const stream = createReadStream('/etc/hosts')
+const stream = fs.createReadStream('/etc/hosts')
 const promiseReadable = new PromiseReadable(stream)
 ```
 
@@ -74,7 +74,8 @@ const chunk = await promiseReadable.read(chunkSize)
 ```
 
 This method returns `Promise` which is fulfilled when stream can return one
-chunk (by `read` method or `data` event) or stream is ended (`end` event).
+chunk (by `read` method or `data` event) or stream is ended (`end` or `close`
+events).
 
 If stream2 API is available then additional argument `size` is accepted.
 
@@ -90,7 +91,7 @@ it is an end of the stream.
 _Example:_
 
 ```js
-for (let chunk; (chunk = await promiseReadable.read()) != null;) {
+for (let chunk; (chunk = await promiseReadable.read());) {
   console.log(chunk.length)
 }
 console.log('stream is ended')
@@ -103,8 +104,11 @@ const content = await promiseReadable.readAll()
 ```
 
 This method returns `Promise` which is fulfilled when stream is ended or
-`undefined` value if stream is already ended. The content from the stream is
-buffered and then Promise returns this concatenated content.
+closed. It is resolved to `undefined` value if stream is already ended or
+closed.
+
+The content from the stream is buffered and then `Promise` returns this
+concatenated content.
 
 #### once
 
@@ -126,7 +130,7 @@ promiseReadable.stream.pipe(process.stdout)
 
 await promiseReadable.once('close')
 
-promiseReadable.stream.on('data', chunk => console.log(chunk.length))
+promiseReadable.stream.on('data', (chunk) => console.log(chunk.length))
 await promiseReadable.once('end')
 
 await promiseReadable.once('error') // undefined if already ended or throws error
