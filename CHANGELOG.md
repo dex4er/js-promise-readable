@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.2.1 2017-10-06
+
+  * Typescript: reference additional modules in our typings file.
+
 ## v1.2.0 2017-10-03
 
   * `once` is resolved to `undefined` when stream is already closed or

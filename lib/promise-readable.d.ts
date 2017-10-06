@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 export declare class PromiseReadable<TReadable extends NodeJS.ReadableStream> {
   readonly stream: TReadable
 
