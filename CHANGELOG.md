@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.1.0 2017-10-10
+
+  * Typescript: PromiseReadable<TReadable extends Readable>.
+
 ## v2.0.0 2017-10-06
 
   * Use native `Promise` rather than `any-event`.

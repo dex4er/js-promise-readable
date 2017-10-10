@@ -1,6 +1,8 @@
 /// <reference types="node" />
 
-export declare class PromiseReadable<TReadable extends NodeJS.ReadableStream> {
+import { Readable } from 'stream'
+
+export declare class PromiseReadable<TReadable extends Readable> {
   readonly stream: TReadable
 
   constructor (stream: TReadable)
@@ -8,9 +10,7 @@ export declare class PromiseReadable<TReadable extends NodeJS.ReadableStream> {
   read (size?: number): Promise<Buffer | undefined>
   readAll (): Promise<Buffer | undefined>
 
-  once (event: 'close'): Promise<void>
-  once (event: 'end'): Promise<void>
-  once (event: 'error'): Promise<void>
+  once (event: 'close' | 'end' | 'error'): Promise<void>
   once (event: 'open'): Promise<number>
 }
 
