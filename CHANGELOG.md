@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.1.1 2018-01-18
+
+  * `readAll` resumes the stream.
+
 ## v2.1.0 2017-10-10
 
   * Typescript: PromiseReadable<TReadable extends Readable>.

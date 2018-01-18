@@ -15,12 +15,13 @@ Feature('Test promise-readable module with stream1 API', () => {
   class MockStream extends EventEmitter {
     constructor () {
       super()
+      this.paused = false
       this.readable = true
     }
     close () { this.closed = true }
     destroy () { this.destroyed = true }
-    pause () {}
-    resume () {}
+    pause () { this.paused = true }
+    resume () { this.paused = false }
   }
 
   Scenario('Read chunks from stream', () => {
@@ -183,11 +184,57 @@ Feature('Test promise-readable module with stream1 API', () => {
     })
 
     And('data event is emitted', () => {
-      stream.emit('data', Buffer.from('chunk1'))
+      if (!stream.paused) {
+        stream.emit('data', Buffer.from('chunk1'))
+      }
     })
 
     And('another data event is emitted', () => {
-      stream.emit('data', Buffer.from('chunk2'))
+      if (!stream.paused) {
+        stream.emit('data', Buffer.from('chunk2'))
+      }
+    })
+
+    And('close event is emitted', () => {
+      stream.emit('end')
+    })
+
+    Then('promise returns all chunks in one buffer', () => {
+      return promise.should.eventually.deep.equal(Buffer.from('chunk1chunk2'))
+    })
+  })
+
+  Scenario('Read all from paused stream', () => {
+    let promise
+    let promiseReadable
+    let stream
+
+    Given('Readable object', () => {
+      stream = new MockStream()
+    })
+
+    And('PromiseReadable object', () => {
+      promiseReadable = new PromiseReadable(stream)
+    })
+
+    When('I pause stream', () => {
+      stream.pause()
+    })
+
+    And('I call readAll method', () => {
+      promise = promiseReadable.readAll()
+    })
+
+    And('data event is emitted', () => {
+      if (!stream.paused) {
+        stream.emit('data', Buffer.from('chunk1'))
+      }
+    })
+
+    And('another data event is emitted', () => {
+      if (!stream.paused) {
+        stream.emit('data', Buffer.from('chunk2'))
+      }
     })
 
     And('close event is emitted', () => {
