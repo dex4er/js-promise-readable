@@ -24,12 +24,12 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@types/node": "^8.0.34",
+    "@types/node": "^9.3.0",
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
     "snazzy": "^7.0.0",
     "standard": "^10.0.3",
-    "tap": "^10.7.2",
+    "tap": "^11.0.1",
     "tap-given": "^0.6.0"
   },
   "scripts": {
