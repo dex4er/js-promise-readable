@@ -53,7 +53,7 @@ class MockStream extends EventEmitter {
   _append (chunk) {
     this._buffer = Buffer.concat([this._buffer, chunk])
   }
-  _throw (e) {
+  _setError (e) {
     this._error = e
   }
 }
@@ -211,7 +211,7 @@ Feature('Test promise-readable module with stream2 API', () => {
     })
 
     When('stream will emit an error event', () => {
-      stream._throw(new Error('boom'))
+      stream._setError(new Error('boom'))
     })
 
     And('I call read method', () => {
