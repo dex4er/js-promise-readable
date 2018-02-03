@@ -10,6 +10,8 @@ export declare class PromiseReadable<TReadable extends Readable> {
   read (size?: number): Promise<Buffer | undefined>
   readAll (): Promise<Buffer | undefined>
 
+  destroy (): void
+
   once (event: 'close' | 'end' | 'error'): Promise<void>
   once (event: 'open'): Promise<number>
 }

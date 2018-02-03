@@ -1,5 +1,11 @@
 # Changelog
 
+## v3.0.0 2018-02-03
+
+  * No support for streams v1.
+  * New method `destroy`.
+  * Bugfix when `PromiseReadable` could ignore `error` event.
+
 ## v2.1.1 2018-01-18
 
   * `readAll` resumes the stream.

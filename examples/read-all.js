@@ -8,6 +8,7 @@ async function main () {
   const data = await rstream.readAll()
   if (data != null) {
     console.log(`Read ${data.length} bytes in total`)
+    rstream.destroy()
   }
 }
 

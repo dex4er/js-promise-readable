@@ -136,8 +136,16 @@ await promiseReadable.once('end')
 await promiseReadable.once('error') // undefined if already ended or throws error
 ```
 
+#### destroy
+
+```js
+promiseReadable.destroy()
+```
+
+This method calls `destroy` method on stream and cleans up all own handlers.
+
 ### License
 
-Copyright (c) 2017 Piotr Roszatycki <piotr.roszatycki@gmail.com>
+Copyright (c) 2017-2018 Piotr Roszatycki <piotr.roszatycki@gmail.com>
 
 [MIT](https://opensource.org/licenses/MIT)

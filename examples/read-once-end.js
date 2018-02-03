@@ -4,14 +4,11 @@ var PromiseReadable = require('../lib/promise-readable').PromiseReadable
 var createReadStream = require('fs').createReadStream
 
 var rstream = new PromiseReadable(createReadStream(process.argv[2] || '/etc/hosts'))
-var total = 0
 
-rstream.stream.on('data', function (chunk) {
-  console.log('Read', chunk.length, 'bytes chunk')
-  total += chunk.length
-})
+rstream.stream.pipe(process.stdout)
 
 rstream.once('end')
 .then(function () {
-  console.log('Read', total, 'bytes in total')
+  console.log('-- End of file')
+  rstream.destroy()
 })
