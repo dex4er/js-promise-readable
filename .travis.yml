@@ -1,20 +1,41 @@
 sudo: false
+
 language: node_js
-env:
-  global:
-    TAP_RCFILE=./.taprc
+
 matrix:
   include:
+    - node_js: "9"
+      env:
+        - TAP_RCFILE=./.taprc
+
     - node_js: "8"
+      env:
+        - TAP_RCFILE=./.taprc
+
     - node_js: "7"
+      env:
+        - TAP_RCFILE=./.taprc
+
     - node_js: "6"
+      env:
+        - TAP_RCFILE=./.taprc
+
     - node_js: "5"
+      env:
+        - TAP_ARGS="--strict"
+        - TAP_RCFILE=./.taprc
+
     - node_js: "4"
+      env:
+        - TAP_ARGS="--strict"
+        - TAP_RCFILE=./.taprc
+
 install:
   - npm install
   - if [ -n "$NPM_INSTALL_PACKAGES" ]; then npm install $NPM_INSTALL_PACKAGES; fi
   - npm install typescript tslint tslint-config-standard
+
 script:
-  - npm run ${NPM_RUN_SCRIPT:-test}
-  - node_modules/.bin/tsc
-  - node_modules/.bin/tslint -p .
+  - npm run ${NPM_RUN_SCRIPT:-test} -- $TAP_ARGS
+  - node_modules/.bin/tsc --pretty
+  - node_modules/.bin/tslint -t stylish -p .
