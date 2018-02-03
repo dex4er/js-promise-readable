@@ -1,5 +1,9 @@
 # Changelog
 
+## v3.0.1 2018-02-04
+
+  * Minor refactoring.
+
 ## v3.0.0 2018-02-03
 
   * No support for streams v1.
