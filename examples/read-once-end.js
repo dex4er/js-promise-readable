@@ -1,9 +1,9 @@
 'use strict'
 
 var PromiseReadable = require('../lib/promise-readable')
-var createReadStream = require('fs').createReadStream
+var fs = require('fs')
 
-var rstream = new PromiseReadable(createReadStream(process.argv[2] || '/etc/hosts'))
+var rstream = new PromiseReadable(fs.createReadStream(process.argv[2] || '/etc/hosts'))
 
 rstream.stream.pipe(process.stdout)
 

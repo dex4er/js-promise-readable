@@ -1,11 +1,11 @@
 import PromiseReadable from '../lib/promise-readable'
 
-import { createReadStream } from 'fs'
+import fs from 'fs'
 
 type Chunk = Buffer | string | undefined
 
 async function main () {
-  const rstream = new PromiseReadable(createReadStream(process.argv[2] || '/etc/hosts', {
+  const rstream = new PromiseReadable(fs.createReadStream(process.argv[2] || '/etc/hosts', {
     highWaterMark: Number(process.argv[3]) || 1024
   }))
 
