@@ -5,7 +5,9 @@ import { createReadStream } from 'fs'
 type Chunk = Buffer | undefined
 
 async function main () {
-  const rstream = new PromiseReadable(createReadStream(process.argv[2] || '/etc/hosts'))
+  const rstream = new PromiseReadable(createReadStream(process.argv[2] || '/etc/hosts', {
+    highWaterMark: Number(process.argv[3]) || 1024
+  }))
 
   let total = 0
 

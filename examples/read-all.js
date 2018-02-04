@@ -4,7 +4,9 @@ const { PromiseReadable } = require('../lib/promise-readable')
 const { createReadStream } = require('fs')
 
 async function main () {
-  const rstream = new PromiseReadable(createReadStream(process.argv[2] || '/etc/hosts'))
+  const rstream = new PromiseReadable(createReadStream(process.argv[2] || '/etc/hosts', {
+    highWaterMark: Number(process.argv[3]) || 1024
+  }))
   const data = await rstream.readAll()
   if (data != null) {
     console.log(`Read ${data.length} bytes in total`)

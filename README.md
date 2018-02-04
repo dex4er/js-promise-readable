@@ -77,8 +77,6 @@ This method returns `Promise` which is fulfilled when stream can return one
 chunk (by `read` method or `data` event) or stream is ended (`end` or `close`
 events).
 
-If stream2 API is available then additional argument `size` is accepted.
-
 _Example:_
 
 ```js
@@ -109,6 +107,28 @@ closed.
 
 The content from the stream is buffered and then `Promise` returns this
 concatenated content.
+
+#### setEncoding
+
+```js
+promiseReadable = promiseReadable.setEncoding(encoding)
+```
+
+By default `read` and `readAll` methods returns `Buffer` objects.
+
+This method sets the character encoding for data read from the stream. It might
+be used if original stream does not provide `encoding` option.
+
+The method returns this object.
+
+_Example:_
+
+```js
+const asBuffer = await promiseReadable.read()
+
+promiseReadable.setEncoding('utf8')
+const asString = await promiseReadable.read()
+```
 
 #### once
 

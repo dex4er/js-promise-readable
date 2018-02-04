@@ -1,5 +1,10 @@
 # Changelog
 
+## v3.1.0 2018-02-04
+
+  * New method `setEncoding`.
+  * `read` and `readAll` methods can return `string` if encoding is set.
+
 ## v3.0.1 2018-02-04
 
   * Minor refactoring.

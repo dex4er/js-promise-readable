@@ -36,7 +36,7 @@ class MockStream extends EventEmitter {
     }
     const chunk = this._buffer.slice(0, size)
     this._buffer = this._buffer.slice(size)
-    return chunk
+    return this.encoding ? chunk.toString(this.encoding) : chunk
   }
   close () {
     this.closed = true
@@ -49,6 +49,9 @@ class MockStream extends EventEmitter {
   }
   resume () {
     this.paused = false
+  }
+  setEncoding (encoding) {
+    this.encoding = encoding
   }
   _append (chunk) {
     this._buffer = Buffer.concat([this._buffer, chunk])
@@ -94,6 +97,48 @@ Feature('Test promise-readable module with stream2 API', () => {
 
     Then('promise returns another chunk', () => {
       return promise.should.eventually.deep.equal(Buffer.from('chunk2'))
+    })
+  })
+
+  Scenario('Read chunks from stream with encoding', () => {
+    let promise
+    let promiseReadable
+    let stream
+
+    Given('Readable object', () => {
+      stream = new MockStream()
+    })
+
+    And('PromiseReadable object', () => {
+      promiseReadable = new PromiseReadable(stream)
+    })
+
+    When('stream contains some data', () => {
+      stream._append(Buffer.from('chunk1'))
+    })
+
+    And('I set encoding', () => {
+      promise = promiseReadable.setEncoding('utf8')
+    })
+
+    And('I call read method', () => {
+      promise = promiseReadable.read()
+    })
+
+    Then('promise returns chunk', () => {
+      return promise.should.eventually.deep.equal('chunk1')
+    })
+
+    When('stream contains some another data', () => {
+      stream._append(Buffer.from('chunk2'))
+    })
+
+    And('I call read method again', () => {
+      promise = promiseReadable.read()
+    })
+
+    Then('promise returns another chunk', () => {
+      return promise.should.eventually.deep.equal('chunk2')
     })
   })
 

@@ -7,8 +7,10 @@ export declare class PromiseReadable<TReadable extends Readable> {
 
   constructor (stream: TReadable)
 
-  read (size?: number): Promise<Buffer | undefined>
-  readAll (): Promise<Buffer | undefined>
+  read (size?: number): Promise<Buffer | string | undefined>
+  readAll (): Promise<Buffer | string | undefined>
+
+  setEncoding (encoding: string): this
 
   destroy (): void
 
