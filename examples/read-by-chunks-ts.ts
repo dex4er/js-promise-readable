@@ -2,7 +2,7 @@ import { PromiseReadable } from '../lib/promise-readable'
 
 import { createReadStream } from 'fs'
 
-type Chunk = Buffer | undefined
+type Chunk = Buffer | string | undefined
 
 async function main () {
   const rstream = new PromiseReadable(createReadStream(process.argv[2] || '/etc/hosts', {
