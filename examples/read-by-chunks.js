@@ -1,6 +1,6 @@
 'use strict'
 
-const { PromiseReadable } = require('../lib/promise-readable')
+const PromiseReadable = require('../lib/promise-readable')
 const { createReadStream } = require('fs')
 
 async function main () {

@@ -4,6 +4,7 @@
 
   * New method `setEncoding`.
   * `read` and `readAll` methods can return `string` if encoding is set.
+  * Support `import PromiseReadable from 'promise-readable'` syntax.
 
 ## v3.0.1 2018-02-04
 

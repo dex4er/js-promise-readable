@@ -37,7 +37,7 @@ _Example:_
 
 ```js
 const fs = require('fs')
-const { PromiseReadable } = require('promise-readable')
+const PromiseReadable = require('promise-readable')
 
 const stream = fs.createReadStream('/etc/hosts')
 const promiseReadable = new PromiseReadable(stream)
@@ -47,7 +47,7 @@ _Typescript:_
 
 ```ts
 import * as fs from 'fs'
-import { PromiseReadable } from 'promise-readable'
+import PromiseReadable from 'promise-readable'
 
 const stream = fs.createReadStream('/etc/hosts')
 const promiseReadable = new PromiseReadable(stream)

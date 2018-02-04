@@ -1,4 +1,4 @@
-import { PromiseReadable } from '../lib/promise-readable'
+import PromiseReadable from '../lib/promise-readable'
 
 import { createReadStream } from 'fs'
 

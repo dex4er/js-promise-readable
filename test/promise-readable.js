@@ -10,7 +10,7 @@ chai.should()
 
 const EventEmitter = require('events').EventEmitter
 
-const PromiseReadable = require('../lib/promise-readable').PromiseReadable
+const PromiseReadable = require('../lib/promise-readable')
 
 class MockStream extends EventEmitter {
   constructor () {
