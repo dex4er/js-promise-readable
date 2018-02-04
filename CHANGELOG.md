@@ -1,5 +1,9 @@
 # Changelog
 
+## v3.1.1 2018-02-04
+
+  * Minor bugfix in README.
+
 ## v3.1.0 2018-02-04
 
   * New method `setEncoding`.
