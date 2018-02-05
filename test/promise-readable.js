@@ -98,6 +98,14 @@ Feature('Test promise-readable module with stream2 API', () => {
     Then('promise returns another chunk', () => {
       return promise.should.eventually.deep.equal(Buffer.from('chunk2'))
     })
+
+    And('PromiseReadable object can be destroyed', () => {
+      promiseReadable.destroy()
+    })
+
+    And('PromiseReadable object can be destroyed', () => {
+      promiseReadable.destroy()
+    })
   })
 
   Scenario('Read chunks from stream with encoding', () => {
@@ -240,6 +248,14 @@ Feature('Test promise-readable module with stream2 API', () => {
     Then('promise returns undefined value', () => {
       return promise.should.eventually.to.be.undefined
     })
+
+    And('PromiseReadable object can be destroyed', () => {
+      promiseReadable.destroy()
+    })
+
+    And('PromiseReadable object can be destroyed', () => {
+      promiseReadable.destroy()
+    })
   })
 
   Scenario('Read stream with error', () => {
@@ -265,6 +281,14 @@ Feature('Test promise-readable module with stream2 API', () => {
 
     Then('promise is rejected', () => {
       return promise.should.be.rejectedWith(Error, 'boom')
+    })
+
+    And('PromiseReadable object can be destroyed', () => {
+      promiseReadable.destroy()
+    })
+
+    And('PromiseReadable object can be destroyed', () => {
+      promiseReadable.destroy()
     })
   })
 

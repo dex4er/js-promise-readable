@@ -1,5 +1,9 @@
 # Changelog
 
+## v3.1.2 2018-02-05
+
+  * Can call `destroy` twice.
+
 ## v3.1.1 2018-02-04
 
   * Minor bugfix in README.
