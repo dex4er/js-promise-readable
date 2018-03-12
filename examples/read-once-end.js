@@ -8,7 +8,7 @@ var rstream = new PromiseReadable(fs.createReadStream(process.argv[2] || '/etc/h
 rstream.stream.pipe(process.stdout)
 
 rstream.once('end')
-.then(function () {
-  console.log('-- End of file')
-  rstream.destroy()
-})
+  .then(function () {
+    console.log('-- End of file')
+    rstream.destroy()
+  })

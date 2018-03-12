@@ -1,5 +1,9 @@
 # Changelog
 
+## v3.1.5 2018-03-12
+
+* Reformatting.
+
 ## v3.1.4 2018-03-12
 
 * Use markdownlint.
