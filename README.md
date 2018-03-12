@@ -1,6 +1,8 @@
-## promise-readable
+# promise-readable
 
+<!-- markdownlint-disable MD013 -->
 [![Build Status](https://secure.travis-ci.org/dex4er/js-promise-readable.svg)](http://travis-ci.org/dex4er/js-promise-readable) [![Coverage Status](https://coveralls.io/repos/github/dex4er/js-promise-readable/badge.svg)](https://coveralls.io/github/dex4er/js-promise-readable) [![npm](https://img.shields.io/npm/v/promise-readable.svg)](https://www.npmjs.com/package/promise-readable)
+<!-- markdownlint-enable MD013 -->
 
 This module allows to convert
 [`Readable`](https://nodejs.org/api/stream.html#stream_class_stream_readable)
@@ -13,19 +15,19 @@ object fulfilled when [`open`](https://nodejs.org/api/fs.html#fs_event_open),
 [`error`](https://nodejs.org/api/stream.html#stream_event_error_1) events
 occurred.
 
-### Requirements
+## Requirements
 
 This module requires Node >= 4.
 
-### Installation
+## Installation
 
 ```shell
 npm install promise-readable
 ```
 
-### Usage
+## Usage
 
-#### constructor
+### constructor
 
 ```js
 const promiseReadable = new PromiseReadable(stream)
@@ -53,7 +55,7 @@ const stream = fs.createReadStream('/etc/hosts')
 const promiseReadable = new PromiseReadable(stream)
 ```
 
-#### stream
+### stream
 
 ```js
 const stream = promiseReadable.stream
@@ -67,7 +69,7 @@ _Example:_
 console.log(promiseReadable.stream.flags)
 ```
 
-#### read
+### read
 
 ```js
 const chunk = await promiseReadable.read(chunkSize)
@@ -95,7 +97,7 @@ for (let chunk; (chunk = await promiseReadable.read());) {
 console.log('stream is ended')
 ```
 
-#### readAll
+### readAll
 
 ```js
 const content = await promiseReadable.readAll()
@@ -108,7 +110,7 @@ closed.
 The content from the stream is buffered and then `Promise` returns this
 concatenated content.
 
-#### setEncoding
+### setEncoding
 
 ```js
 promiseReadable = promiseReadable.setEncoding(encoding)
@@ -130,7 +132,7 @@ promiseReadable.setEncoding('utf8')
 const asString = await promiseReadable.read()
 ```
 
-#### once
+### once
 
 ```js
 const result = await promiseReadable.once(event)
@@ -156,7 +158,7 @@ await promiseReadable.once('end')
 await promiseReadable.once('error') // throws error, undefined if ended
 ```
 
-#### destroy
+### destroy
 
 ```js
 promiseReadable.destroy()
@@ -164,15 +166,15 @@ promiseReadable.destroy()
 
 This method calls `destroy` method on stream and cleans up all own handlers.
 
-### See also
+## See also
 
 [`PromiseWritable`](https://www.npmjs.com/package/promise-writable),
 [`PromiseDuplex`](https://www.npmjs.com/package/promise-duplex),
 [`PromiseSocket`](https://www.npmjs.com/package/promise-socket),
 [`PromisePiping`](https://www.npmjs.com/package/promise-piping).
 
-### License
+## License
 
-Copyright (c) 2017-2018 Piotr Roszatycki <piotr.roszatycki@gmail.com>
+Copyright (c) 2017-2018 Piotr Roszatycki <mailto:piotr.roszatycki@gmail.com>
 
 [MIT](https://opensource.org/licenses/MIT)
