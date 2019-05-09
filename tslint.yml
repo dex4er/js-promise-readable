@@ -5,7 +5,7 @@ rules:
   curly: [true, ignore-same-line] # too strict
   interface-name: false # too strict
   max-line-length: false # prettier will handle it
-  member-access: false # public is implicit
+  member-access: [true, no-public] # public is implicit
   no-conditional-assignment: false # we need it to read stream in loop
   no-console: [true, log] # `console.log` is for temporary debugging only
   no-namespace: false # be compatible with older versions of Typescript
