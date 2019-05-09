@@ -3,22 +3,24 @@
 interface ReadableStream extends NodeJS.ReadableStream {
   closed?: boolean
   destroyed?: boolean
+
   destroy?(): void
 }
 
 export class PromiseReadable<TReadable extends ReadableStream> {
   static [Symbol.hasInstance](instance: any): boolean {
-    return instance.isPromiseReadable
+    return instance._isPromiseReadable
   }
 
-  readonly isPromiseReadable: boolean = true
+  readonly _isPromiseReadable: boolean = true
+
+  _errored?: Error
 
   private readonly errorHandler?: (err: Error) => void
-  private errored?: Error
 
   constructor(readonly stream: TReadable) {
     this.errorHandler = (err: Error) => {
-      this.errored = err
+      this._errored = err
     }
 
     stream.on('error', this.errorHandler)
@@ -28,9 +30,9 @@ export class PromiseReadable<TReadable extends ReadableStream> {
     const stream = this.stream
 
     return new Promise((resolve, reject) => {
-      if (this.errored) {
-        const err = this.errored
-        this.errored = undefined
+      if (this._errored) {
+        const err = this._errored
+        this._errored = undefined
         return reject(err)
       }
 
@@ -58,7 +60,7 @@ export class PromiseReadable<TReadable extends ReadableStream> {
       }
 
       const errorHandler = (err: Error) => {
-        this.errored = undefined
+        this._errored = undefined
         removeListeners()
         reject(err)
       }
@@ -85,9 +87,9 @@ export class PromiseReadable<TReadable extends ReadableStream> {
     let content = ''
 
     return new Promise((resolve, reject) => {
-      if (this.errored) {
-        const err = this.errored
-        this.errored = undefined
+      if (this._errored) {
+        const err = this._errored
+        this._errored = undefined
         return reject(err)
       }
 
@@ -119,7 +121,7 @@ export class PromiseReadable<TReadable extends ReadableStream> {
       }
 
       const errorHandler = (err: Error) => {
-        this.errored = undefined
+        this._errored = undefined
         removeListeners()
         reject(err)
       }
@@ -163,9 +165,9 @@ export class PromiseReadable<TReadable extends ReadableStream> {
     const stream = this.stream
 
     return new Promise((resolve, reject) => {
-      if (this.errored) {
-        const err = this.errored
-        this.errored = undefined
+      if (this._errored) {
+        const err = this._errored
+        this._errored = undefined
         return reject(err)
       }
 
@@ -205,7 +207,7 @@ export class PromiseReadable<TReadable extends ReadableStream> {
           : undefined
 
       const errorHandler = (err: Error) => {
-        this.errored = undefined
+        this._errored = undefined
         removeListeners()
         reject(err)
       }

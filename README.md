@@ -1,7 +1,9 @@
 # promise-readable
 
 <!-- markdownlint-disable MD013 -->
+
 [![Build Status](https://secure.travis-ci.org/dex4er/js-promise-readable.svg)](http://travis-ci.org/dex4er/js-promise-readable) [![Coverage Status](https://coveralls.io/repos/github/dex4er/js-promise-readable/badge.svg)](https://coveralls.io/github/dex4er/js-promise-readable) [![npm](https://img.shields.io/npm/v/promise-readable.svg)](https://www.npmjs.com/package/promise-readable)
+
 <!-- markdownlint-enable MD013 -->
 
 This module allows to convert
@@ -97,7 +99,7 @@ it is an end of the stream.
 _Example:_
 
 ```js
-for (let chunk; (chunk = await promiseReadable.read());) {
+for (let chunk; (chunk = await promiseReadable.read()); ) {
   console.log(chunk.length)
 }
 console.log('stream is ended')
@@ -158,7 +160,7 @@ promiseReadable.stream.pipe(process.stdout)
 
 await promiseReadable.once('close')
 
-promiseReadable.stream.on('data', (chunk) => console.log(chunk.length))
+promiseReadable.stream.on('data', chunk => console.log(chunk.length))
 await promiseReadable.once('end')
 
 await promiseReadable.once('error') // throws error, undefined if ended
