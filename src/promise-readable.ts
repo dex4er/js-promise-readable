@@ -7,7 +7,7 @@ interface ReadableStream extends NodeJS.ReadableStream {
 }
 
 export class PromiseReadable<TReadable extends ReadableStream> {
-  private errorHandler: (err: Error) => void
+  private readonly errorHandler: (err: Error) => void
   private errored?: Error
 
   constructor(readonly stream: TReadable) {
