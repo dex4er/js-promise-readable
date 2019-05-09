@@ -1,5 +1,9 @@
 # Changelog
 
+## v4.1.0 2019-05-09
+
+* Some changes for visibility of properties.
+
 ## v4.0.1 2019-05-09
 
 * Updated dependencies.

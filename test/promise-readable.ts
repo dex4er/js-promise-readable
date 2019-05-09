@@ -1,19 +1,22 @@
 import {expect} from 'chai'
+import semver from 'semver'
+import {PassThrough} from 'stream'
 
 import {And, Feature, Given, Scenario, Then, When} from './lib/steps'
 
-import {MockStream} from './lib/mock-stream'
+import {MockPromiseDuplex} from './lib/mock-promise-duplex'
+import {MockStreamReadable} from './lib/mock-stream-readable'
 
 import {PromiseReadable} from '../src/promise-readable'
 
 Feature('Test promise-readable module with stream2 API', () => {
   Scenario('Read chunks from stream', () => {
     let chunk: string | Buffer | undefined
-    let promiseReadable: PromiseReadable<MockStream>
-    let stream: MockStream
+    let promiseReadable: PromiseReadable<MockStreamReadable>
+    let stream: MockStreamReadable
 
     Given('Readable object', () => {
-      stream = new MockStream()
+      stream = new MockStreamReadable()
     })
 
     And('PromiseReadable object', () => {
@@ -55,11 +58,11 @@ Feature('Test promise-readable module with stream2 API', () => {
 
   Scenario('Read chunks from stream with encoding', () => {
     let chunk: string | Buffer | undefined
-    let promiseReadable: PromiseReadable<MockStream>
-    let stream: MockStream
+    let promiseReadable: PromiseReadable<MockStreamReadable>
+    let stream: MockStreamReadable
 
     Given('Readable object', () => {
-      stream = new MockStream()
+      stream = new MockStreamReadable()
     })
 
     And('PromiseReadable object', () => {
@@ -97,11 +100,11 @@ Feature('Test promise-readable module with stream2 API', () => {
 
   Scenario('Read empty stream', () => {
     let chunk: string | Buffer | undefined
-    let promiseReadable: PromiseReadable<MockStream>
-    let stream: MockStream
+    let promiseReadable: PromiseReadable<MockStreamReadable>
+    let stream: MockStreamReadable
 
     Given('Readable object', () => {
-      stream = new MockStream()
+      stream = new MockStreamReadable()
     })
 
     And('PromiseReadable object', () => {
@@ -119,11 +122,11 @@ Feature('Test promise-readable module with stream2 API', () => {
 
   Scenario('Read closed stream', () => {
     let chunk: string | Buffer | undefined
-    let promiseReadable: PromiseReadable<MockStream>
-    let stream: MockStream
+    let promiseReadable: PromiseReadable<MockStreamReadable>
+    let stream: MockStreamReadable
 
     Given('Readable object', () => {
-      stream = new MockStream()
+      stream = new MockStreamReadable()
     })
 
     And('PromiseReadable object', () => {
@@ -145,11 +148,11 @@ Feature('Test promise-readable module with stream2 API', () => {
 
   Scenario('Read destroyed stream', () => {
     let chunk: string | Buffer | undefined
-    let promiseReadable: PromiseReadable<MockStream>
-    let stream: MockStream
+    let promiseReadable: PromiseReadable<MockStreamReadable>
+    let stream: MockStreamReadable
 
     Given('Readable object', () => {
-      stream = new MockStream()
+      stream = new MockStreamReadable()
     })
 
     And('PromiseReadable object', () => {
@@ -179,23 +182,23 @@ Feature('Test promise-readable module with stream2 API', () => {
 
   Scenario('Read stream with error', () => {
     let error: Error
-    let promiseReadable: PromiseReadable<MockStream>
-    let stream: MockStream
+    let promiseReadable: PromiseReadable<MockStreamReadable>
+    let stream: MockStreamReadable
 
     Given('Readable object', () => {
-      stream = new MockStream()
+      stream = new MockStreamReadable()
     })
 
     And('PromiseReadable object', () => {
       promiseReadable = new PromiseReadable(stream)
     })
 
-    When('stream will emit an error event', () => {
+    When('stream will emit an error" event', () => {
       stream.setError(new Error('boom'))
     })
 
     And('I call read method', () => {
-      promiseReadable.read().catch((err: Error) => {
+      promiseReadable.read().catch(err => {
         error = err
       })
     })
@@ -217,18 +220,18 @@ Feature('Test promise-readable module with stream2 API', () => {
 
   Scenario('Read stream with emitted error', () => {
     let error: Error
-    let promiseReadable: PromiseReadable<MockStream>
-    let stream: MockStream
+    let promiseReadable: PromiseReadable<MockStreamReadable>
+    let stream: MockStreamReadable
 
     Given('Readable object', () => {
-      stream = new MockStream()
+      stream = new MockStreamReadable()
     })
 
     And('PromiseReadable object', () => {
       promiseReadable = new PromiseReadable(stream)
     })
 
-    When('stream emitted an error event', () => {
+    When('stream emitted an error" event', () => {
       stream.emit('error', new Error('boom'))
     })
 
@@ -249,11 +252,11 @@ Feature('Test promise-readable module with stream2 API', () => {
 
   Scenario('Read all from stream', () => {
     let content: string | Buffer | undefined
-    let promiseReadable: PromiseReadable<MockStream>
-    let stream: MockStream
+    let promiseReadable: PromiseReadable<MockStreamReadable>
+    let stream: MockStreamReadable
 
     Given('Readable object', () => {
-      stream = new MockStream()
+      stream = new MockStreamReadable()
     })
 
     And('PromiseReadable object', () => {
@@ -266,19 +269,19 @@ Feature('Test promise-readable module with stream2 API', () => {
       })
     })
 
-    And('data event is emitted', () => {
+    And('"data" event is emitted', () => {
       if (!stream.paused) {
         stream.emit('data', Buffer.from('chunk1'))
       }
     })
 
-    And('another data event is emitted', () => {
+    And('another "data" event is emitted', () => {
       if (!stream.paused) {
         stream.emit('data', Buffer.from('chunk2'))
       }
     })
 
-    And('close event is emitted', () => {
+    And('"close" event is emitted', () => {
       stream.emit('end')
     })
 
@@ -289,11 +292,11 @@ Feature('Test promise-readable module with stream2 API', () => {
 
   Scenario('Read all from paused stream', () => {
     let content: string | Buffer | undefined
-    let promiseReadable: PromiseReadable<MockStream>
-    let stream: MockStream
+    let promiseReadable: PromiseReadable<MockStreamReadable>
+    let stream: MockStreamReadable
 
     Given('Readable object', () => {
-      stream = new MockStream()
+      stream = new MockStreamReadable()
     })
 
     And('PromiseReadable object', () => {
@@ -310,19 +313,19 @@ Feature('Test promise-readable module with stream2 API', () => {
       })
     })
 
-    And('data event is emitted', () => {
+    And('"data" event is emitted', () => {
       if (!stream.paused) {
         stream.emit('data', Buffer.from('chunk1'))
       }
     })
 
-    And('another data event is emitted', () => {
+    And('another "data" event is emitted', () => {
       if (!stream.paused) {
         stream.emit('data', Buffer.from('chunk2'))
       }
     })
 
-    And('close event is emitted', () => {
+    And('"close" event is emitted', () => {
       stream.emit('end')
     })
 
@@ -333,11 +336,11 @@ Feature('Test promise-readable module with stream2 API', () => {
 
   Scenario('Read all from closed stream', () => {
     let content: string | Buffer | undefined
-    let promiseReadable: PromiseReadable<MockStream>
-    let stream: MockStream
+    let promiseReadable: PromiseReadable<MockStreamReadable>
+    let stream: MockStreamReadable
 
     Given('Readable object', () => {
-      stream = new MockStream()
+      stream = new MockStreamReadable()
     })
 
     And('PromiseReadable object', () => {
@@ -359,11 +362,11 @@ Feature('Test promise-readable module with stream2 API', () => {
 
   Scenario('Read all from destroyed stream', () => {
     let content: string | Buffer | undefined
-    let promiseReadable: PromiseReadable<MockStream>
-    let stream: MockStream
+    let promiseReadable: PromiseReadable<MockStreamReadable>
+    let stream: MockStreamReadable
 
     Given('Readable object', () => {
-      stream = new MockStream()
+      stream = new MockStreamReadable()
     })
 
     And('PromiseReadable object', () => {
@@ -385,11 +388,11 @@ Feature('Test promise-readable module with stream2 API', () => {
 
   Scenario('Read all from stream with error', () => {
     let error: Error
-    let promiseReadable: PromiseReadable<MockStream>
-    let stream: MockStream
+    let promiseReadable: PromiseReadable<MockStreamReadable>
+    let stream: MockStreamReadable
 
     Given('Readable object', () => {
-      stream = new MockStream()
+      stream = new MockStreamReadable()
     })
 
     And('PromiseReadable object', () => {
@@ -397,16 +400,16 @@ Feature('Test promise-readable module with stream2 API', () => {
     })
 
     When('I call readAll method', () => {
-      promiseReadable.readAll().catch((err: Error) => {
+      promiseReadable.readAll().catch(err => {
         error = err
       })
     })
 
-    And('data event is emitted', () => {
+    And('"data" event is emitted', () => {
       stream.emit('data', Buffer.from('chunk1'))
     })
 
-    And('error event is emitted', () => {
+    And('"error" event is emitted', () => {
       stream.emit('error', new Error('boom'))
     })
 
@@ -419,28 +422,28 @@ Feature('Test promise-readable module with stream2 API', () => {
 
   Scenario('Read all from stream with emitted error', () => {
     let error: Error
-    let promiseReadable: PromiseReadable<MockStream>
-    let stream: MockStream
+    let promiseReadable: PromiseReadable<MockStreamReadable>
+    let stream: MockStreamReadable
 
     Given('Readable object', () => {
-      stream = new MockStream()
+      stream = new MockStreamReadable()
     })
 
     And('PromiseReadable object', () => {
       promiseReadable = new PromiseReadable(stream)
     })
 
-    And('error event is emitted', () => {
+    And('"error" event is emitted', () => {
       stream.emit('error', new Error('boom'))
     })
 
     When('I call readAll method', () => {
-      promiseReadable.readAll().catch((err: Error) => {
+      promiseReadable.readAll().catch(err => {
         error = err
       })
     })
 
-    And('data event is emitted', () => {
+    And('"data" event is emitted', () => {
       stream.emit('data', Buffer.from('chunk1'))
     })
 
@@ -453,18 +456,18 @@ Feature('Test promise-readable module with stream2 API', () => {
 
   Scenario('Wait for open from stream', () => {
     let fd: number
-    let promiseReadable: PromiseReadable<MockStream>
-    let stream: MockStream
+    let promiseReadable: PromiseReadable<MockStreamReadable>
+    let stream: MockStreamReadable
 
     Given('Readable object', () => {
-      stream = new MockStream()
+      stream = new MockStreamReadable()
     })
 
     And('PromiseReadable object', () => {
       promiseReadable = new PromiseReadable(stream)
     })
 
-    When('I wait for open event', () => {
+    When('I wait for "open" event', () => {
       promiseReadable.once('open').then(argument => {
         fd = argument
       })
@@ -481,11 +484,11 @@ Feature('Test promise-readable module with stream2 API', () => {
 
   Scenario('Wait for open from closed stream', () => {
     let error: Error
-    let promiseReadable: PromiseReadable<MockStream>
-    let stream: MockStream
+    let promiseReadable: PromiseReadable<MockStreamReadable>
+    let stream: MockStreamReadable
 
     Given('Readable object', () => {
-      stream = new MockStream()
+      stream = new MockStreamReadable()
     })
 
     And('PromiseReadable object', () => {
@@ -496,8 +499,8 @@ Feature('Test promise-readable module with stream2 API', () => {
       stream.close()
     })
 
-    And('I wait for open event', () => {
-      promiseReadable.once('open').catch((err: Error) => {
+    And('I wait for "open" event', () => {
+      promiseReadable.once('open').catch(err => {
         error = err
       })
     })
@@ -511,11 +514,11 @@ Feature('Test promise-readable module with stream2 API', () => {
 
   Scenario('Wait for open from destroyed stream', () => {
     let error: Error
-    let promiseReadable: PromiseReadable<MockStream>
-    let stream: MockStream
+    let promiseReadable: PromiseReadable<MockStreamReadable>
+    let stream: MockStreamReadable
 
     Given('Readable object', () => {
-      stream = new MockStream()
+      stream = new MockStreamReadable()
     })
 
     And('PromiseReadable object', () => {
@@ -526,8 +529,8 @@ Feature('Test promise-readable module with stream2 API', () => {
       stream.destroy()
     })
 
-    And('I wait for open event', () => {
-      promiseReadable.once('open').catch((err: Error) => {
+    And('I wait for "open" event', () => {
+      promiseReadable.once('open').catch(err => {
         error = err
       })
     })
@@ -541,24 +544,24 @@ Feature('Test promise-readable module with stream2 API', () => {
 
   Scenario('Wait for open from stream with error', () => {
     let error: Error
-    let promiseReadable: PromiseReadable<MockStream>
-    let stream: MockStream
+    let promiseReadable: PromiseReadable<MockStreamReadable>
+    let stream: MockStreamReadable
 
     Given('Readable object', () => {
-      stream = new MockStream()
+      stream = new MockStreamReadable()
     })
 
     And('PromiseReadable object', () => {
       promiseReadable = new PromiseReadable(stream)
     })
 
-    When('I wait for open event', () => {
-      promiseReadable.once('open').catch((err: Error) => {
+    When('I wait for "open" event', () => {
+      promiseReadable.once('open').catch(err => {
         error = err
       })
     })
 
-    And('error event is emitted', () => {
+    And('"error" event is emitted', () => {
       stream.emit('error', new Error('boom'))
     })
 
@@ -571,23 +574,23 @@ Feature('Test promise-readable module with stream2 API', () => {
 
   Scenario('Wait for open from stream with emitted error', () => {
     let error: Error
-    let promiseReadable: PromiseReadable<MockStream>
-    let stream: MockStream
+    let promiseReadable: PromiseReadable<MockStreamReadable>
+    let stream: MockStreamReadable
 
     Given('Readable object', () => {
-      stream = new MockStream()
+      stream = new MockStreamReadable()
     })
 
     And('PromiseReadable object', () => {
       promiseReadable = new PromiseReadable(stream)
     })
 
-    And('error event is emitted', () => {
+    And('"error" event is emitted', () => {
       stream.emit('error', new Error('boom'))
     })
 
-    When('I wait for open event', () => {
-      promiseReadable.once('open').catch((err: Error) => {
+    When('I wait for "open" event', () => {
+      promiseReadable.once('open').catch(err => {
         error = err
       })
     })
@@ -601,24 +604,24 @@ Feature('Test promise-readable module with stream2 API', () => {
 
   Scenario('Wait for close from stream', () => {
     let closed = false
-    let promiseReadable: PromiseReadable<MockStream>
-    let stream: MockStream
+    let promiseReadable: PromiseReadable<MockStreamReadable>
+    let stream: MockStreamReadable
 
     Given('Readable object', () => {
-      stream = new MockStream()
+      stream = new MockStreamReadable()
     })
 
     And('PromiseReadable object', () => {
       promiseReadable = new PromiseReadable(stream)
     })
 
-    When('I wait for close event', () => {
+    When('I wait for "close" event', () => {
       promiseReadable.once('close').then(() => {
         closed = true
       })
     })
 
-    And('close event is emitted', () => {
+    And('"close" event is emitted', () => {
       stream.emit('close')
     })
 
@@ -629,24 +632,24 @@ Feature('Test promise-readable module with stream2 API', () => {
 
   Scenario('Wait for close from stream with error', () => {
     let error: Error
-    let promiseReadable: PromiseReadable<MockStream>
-    let stream: MockStream
+    let promiseReadable: PromiseReadable<MockStreamReadable>
+    let stream: MockStreamReadable
 
     Given('Readable object', () => {
-      stream = new MockStream()
+      stream = new MockStreamReadable()
     })
 
     And('PromiseReadable object', () => {
       promiseReadable = new PromiseReadable(stream)
     })
 
-    When('I wait for close event', () => {
-      promiseReadable.once('close').catch((err: Error) => {
+    When('I wait for "close" event', () => {
+      promiseReadable.once('close').catch(err => {
         error = err
       })
     })
 
-    And('error event is emitted', () => {
+    And('"error" event is emitted', () => {
       stream.emit('error', new Error('boom'))
     })
 
@@ -659,23 +662,23 @@ Feature('Test promise-readable module with stream2 API', () => {
 
   Scenario('Wait for close from stream with emitted error', () => {
     let error: Error
-    let promiseReadable: PromiseReadable<MockStream>
-    let stream: MockStream
+    let promiseReadable: PromiseReadable<MockStreamReadable>
+    let stream: MockStreamReadable
 
     Given('Readable object', () => {
-      stream = new MockStream()
+      stream = new MockStreamReadable()
     })
 
     And('PromiseReadable object', () => {
       promiseReadable = new PromiseReadable(stream)
     })
 
-    And('error event is emitted', () => {
+    And('"error" event is emitted', () => {
       stream.emit('error', new Error('boom'))
     })
 
-    When('I wait for close event', () => {
-      promiseReadable.once('close').catch((err: Error) => {
+    When('I wait for "close" event', () => {
+      promiseReadable.once('close').catch(err => {
         error = err
       })
     })
@@ -689,32 +692,32 @@ Feature('Test promise-readable module with stream2 API', () => {
 
   Scenario('Wait for end from stream', () => {
     let ended = false
-    let promiseReadable: PromiseReadable<MockStream>
-    let stream: MockStream
+    let promiseReadable: PromiseReadable<MockStreamReadable>
+    let stream: MockStreamReadable
 
     Given('Readable object', () => {
-      stream = new MockStream()
+      stream = new MockStreamReadable()
     })
 
     And('PromiseReadable object', () => {
       promiseReadable = new PromiseReadable(stream)
     })
 
-    When('I wait for end event', () => {
+    When('I wait for "end" event', () => {
       promiseReadable.once('end').then(() => {
         ended = true
       })
     })
 
-    And('data event is emitted', () => {
+    And('"data" event is emitted', () => {
       stream.emit('data', Buffer.from('chunk1'))
     })
 
-    And('another data event is emitted', () => {
+    And('another "data" event is emitted', () => {
       stream.emit('data', Buffer.from('chunk2'))
     })
 
-    And('close event is emitted', () => {
+    And('"close" event is emitted', () => {
       stream.emit('end')
     })
 
@@ -725,28 +728,28 @@ Feature('Test promise-readable module with stream2 API', () => {
 
   Scenario('Wait for end from stream with error', () => {
     let error: Error
-    let promiseReadable: PromiseReadable<MockStream>
-    let stream: MockStream
+    let promiseReadable: PromiseReadable<MockStreamReadable>
+    let stream: MockStreamReadable
 
     Given('Readable object', () => {
-      stream = new MockStream()
+      stream = new MockStreamReadable()
     })
 
     And('PromiseReadable object', () => {
       promiseReadable = new PromiseReadable(stream)
     })
 
-    When('I wait for end event', () => {
-      promiseReadable.once('end').catch((err: Error) => {
+    When('I wait for "end" event', () => {
+      promiseReadable.once('end').catch(err => {
         error = err
       })
     })
 
-    And('data event is emitted', () => {
+    And('"data" event is emitted', () => {
       stream.emit('data', Buffer.from('chunk1'))
     })
 
-    And('error event is emitted', () => {
+    And('"error" event is emitted', () => {
       stream.emit('error', new Error('boom'))
     })
 
@@ -759,28 +762,28 @@ Feature('Test promise-readable module with stream2 API', () => {
 
   Scenario('Wait for end from stream with emitted error', () => {
     let error: Error
-    let promiseReadable: PromiseReadable<MockStream>
-    let stream: MockStream
+    let promiseReadable: PromiseReadable<MockStreamReadable>
+    let stream: MockStreamReadable
 
     Given('Readable object', () => {
-      stream = new MockStream()
+      stream = new MockStreamReadable()
     })
 
     And('PromiseReadable object', () => {
       promiseReadable = new PromiseReadable(stream)
     })
 
-    And('data event is emitted', () => {
+    And('"data" event is emitted', () => {
       stream.emit('data', Buffer.from('chunk1'))
     })
 
-    When('I wait for end event', () => {
-      promiseReadable.once('end').catch((err: Error) => {
+    When('I wait for "end" event', () => {
+      promiseReadable.once('end').catch(err => {
         error = err
       })
     })
 
-    And('error event is emitted', () => {
+    And('"error" event is emitted', () => {
       stream.emit('error', new Error('boom'))
     })
 
@@ -793,32 +796,32 @@ Feature('Test promise-readable module with stream2 API', () => {
 
   Scenario('Wait for error from stream without error', () => {
     let promiseFulfilled = false
-    let promiseReadable: PromiseReadable<MockStream>
-    let stream: MockStream
+    let promiseReadable: PromiseReadable<MockStreamReadable>
+    let stream: MockStreamReadable
 
     Given('Readable object', () => {
-      stream = new MockStream()
+      stream = new MockStreamReadable()
     })
 
     And('PromiseReadable object', () => {
       promiseReadable = new PromiseReadable(stream)
     })
 
-    When('I wait for error event', () => {
+    When('I wait for "error" event', () => {
       promiseReadable.once('error').then(() => {
         promiseFulfilled = true
       })
     })
 
-    And('data event is emitted', () => {
+    And('"data" event is emitted', () => {
       stream.emit('data', Buffer.from('chunk1'))
     })
 
-    And('another data event is emitted', () => {
+    And('another "data" event is emitted', () => {
       stream.emit('data', Buffer.from('chunk2'))
     })
 
-    And('close event is emitted', () => {
+    And('"close" event is emitted', () => {
       stream.emit('end')
     })
 
@@ -829,28 +832,28 @@ Feature('Test promise-readable module with stream2 API', () => {
 
   Scenario('Wait for error from stream with error', () => {
     let error: Error
-    let promiseReadable: PromiseReadable<MockStream>
-    let stream: MockStream
+    let promiseReadable: PromiseReadable<MockStreamReadable>
+    let stream: MockStreamReadable
 
     Given('Readable object', () => {
-      stream = new MockStream()
+      stream = new MockStreamReadable()
     })
 
     And('PromiseReadable object', () => {
       promiseReadable = new PromiseReadable(stream)
     })
 
-    When('I wait for error event', () => {
-      promiseReadable.once('error').catch((err: Error) => {
+    When('I wait for "error" event', () => {
+      promiseReadable.once('error').catch(err => {
         error = err
       })
     })
 
-    And('data event is emitted', () => {
+    And('"data" event is emitted', () => {
       stream.emit('data', Buffer.from('chunk1'))
     })
 
-    And('error event is emitted', () => {
+    And('"error" event is emitted', () => {
       stream.emit('error', new Error('boom'))
     })
 
@@ -863,28 +866,28 @@ Feature('Test promise-readable module with stream2 API', () => {
 
   Scenario('Wait for error from stream with emitted error', () => {
     let error: Error
-    let promiseReadable: PromiseReadable<MockStream>
-    let stream: MockStream
+    let promiseReadable: PromiseReadable<MockStreamReadable>
+    let stream: MockStreamReadable
 
     Given('Readable object', () => {
-      stream = new MockStream()
+      stream = new MockStreamReadable()
     })
 
     And('PromiseReadable object', () => {
       promiseReadable = new PromiseReadable(stream)
     })
 
-    And('data event is emitted', () => {
+    And('"data" event is emitted', () => {
       stream.emit('data', Buffer.from('chunk1'))
     })
 
-    When('I wait for error event', () => {
-      promiseReadable.once('error').catch((err: Error) => {
+    When('I wait for "error" event', () => {
+      promiseReadable.once('error').catch(err => {
         error = err
       })
     })
 
-    And('error event is emitted', () => {
+    And('"error" event is emitted', () => {
       stream.emit('error', new Error('boom'))
     })
 
@@ -897,11 +900,11 @@ Feature('Test promise-readable module with stream2 API', () => {
 
   Scenario('Read non-Readable stream', () => {
     let chunk: string | Buffer | undefined
-    let promiseReadable: PromiseReadable<MockStream>
-    let stream: MockStream
+    let promiseReadable: PromiseReadable<MockStreamReadable>
+    let stream: MockStreamReadable
 
     Given('Non-Readable object', () => {
-      stream = new MockStream()
+      stream = new MockStreamReadable()
       stream.readable = false
     })
 
@@ -913,7 +916,7 @@ Feature('Test promise-readable module with stream2 API', () => {
       chunk = await promiseReadable.read()
     })
 
-    And('data event is emitted', () => {
+    And('"data" event is emitted', () => {
       stream.emit('data', Buffer.from('chunk1'))
     })
 
@@ -921,4 +924,52 @@ Feature('Test promise-readable module with stream2 API', () => {
       return expect(chunk).to.be.undefined
     })
   })
+
+  if (semver.gte(process.version, '6.11.3')) {
+    Scenario('instanceof operator with MockStreamReadable class', () => {
+      let stream: MockStreamReadable
+
+      Given('Readable object', () => {
+        stream = new MockStreamReadable()
+      })
+
+      Then('other object is not an instance of PromiseReadable class', () => {
+        expect(stream).to.be.not.an.instanceof(PromiseReadable)
+      })
+    })
+
+    Scenario('instanceof operator with PromiseWritable class', () => {
+      let promiseReadable: PromiseReadable<MockStreamReadable>
+      let stream: MockStreamReadable
+
+      Given('Readable object', () => {
+        stream = new MockStreamReadable()
+      })
+
+      And('PromiseReadable object', () => {
+        promiseReadable = new PromiseReadable(stream)
+      })
+
+      Then('PromiseReadable object is an instance of PromiseReadable class', () => {
+        expect(promiseReadable).to.be.an.instanceof(PromiseReadable)
+      })
+    })
+
+    Scenario('instanceof operator with PromiseDuplex class', () => {
+      let promiseDuplex: MockPromiseDuplex<PassThrough>
+      let stream: PassThrough
+
+      Given('Writable object', () => {
+        stream = new PassThrough()
+      })
+
+      And('PromiseWritable object', () => {
+        promiseDuplex = new MockPromiseDuplex(stream)
+      })
+
+      Then('PromiseDuplex object is an instance of PromiseReadable class', () => {
+        expect(promiseDuplex).to.be.an.instanceof(PromiseReadable)
+      })
+    })
+  }
 })

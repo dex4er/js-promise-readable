@@ -1,6 +1,6 @@
 import {Readable} from 'stream'
 
-export class MockStream extends Readable {
+export class MockStreamReadable extends Readable {
   readable = true
 
   closed = false

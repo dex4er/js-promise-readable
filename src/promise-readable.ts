@@ -8,12 +8,12 @@ interface ReadableStream extends NodeJS.ReadableStream {
 
 export class PromiseReadable<TReadable extends ReadableStream> {
   static [Symbol.hasInstance](instance: any): boolean {
-    return instance.isPromiseReadable || instance.isPromiseDuplex
+    return instance.isPromiseReadable
   }
 
-  protected readonly isPromiseReadable = true
+  readonly isPromiseReadable: boolean = true
 
-  private readonly errorHandler: (err: Error) => void
+  private readonly errorHandler?: (err: Error) => void
   private errored?: Error
 
   constructor(readonly stream: TReadable) {
