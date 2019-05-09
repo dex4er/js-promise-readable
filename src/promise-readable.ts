@@ -16,7 +16,7 @@ export class PromiseReadable<TReadable extends ReadableStream> {
 
   _errored?: Error
 
-  private readonly errorHandler?: (err: Error) => void
+  private readonly errorHandler: (err: Error) => void
 
   constructor(readonly stream: TReadable) {
     this.errorHandler = (err: Error) => {
