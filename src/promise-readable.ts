@@ -3,7 +3,7 @@
 interface ReadableStream extends NodeJS.ReadableStream {
   closed?: boolean
   destroyed?: boolean
-  destroy?: () => void
+  destroy?(): void
 }
 
 export class PromiseReadable<TReadable extends ReadableStream> {
@@ -11,7 +11,7 @@ export class PromiseReadable<TReadable extends ReadableStream> {
   private errored?: Error
 
   constructor(readonly stream: TReadable) {
-    this.errorHandler = err => {
+    this.errorHandler = (err: Error) => {
       this.errored = err
     }
 
@@ -104,6 +104,7 @@ export class PromiseReadable<TReadable extends ReadableStream> {
 
       const endHandler = () => {
         removeListeners()
+
         if (bufferArray.length) {
           resolve(Buffer.concat(bufferArray))
         } else {
@@ -208,20 +209,26 @@ export class PromiseReadable<TReadable extends ReadableStream> {
         if (eventHandler) {
           stream.removeListener(event, eventHandler)
         }
+
         stream.removeListener('error', errorHandler)
+
         if (endHandler) {
           stream.removeListener('end', endHandler)
         }
+
         stream.removeListener('error', errorHandler)
       }
 
       if (eventHandler) {
         stream.on(event, eventHandler)
       }
+
       stream.on('close', closeHandler)
+
       if (endHandler) {
         stream.on('end', endHandler)
       }
+
       stream.on('error', errorHandler)
     })
   }

@@ -10,6 +10,7 @@ export class MockStream extends Readable {
   paused = false
 
   private buffer = Buffer.alloc(0)
+
   private encoding?: string
   private error?: Error
 

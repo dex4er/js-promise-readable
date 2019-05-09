@@ -195,7 +195,7 @@ Feature('Test promise-readable module with stream2 API', () => {
     })
 
     And('I call read method', () => {
-      promiseReadable.read().catch(err => {
+      promiseReadable.read().catch((err: Error) => {
         error = err
       })
     })
@@ -397,7 +397,7 @@ Feature('Test promise-readable module with stream2 API', () => {
     })
 
     When('I call readAll method', () => {
-      promiseReadable.readAll().catch(err => {
+      promiseReadable.readAll().catch((err: Error) => {
         error = err
       })
     })
@@ -435,7 +435,7 @@ Feature('Test promise-readable module with stream2 API', () => {
     })
 
     When('I call readAll method', () => {
-      promiseReadable.readAll().catch(err => {
+      promiseReadable.readAll().catch((err: Error) => {
         error = err
       })
     })
@@ -497,7 +497,7 @@ Feature('Test promise-readable module with stream2 API', () => {
     })
 
     And('I wait for open event', () => {
-      promiseReadable.once('open').catch(err => {
+      promiseReadable.once('open').catch((err: Error) => {
         error = err
       })
     })
@@ -527,7 +527,7 @@ Feature('Test promise-readable module with stream2 API', () => {
     })
 
     And('I wait for open event', () => {
-      promiseReadable.once('open').catch(err => {
+      promiseReadable.once('open').catch((err: Error) => {
         error = err
       })
     })
@@ -553,7 +553,7 @@ Feature('Test promise-readable module with stream2 API', () => {
     })
 
     When('I wait for open event', () => {
-      promiseReadable.once('open').catch(err => {
+      promiseReadable.once('open').catch((err: Error) => {
         error = err
       })
     })
@@ -587,7 +587,7 @@ Feature('Test promise-readable module with stream2 API', () => {
     })
 
     When('I wait for open event', () => {
-      promiseReadable.once('open').catch(err => {
+      promiseReadable.once('open').catch((err: Error) => {
         error = err
       })
     })
@@ -641,7 +641,7 @@ Feature('Test promise-readable module with stream2 API', () => {
     })
 
     When('I wait for close event', () => {
-      promiseReadable.once('close').catch(err => {
+      promiseReadable.once('close').catch((err: Error) => {
         error = err
       })
     })
@@ -675,7 +675,7 @@ Feature('Test promise-readable module with stream2 API', () => {
     })
 
     When('I wait for close event', () => {
-      promiseReadable.once('close').catch(err => {
+      promiseReadable.once('close').catch((err: Error) => {
         error = err
       })
     })
@@ -737,7 +737,7 @@ Feature('Test promise-readable module with stream2 API', () => {
     })
 
     When('I wait for end event', () => {
-      promiseReadable.once('end').catch(err => {
+      promiseReadable.once('end').catch((err: Error) => {
         error = err
       })
     })
@@ -775,7 +775,7 @@ Feature('Test promise-readable module with stream2 API', () => {
     })
 
     When('I wait for end event', () => {
-      promiseReadable.once('end').catch(err => {
+      promiseReadable.once('end').catch((err: Error) => {
         error = err
       })
     })
@@ -841,7 +841,7 @@ Feature('Test promise-readable module with stream2 API', () => {
     })
 
     When('I wait for error event', () => {
-      promiseReadable.once('error').catch(err => {
+      promiseReadable.once('error').catch((err: Error) => {
         error = err
       })
     })
@@ -879,7 +879,7 @@ Feature('Test promise-readable module with stream2 API', () => {
     })
 
     When('I wait for error event', () => {
-      promiseReadable.once('error').catch(err => {
+      promiseReadable.once('error').catch((err: Error) => {
         error = err
       })
     })
