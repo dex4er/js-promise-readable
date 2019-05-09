@@ -1,19 +1,28 @@
 *-ts.js
 
+*.gz
+*.lock
 *.log
 *.tgz
 
 ts-node-*
 
+/lib/
+/test/mocha.opts
+
 /coverage/
 /node_modules/
+/out/
 
 /.nyc_output/
 
 /.tags
 /.tern-project
 
+.DS_Store
 /package-lock.json
 /yarn.lock
 
+.DS_Store
+/.idea
 /.vscode

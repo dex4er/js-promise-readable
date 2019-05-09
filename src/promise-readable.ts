@@ -1,23 +1,30 @@
-'use strict'
+/// <reference types="node" />
 
-class PromiseReadable {
-  constructor (stream) {
-    this.stream = stream
+interface ReadableStream extends NodeJS.ReadableStream {
+  closed?: boolean
+  destroyed?: boolean
+  destroy?: () => void
+}
 
-    this._errorHandler = (err) => {
-      this._errored = err
+export class PromiseReadable<TReadable extends ReadableStream> {
+  private errorHandler: (err: Error) => void
+  private errored?: Error
+
+  constructor(public readonly stream: TReadable) {
+    this.errorHandler = err => {
+      this.errored = err
     }
 
-    stream.on('error', this._errorHandler)
+    stream.on('error', this.errorHandler)
   }
 
-  read (size) {
+  read(size?: number): Promise<Buffer | string | undefined> {
     const stream = this.stream
 
     return new Promise((resolve, reject) => {
-      if (this._errored) {
-        const err = this._errored
-        delete this._errored
+      if (this.errored) {
+        const err = this.errored
+        this.errored = undefined
         return reject(err)
       }
 
@@ -26,9 +33,9 @@ class PromiseReadable {
       }
 
       const readableHandler = () => {
-        let chunk = stream.read(size)
+        const chunk = stream.read(size)
 
-        if (chunk != null) {
+        if (chunk) {
           removeListeners()
           resolve(chunk)
         }
@@ -36,7 +43,7 @@ class PromiseReadable {
 
       const closeHandler = () => {
         removeListeners()
-        resolve(stream.bytesWritten || 0)
+        resolve()
       }
 
       const endHandler = () => {
@@ -44,8 +51,8 @@ class PromiseReadable {
         resolve()
       }
 
-      const errorHandler = (err) => {
-        delete this._errored
+      const errorHandler = (err: Error) => {
+        this.errored = undefined
         removeListeners()
         reject(err)
       }
@@ -66,14 +73,15 @@ class PromiseReadable {
     })
   }
 
-  readAll () {
+  readAll(): Promise<Buffer | string | undefined> {
     const stream = this.stream
-    const bufferArray = []
+    const bufferArray: Buffer[] = []
+    let content = ''
 
     return new Promise((resolve, reject) => {
-      if (this._errored) {
-        const err = this._errored
-        delete this._errored
+      if (this.errored) {
+        const err = this.errored
+        this.errored = undefined
         return reject(err)
       }
 
@@ -81,22 +89,30 @@ class PromiseReadable {
         return resolve()
       }
 
-      const dataHandler = (chunk) => {
-        bufferArray.push(chunk)
+      const dataHandler = (chunk: Buffer | string) => {
+        if (typeof chunk === 'string') {
+          content += chunk
+        } else {
+          bufferArray.push(chunk)
+        }
       }
 
       const closeHandler = () => {
         removeListeners()
-        resolve(stream.bytesWritten || 0)
+        resolve()
       }
 
       const endHandler = () => {
         removeListeners()
-        resolve(Buffer.concat(bufferArray))
+        if (bufferArray.length) {
+          resolve(Buffer.concat(bufferArray))
+        } else {
+          resolve(content)
+        }
       }
 
-      const errorHandler = (err) => {
-        delete this._errored
+      const errorHandler = (err: Error) => {
+        this.errored = undefined
         removeListeners()
         reject(err)
       }
@@ -117,13 +133,33 @@ class PromiseReadable {
     })
   }
 
-  once (event) {
+  setEncoding(encoding: string): this {
+    this.stream.setEncoding(encoding)
+    return this
+  }
+
+  destroy(): void {
+    if (this.stream) {
+      if (this.errorHandler) {
+        this.stream.removeListener('error', this.errorHandler)
+        delete this.errorHandler
+      }
+      if (typeof this.stream.destroy === 'function') {
+        this.stream.destroy()
+      }
+    }
+  }
+
+  once(event: 'close' | 'end' | 'error'): Promise<void>
+  once(event: 'open'): Promise<number>
+
+  once(event: string): Promise<void | number> {
     const stream = this.stream
 
     return new Promise((resolve, reject) => {
-      if (this._errored) {
-        const err = this._errored
-        delete this._errored
+      if (this.errored) {
+        const err = this.errored
+        this.errored = undefined
         return reject(err)
       }
 
@@ -146,18 +182,24 @@ class PromiseReadable {
         resolve()
       }
 
-      const eventHandler = event !== 'close' && event !== 'end' && event !== 'error' ? (argument) => {
-        removeListeners()
-        resolve(argument)
-      } : undefined
+      const eventHandler =
+        event !== 'close' && event !== 'end' && event !== 'error'
+          ? (argument: any) => {
+              removeListeners()
+              resolve(argument)
+            }
+          : undefined
 
-      const endHandler = event !== 'close' ? () => {
-        removeListeners()
-        resolve()
-      } : undefined
+      const endHandler =
+        event !== 'close'
+          ? () => {
+              removeListeners()
+              resolve()
+            }
+          : undefined
 
-      const errorHandler = (err) => {
-        delete this._errored
+      const errorHandler = (err: Error) => {
+        this.errored = undefined
         removeListeners()
         reject(err)
       }
@@ -183,27 +225,6 @@ class PromiseReadable {
       stream.on('error', errorHandler)
     })
   }
-
-  setEncoding (encoding) {
-    this.stream.setEncoding(encoding)
-    return this
-  }
-
-  destroy () {
-    if (this.stream) {
-      if (this._errorHandler) {
-        this.stream.removeListener('error', this._errorHandler)
-        delete this._errorHandler
-      }
-      if (typeof this.stream.destroy === 'function') {
-        this.stream.destroy()
-      }
-      delete this.stream
-    }
-  }
 }
 
-PromiseReadable.PromiseReadable = PromiseReadable
-PromiseReadable.default = PromiseReadable
-
-module.exports = PromiseReadable
+export default PromiseReadable

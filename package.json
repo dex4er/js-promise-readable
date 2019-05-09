@@ -1,6 +1,6 @@
 {
   "name": "promise-readable",
-  "version": "3.1.5",
+  "version": "4.0.0",
   "description": "Return promise for readable stream",
   "main": "lib/promise-readable.js",
   "typings": "lib/promise-readable.d.ts",
@@ -24,36 +24,45 @@
   },
   "dependencies": {},
   "devDependencies": {
+    "@types/chai": "^4.1.7",
+    "@types/mocha": "^5.2.6",
     "@types/node": "^9.4.7",
-    "chai": "^4.1.2",
-    "chai-as-promised": "^7.1.1",
-    "markdownlint-cli": "^0.7.1",
-    "snazzy": "^7.1.1",
-    "standard": "^11.0.0",
-    "tap": "^11.1.2",
-    "tap-given": "^0.6.0",
+    "chai": "^4.2.0",
+    "coveralls": "^3.0.3",
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "^4.2.0",
+    "eslint-plugin-import": "^2.17.2",
+    "eslint-plugin-node": "^9.0.1",
+    "markdownlint-cli": "^0.15.0",
+    "mocha": "^6.1.4",
+    "nyc": "^14.1.0",
+    "prettier": "^1.17.0",
+    "shx": "^0.3.2",
+    "ts-node": "^8.1.0",
     "tslint": "^5.9.1",
+    "tslint-config-prettier": "^1.18.0",
     "tslint-config-standard": "^7.0.0",
     "typescript": "^2.7.2"
   },
   "scripts": {
-    "pretest": "standard --verbose | snazzy && tsc --noEmit --pretty && tslint -t stylish -p . && markdownlint *.md",
-    "test": "tap test/*.js",
-    "test:coverage": "npm test -- --coverage",
-    "test:onchange:lcovonly": "npm run -s test-coverage -- -R min --coverage-report lcovonly; onchange '**/*.js' -- npm run -s test-coverage -- -R min --coverage-report lcovonly"
-  },
-  "standard": {
-    "globals": [
-      "After",
-      "And",
-      "Feature",
-      "Given",
-      "Scenario",
-      "Then",
-      "When"
-    ]
+    "build": "npm run compile",
+    "compile": "tsc --pretty",
+    "clean": "shx rm -rf lib",
+    "postpublish": "git tag v$npm_package_version -a -m \"Release v$npm_package_version\" && git push --tags",
+    "prepublishOnly": "npm run build",
+    "pretest": "npm run build && tsc --pretty -p examples && tsc --pretty -p test && eslint . && tslint -t stylish -p . && tslint -t stylish -p examples && tslint -t stylish -p test && prettier --ignore-path .gitignore --list-different '**/*.js' '**/*.json' '**/*.ts' '**/*.yml' && markdownlint \"*.md\"",
+    "test": "npm run test:spec",
+    "test:spec": "npm run ts-mocha -- \"test/*.ts\"",
+    "test:coverage": "nyc --reporter json npm run test:spec && nyc report",
+    "ts-mocha": "mocha --use_strict --throw-deprecation --require source-map-support/register --require ts-node/register --timeout 90000"
   },
   "nyc": {
-    "exclude": []
+    "extension": [
+      ".ts"
+    ],
+    "exclude": [
+      ".*.js",
+      "**/*.d.ts"
+    ]
   }
 }

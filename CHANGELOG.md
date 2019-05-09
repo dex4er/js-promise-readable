@@ -1,5 +1,10 @@
 # Changelog
 
+## v4.0.0 2019-05-09
+
+* Rewritten in Typescript.
+* `PromiseReadable` accepts `NodeJS.ReadableStream`.
+
 ## v3.1.5 2018-03-12
 
 * Reformatting.
