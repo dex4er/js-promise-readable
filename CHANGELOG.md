@@ -11,7 +11,7 @@
 ## v4.0.0 2019-05-09
 
 * Rewritten in Typescript.
-* `PromiseReadable` accepts `NodeJS.ReadableStream`.
+* `PromiseReadable` constructor accepts `NodeJS.ReadableStream`.
 * Dropped support for Node < 6.
 
 ## v3.1.5 2018-03-12
