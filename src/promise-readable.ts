@@ -7,6 +7,12 @@ interface ReadableStream extends NodeJS.ReadableStream {
 }
 
 export class PromiseReadable<TReadable extends ReadableStream> {
+  static [Symbol.hasInstance](instance: any): boolean {
+    return instance.isPromiseReadable || instance.isPromiseDuplex
+  }
+
+  protected readonly isPromiseReadable = true
+
   private readonly errorHandler: (err: Error) => void
   private errored?: Error
 
@@ -143,7 +149,6 @@ export class PromiseReadable<TReadable extends ReadableStream> {
     if (this.stream) {
       if (this.errorHandler) {
         this.stream.removeListener('error', this.errorHandler)
-        delete this.errorHandler
       }
       if (typeof this.stream.destroy === 'function') {
         this.stream.destroy()
