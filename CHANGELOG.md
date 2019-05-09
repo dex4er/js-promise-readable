@@ -1,5 +1,9 @@
 # Changelog
 
+## v4.0.1 2019-05-09
+
+* Updated dependencies.
+
 ## v4.0.0 2019-05-09
 
 * Rewritten in Typescript.
