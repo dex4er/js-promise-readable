@@ -6,7 +6,7 @@ import {MockStreamReadable} from './lib/mock-stream-readable'
 
 import {PromiseReadable} from '../src/promise-readable'
 
-Feature('Test promise-readable module for read method (stream2 API)', () => {
+Feature('Test promise-readable module for read method', () => {
   Scenario('Read chunks from stream', () => {
     let chunk: string | Buffer | undefined
     let promiseReadable: PromiseReadable<MockStreamReadable>

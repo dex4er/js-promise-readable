@@ -6,7 +6,7 @@ import {MockStreamReadable} from './lib/mock-stream-readable'
 
 import {PromiseReadable} from '../src/promise-readable'
 
-Feature('Test promise-readable module for once("end") method (stream2 API)', () => {
+Feature('Test promise-readable module for once("end") method', () => {
   Scenario('Wait for end from stream', () => {
     let ended = false
     let promiseReadable: PromiseReadable<MockStreamReadable>
