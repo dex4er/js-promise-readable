@@ -17,12 +17,18 @@ occurred.
 
 ## Requirements
 
-This module requires Node >= 4.
+This module requires Node >= 6.
 
 ## Installation
 
 ```shell
 npm install promise-readable
+```
+
+_Additionally for Typescript:_
+
+```shell
+npm install -D @types/node
 ```
 
 ## Usage
@@ -39,7 +45,7 @@ _Example:_
 
 ```js
 const fs = require('fs')
-const PromiseReadable = require('promise-readable')
+const {PromiseReadable} = require('promise-readable')
 
 const stream = fs.createReadStream('/etc/hosts')
 const promiseReadable = new PromiseReadable(stream)
@@ -175,6 +181,6 @@ This method calls `destroy` method on stream and cleans up all own handlers.
 
 ## License
 
-Copyright (c) 2017-2018 Piotr Roszatycki <mailto:piotr.roszatycki@gmail.com>
+Copyright (c) 2017-2019 Piotr Roszatycki <mailto:piotr.roszatycki@gmail.com>
 
 [MIT](https://opensource.org/licenses/MIT)

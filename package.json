@@ -20,7 +20,7 @@
   },
   "homepage": "http://github.com/dex4er/js-promise-readable",
   "engines": {
-    "node": ">=4.0.0"
+    "node": ">=6.0.0"
   },
   "dependencies": {},
   "devDependencies": {

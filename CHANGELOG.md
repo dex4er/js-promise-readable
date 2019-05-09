@@ -4,6 +4,7 @@
 
 * Rewritten in Typescript.
 * `PromiseReadable` accepts `NodeJS.ReadableStream`.
+* Dropped support for Node < 6.
 
 ## v3.1.5 2018-03-12
 
