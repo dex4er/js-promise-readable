@@ -44,11 +44,11 @@ if (semver.gte(process.version, '6.11.3')) {
       let promiseDuplex: MockPromiseDuplex<PassThrough>
       let stream: PassThrough
 
-      Given('Writable object', () => {
+      Given('Duplex object', () => {
         stream = new PassThrough()
       })
 
-      And('PromiseWritable object', () => {
+      And('PromiseDuplex object', () => {
         promiseDuplex = new MockPromiseDuplex(stream)
       })
 
