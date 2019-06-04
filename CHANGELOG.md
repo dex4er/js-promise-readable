@@ -1,5 +1,9 @@
 # Changelog
 
+## v4.2.1 2019-06-04
+
+- Minor tweaks in README.
+
 ## v4.2.0 2019-05-09
 
 - Another changes for visibility of properties that are required by

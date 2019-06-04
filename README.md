@@ -35,6 +35,18 @@ npm install -D @types/node
 
 ## Usage
 
+```js
+const {PromiseReadable} = require("promise-readable")
+```
+
+_Typescript_:
+
+```ts
+import PromiseReadable from "promise-readable"
+// or
+import {PromiseReadable} from "promise-readable"
+```
+
 ### constructor
 
 ```js
@@ -46,20 +58,20 @@ const promiseReadable = new PromiseReadable(stream)
 _Example:_
 
 ```js
-const fs = require('fs')
-const {PromiseReadable} = require('promise-readable')
+const fs = require("fs")
+const {PromiseReadable} = require("promise-readable")
 
-const stream = fs.createReadStream('/etc/hosts')
+const stream = fs.createReadStream("/etc/hosts")
 const promiseReadable = new PromiseReadable(stream)
 ```
 
 _Typescript:_
 
 ```ts
-import fs from 'fs'
-import PromiseReadable from 'promise-readable'
+import fs from "fs"
+import PromiseReadable from "promise-readable"
 
-const stream = fs.createReadStream('/etc/hosts')
+const stream = fs.createReadStream("/etc/hosts")
 const promiseReadable = new PromiseReadable(stream)
 ```
 
@@ -102,7 +114,7 @@ _Example:_
 for (let chunk; (chunk = await promiseReadable.read()); ) {
   console.log(chunk.length)
 }
-console.log('stream is ended')
+console.log("stream is ended")
 ```
 
 ### readAll
@@ -136,7 +148,7 @@ _Example:_
 ```js
 const asBuffer = await promiseReadable.read()
 
-promiseReadable.setEncoding('utf8')
+promiseReadable.setEncoding("utf8")
 const asString = await promiseReadable.read()
 ```
 
@@ -155,15 +167,15 @@ The promise will reject on error.
 _Example:_
 
 ```js
-const fd = await promiseReadable.once('open')
+const fd = await promiseReadable.once("open")
 promiseReadable.stream.pipe(process.stdout)
 
-await promiseReadable.once('close')
+await promiseReadable.once("close")
 
-promiseReadable.stream.on('data', chunk => console.log(chunk.length))
-await promiseReadable.once('end')
+promiseReadable.stream.on("data", chunk => console.log(chunk.length))
+await promiseReadable.once("end")
 
-await promiseReadable.once('error') // throws error, undefined if ended
+await promiseReadable.once("error") // throws error, undefined if ended
 ```
 
 ### destroy
