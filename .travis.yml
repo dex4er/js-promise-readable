@@ -13,7 +13,7 @@ matrix:
 install:
   - set -e
   - npm install
-  - if [ "$NPM_AUDIT" = true ]; then npm audit; fi
+  - if [ -n "$NPM_AUDIT" ]; then npm audit; fi
 
 script:
   - echo "--reporter dot --color" > test/mocha.opts
