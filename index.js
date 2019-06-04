@@ -1,1 +1,1 @@
-module.exports = require('./lib/promise-readable')
+module.exports = require("./lib/promise-readable")

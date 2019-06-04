@@ -23,7 +23,7 @@ export class PromiseReadable<TReadable extends ReadableStream> {
       this._errored = err
     }
 
-    stream.on('error', this.errorHandler)
+    stream.on("error", this.errorHandler)
   }
 
   read(size?: number): Promise<Buffer | string | undefined> {
@@ -66,16 +66,16 @@ export class PromiseReadable<TReadable extends ReadableStream> {
       }
 
       const removeListeners = () => {
-        stream.removeListener('close', closeHandler)
-        stream.removeListener('error', errorHandler)
-        stream.removeListener('end', endHandler)
-        stream.removeListener('readable', readableHandler)
+        stream.removeListener("close", closeHandler)
+        stream.removeListener("error", errorHandler)
+        stream.removeListener("end", endHandler)
+        stream.removeListener("readable", readableHandler)
       }
 
-      stream.on('close', closeHandler)
-      stream.on('end', endHandler)
-      stream.on('error', errorHandler)
-      stream.on('readable', readableHandler)
+      stream.on("close", closeHandler)
+      stream.on("end", endHandler)
+      stream.on("error", errorHandler)
+      stream.on("readable", readableHandler)
 
       readableHandler()
     })
@@ -84,7 +84,7 @@ export class PromiseReadable<TReadable extends ReadableStream> {
   readAll(): Promise<Buffer | string | undefined> {
     const stream = this.stream
     const bufferArray: Buffer[] = []
-    let content = ''
+    let content = ""
 
     return new Promise((resolve, reject) => {
       if (this._errored) {
@@ -98,7 +98,7 @@ export class PromiseReadable<TReadable extends ReadableStream> {
       }
 
       const dataHandler = (chunk: Buffer | string) => {
-        if (typeof chunk === 'string') {
+        if (typeof chunk === "string") {
           content += chunk
         } else {
           bufferArray.push(chunk)
@@ -127,16 +127,16 @@ export class PromiseReadable<TReadable extends ReadableStream> {
       }
 
       const removeListeners = () => {
-        stream.removeListener('close', closeHandler)
-        stream.removeListener('data', dataHandler)
-        stream.removeListener('error', errorHandler)
-        stream.removeListener('end', endHandler)
+        stream.removeListener("close", closeHandler)
+        stream.removeListener("data", dataHandler)
+        stream.removeListener("error", errorHandler)
+        stream.removeListener("end", endHandler)
       }
 
-      stream.on('close', closeHandler)
-      stream.on('data', dataHandler)
-      stream.on('end', endHandler)
-      stream.on('error', errorHandler)
+      stream.on("close", closeHandler)
+      stream.on("data", dataHandler)
+      stream.on("end", endHandler)
+      stream.on("error", errorHandler)
 
       stream.resume()
     })
@@ -150,16 +150,16 @@ export class PromiseReadable<TReadable extends ReadableStream> {
   destroy(): void {
     if (this.stream) {
       if (this.errorHandler) {
-        this.stream.removeListener('error', this.errorHandler)
+        this.stream.removeListener("error", this.errorHandler)
       }
-      if (typeof this.stream.destroy === 'function') {
+      if (typeof this.stream.destroy === "function") {
         this.stream.destroy()
       }
     }
   }
 
-  once(event: 'close' | 'end' | 'error'): Promise<void>
-  once(event: 'open'): Promise<number>
+  once(event: "close" | "end" | "error"): Promise<void>
+  once(event: "open"): Promise<number>
 
   once(event: string): Promise<void | number> {
     const stream = this.stream
@@ -172,13 +172,13 @@ export class PromiseReadable<TReadable extends ReadableStream> {
       }
 
       if (stream.closed) {
-        if (event === 'close') {
+        if (event === "close") {
           return resolve()
         } else {
           return reject(new Error(`once ${event} after close`))
         }
       } else if (stream.destroyed) {
-        if (event === 'close' || event === 'end') {
+        if (event === "close" || event === "end") {
           return resolve()
         } else {
           return reject(new Error(`once ${event} after destroy`))
@@ -191,7 +191,7 @@ export class PromiseReadable<TReadable extends ReadableStream> {
       }
 
       const eventHandler =
-        event !== 'close' && event !== 'end' && event !== 'error'
+        event !== "close" && event !== "end" && event !== "error"
           ? (argument: any) => {
               removeListeners()
               resolve(argument)
@@ -199,7 +199,7 @@ export class PromiseReadable<TReadable extends ReadableStream> {
           : undefined
 
       const endHandler =
-        event !== 'close'
+        event !== "close"
           ? () => {
               removeListeners()
               resolve()
@@ -217,26 +217,26 @@ export class PromiseReadable<TReadable extends ReadableStream> {
           stream.removeListener(event, eventHandler)
         }
 
-        stream.removeListener('error', errorHandler)
+        stream.removeListener("error", errorHandler)
 
         if (endHandler) {
-          stream.removeListener('end', endHandler)
+          stream.removeListener("end", endHandler)
         }
 
-        stream.removeListener('error', errorHandler)
+        stream.removeListener("error", errorHandler)
       }
 
       if (eventHandler) {
         stream.on(event, eventHandler)
       }
 
-      stream.on('close', closeHandler)
+      stream.on("close", closeHandler)
 
       if (endHandler) {
-        stream.on('end', endHandler)
+        stream.on("end", endHandler)
       }
 
-      stream.on('error', errorHandler)
+      stream.on("error", errorHandler)
     })
   }
 }

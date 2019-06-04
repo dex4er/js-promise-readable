@@ -1,4 +1,4 @@
-import {Readable} from 'stream'
+import {Readable} from "stream"
 
 export class MockStreamReadable extends Readable {
   readable = true
@@ -16,13 +16,13 @@ export class MockStreamReadable extends Readable {
 
   read(size: number = 1024): any {
     if (this.error) {
-      this.emit('error', this.error)
+      this.emit("error", this.error)
       return null
     }
     if (this.buffer.length === 0) {
       if (!this.ended) {
         this.ended = true
-        this.emit('end')
+        this.emit("end")
       }
       return null
     }

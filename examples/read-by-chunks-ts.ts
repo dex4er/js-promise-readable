@@ -1,8 +1,8 @@
 #!/usr/bin/env ts-node
 
-import fs from 'fs'
+import fs from "fs"
 
-import PromiseReadable from '../src/promise-readable'
+import PromiseReadable from "../src/promise-readable"
 
 type Chunk = Buffer | string | undefined
 

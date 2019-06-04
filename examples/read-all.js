@@ -1,8 +1,8 @@
-'use strict'
+"use strict"
 
-const fs = require('fs')
+const fs = require("fs")
 
-const {PromiseReadable} = require('../lib/promise-readable')
+const {PromiseReadable} = require("../lib/promise-readable")
 
 async function main() {
   const rstream = new PromiseReadable(
