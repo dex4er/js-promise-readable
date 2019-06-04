@@ -43,7 +43,7 @@ Feature("Test promise-readable module for readAll method", () => {
     })
 
     Then("promise returns all chunks in one buffer", () => {
-      return expect(content).to.deep.equal(Buffer.from("chunk1chunk2"))
+      expect(content).to.deep.equal(Buffer.from("chunk1chunk2"))
     })
   })
 
@@ -87,7 +87,7 @@ Feature("Test promise-readable module for readAll method", () => {
     })
 
     Then("promise returns all chunks in one buffer", () => {
-      return expect(content).to.deep.equal(Buffer.from("chunk1chunk2"))
+      expect(content).to.deep.equal(Buffer.from("chunk1chunk2"))
     })
   })
 
@@ -113,7 +113,7 @@ Feature("Test promise-readable module for readAll method", () => {
     })
 
     Then("promise returns undefined value", () => {
-      return expect(content).to.be.undefined
+      expect(content).to.be.undefined()
     })
   })
 
@@ -139,7 +139,7 @@ Feature("Test promise-readable module for readAll method", () => {
     })
 
     Then("promise returns undefined value", () => {
-      return expect(content).to.be.undefined
+      expect(content).to.be.undefined()
     })
   })
 
@@ -171,7 +171,7 @@ Feature("Test promise-readable module for readAll method", () => {
     })
 
     Then("promise is rejected", () => {
-      return expect(error)
+      expect(error)
         .to.be.an("error")
         .with.property("message", "boom")
     })
@@ -205,7 +205,7 @@ Feature("Test promise-readable module for readAll method", () => {
     })
 
     Then("promise is rejected", () => {
-      return expect(error)
+      expect(error)
         .to.be.an("error")
         .with.property("message", "boom")
     })

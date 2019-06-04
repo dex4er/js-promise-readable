@@ -29,7 +29,7 @@ Feature("Test promise-readable module for read method", () => {
     })
 
     Then("promise returns chunk", () => {
-      return expect(chunk).to.deep.equal(Buffer.from("chunk1"))
+      expect(chunk).to.deep.equal(Buffer.from("chunk1"))
     })
 
     When("stream contains some another data", () => {
@@ -41,7 +41,7 @@ Feature("Test promise-readable module for read method", () => {
     })
 
     Then("promise returns another chunk", () => {
-      return expect(chunk).to.deep.equal(Buffer.from("chunk2"))
+      expect(chunk).to.deep.equal(Buffer.from("chunk2"))
     })
 
     And("PromiseReadable object can be destroyed", () => {
@@ -79,7 +79,7 @@ Feature("Test promise-readable module for read method", () => {
     })
 
     Then("promise returns chunk", () => {
-      return expect(chunk).to.deep.equal("chunk1")
+      expect(chunk).to.deep.equal("chunk1")
     })
 
     When("stream contains some another data", () => {
@@ -91,7 +91,7 @@ Feature("Test promise-readable module for read method", () => {
     })
 
     Then("promise returns another chunk", () => {
-      return expect(chunk).to.deep.equal("chunk2")
+      expect(chunk).to.deep.equal("chunk2")
     })
   })
 
@@ -113,7 +113,7 @@ Feature("Test promise-readable module for read method", () => {
     })
 
     Then("promise returns undefined value", () => {
-      return expect(chunk).to.be.undefined
+      expect(chunk).to.be.undefined()
     })
   })
 
@@ -139,7 +139,7 @@ Feature("Test promise-readable module for read method", () => {
     })
 
     Then("promise returns undefined value", () => {
-      return expect(chunk).to.be.undefined
+      expect(chunk).to.be.undefined()
     })
   })
 
@@ -165,7 +165,7 @@ Feature("Test promise-readable module for read method", () => {
     })
 
     Then("promise returns undefined value", () => {
-      return expect(chunk).to.be.undefined
+      expect(chunk).to.be.undefined()
     })
 
     And("PromiseReadable object can be destroyed", () => {
@@ -201,7 +201,7 @@ Feature("Test promise-readable module for read method", () => {
     })
 
     Then("promise is rejected", () => {
-      return expect(error)
+      expect(error)
         .to.be.an("error")
         .with.property("message", "boom")
     })
@@ -241,7 +241,7 @@ Feature("Test promise-readable module for read method", () => {
     })
 
     Then("promise is rejected", () => {
-      return expect(error)
+      expect(error)
         .to.be.an("error")
         .with.property("message", "boom")
     })

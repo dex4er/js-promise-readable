@@ -1,4 +1,8 @@
-import {expect} from "chai"
+import chai, {expect} from "chai"
+
+import dirtyChai from "dirty-chai"
+chai.use(dirtyChai)
+
 import semver from "semver"
 import {PassThrough} from "stream"
 

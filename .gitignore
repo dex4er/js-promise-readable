@@ -5,6 +5,7 @@
 *.lock
 *.log
 *.map
+*.out
 *.tgz
 
 ts-node-*

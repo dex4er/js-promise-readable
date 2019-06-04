@@ -39,7 +39,7 @@ Feature('Test promise-readable module for once("error") method', () => {
     })
 
     Then("promise returns no result", () => {
-      return expect(promiseFulfilled).to.be.true
+      expect(promiseFulfilled).to.be.true()
     })
   })
 
@@ -71,7 +71,7 @@ Feature('Test promise-readable module for once("error") method', () => {
     })
 
     Then("promise is rejected", () => {
-      return expect(error)
+      expect(error)
         .to.be.an("error")
         .with.property("message", "boom")
     })
@@ -105,7 +105,7 @@ Feature('Test promise-readable module for once("error") method', () => {
     })
 
     Then("promise is rejected", () => {
-      return expect(error)
+      expect(error)
         .to.be.an("error")
         .with.property("message", "boom")
     })
@@ -134,7 +134,7 @@ Feature('Test promise-readable module for once("error") method', () => {
     })
 
     Then("promise returns undefined value", () => {
-      return expect(chunk).to.be.undefined
+      expect(chunk).to.be.undefined()
     })
   })
 })

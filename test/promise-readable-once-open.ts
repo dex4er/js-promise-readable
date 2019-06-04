@@ -31,7 +31,7 @@ Feature('Test promise-readable module for once("close") method', () => {
     })
 
     Then("promise returns result with fd argument", () => {
-      return expect(fd).to.equal(42)
+      expect(fd).to.equal(42)
     })
   })
 
@@ -59,7 +59,7 @@ Feature('Test promise-readable module for once("close") method', () => {
     })
 
     Then("promise is rejected", () => {
-      return expect(error)
+      expect(error)
         .to.be.an("error")
         .with.property("message", "once open after close")
     })
@@ -89,7 +89,7 @@ Feature('Test promise-readable module for once("close") method', () => {
     })
 
     Then("promise is rejected", () => {
-      return expect(error)
+      expect(error)
         .to.be.an("error")
         .with.property("message", "once open after destroy")
     })
@@ -119,7 +119,7 @@ Feature('Test promise-readable module for once("close") method', () => {
     })
 
     Then("promise is rejected", () => {
-      return expect(error)
+      expect(error)
         .to.be.an("error")
         .with.property("message", "boom")
     })
@@ -149,7 +149,7 @@ Feature('Test promise-readable module for once("close") method', () => {
     })
 
     Then("promise is rejected", () => {
-      return expect(error)
+      expect(error)
         .to.be.an("error")
         .with.property("message", "boom")
     })
