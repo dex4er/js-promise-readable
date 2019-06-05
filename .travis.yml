@@ -18,7 +18,7 @@ install:
 script:
   - echo "--reporter dot --color" > test/mocha.opts
   - if [ -n "$NPM_RUN_LINT" ]; then npm run lint; fi
-  - if [ -n "$NPM_PACK" ]; then npm pack; fi
+  - if [ -n "$NPM_PACK" ]; then npm pack; else npm run compile; fi
   - npm run test:spec
   - if [ -n "$NYC" ]; then npx nyc report --color && npx nyc report --reporter=text-lcov | npx coveralls; fi
   - git diff --stat --exit-code
