@@ -236,16 +236,18 @@ export class PromiseReadable<TReadable extends ReadableStream> implements AsyncI
       },
 
       next(): Promise<IteratorResult<Buffer | string>> {
-        return promiseReadable.read(size).then(value => {
-          if (wasEof) {
-            return {value: "", done: true}
-          } else if (value === undefined) {
-            wasEof = true
-            return {value: "", done: true}
-          } else {
-            return {value, done: false}
-          }
-        })
+        if (wasEof) {
+          return Promise.resolve({value: "", done: true})
+        } else {
+          return promiseReadable.read(size).then(value => {
+            if (value === undefined) {
+              wasEof = true
+              return {value: "", done: true}
+            } else {
+              return {value, done: false}
+            }
+          })
+        }
       },
     }
   }
