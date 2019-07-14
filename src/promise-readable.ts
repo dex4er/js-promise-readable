@@ -16,13 +16,7 @@ export class PromiseReadable<TReadable extends ReadableStream> {
 
   _errored?: Error
 
-  private readonly errorHandler: (err: Error) => void
-
   constructor(readonly stream: TReadable) {
-    this.errorHandler = (err: Error) => {
-      this._errored = err
-    }
-
     stream.on("error", this.errorHandler)
   }
 
@@ -147,17 +141,6 @@ export class PromiseReadable<TReadable extends ReadableStream> {
     return this
   }
 
-  destroy(): void {
-    if (this.stream) {
-      if (this.errorHandler) {
-        this.stream.removeListener("error", this.errorHandler)
-      }
-      if (typeof this.stream.destroy === "function") {
-        this.stream.destroy()
-      }
-    }
-  }
-
   once(event: "close" | "end" | "error"): Promise<void>
   once(event: "open"): Promise<number>
 
@@ -238,6 +221,19 @@ export class PromiseReadable<TReadable extends ReadableStream> {
 
       stream.on("error", errorHandler)
     })
+  }
+
+  destroy(): void {
+    if (this.stream) {
+      this.stream.removeListener("error", this.errorHandler)
+      if (typeof this.stream.destroy === "function") {
+        this.stream.destroy()
+      }
+    }
+  }
+
+  private readonly errorHandler = (err: Error): void => {
+    this._errored = err
   }
 }
 
