@@ -1,5 +1,7 @@
 /// <reference types="node" />
 
+import "core-js/modules/es.symbol.async-iterator"
+
 interface ReadableStream extends NodeJS.ReadableStream {
   closed?: boolean
   destroyed?: boolean
@@ -7,7 +9,7 @@ interface ReadableStream extends NodeJS.ReadableStream {
   destroy?(): void
 }
 
-export class PromiseReadable<TReadable extends ReadableStream> {
+export class PromiseReadable<TReadable extends ReadableStream> implements AsyncIterable<Buffer | string> {
   static [Symbol.hasInstance](instance: any): boolean {
     return instance._isPromiseReadable
   }
@@ -221,6 +223,35 @@ export class PromiseReadable<TReadable extends ReadableStream> {
 
       stream.on("error", errorHandler)
     })
+  }
+
+  iterate(size?: number): AsyncIterableIterator<Buffer | string> {
+    const promiseReadable = this
+
+    let wasEof = false
+
+    return {
+      [Symbol.asyncIterator](): AsyncIterableIterator<Buffer | string> {
+        return this
+      },
+
+      next(): Promise<IteratorResult<Buffer | string>> {
+        return promiseReadable.read(size).then(value => {
+          if (wasEof) {
+            return {value: "", done: true}
+          } else if (value === undefined) {
+            wasEof = true
+            return {value: "", done: true}
+          } else {
+            return {value, done: false}
+          }
+        })
+      },
+    }
+  }
+
+  [Symbol.asyncIterator](): AsyncIterableIterator<Buffer | string> {
+    return this.iterate()
   }
 
   destroy(): void {

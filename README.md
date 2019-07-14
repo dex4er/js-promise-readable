@@ -178,6 +178,24 @@ await promiseReadable.once("end")
 await promiseReadable.once("error") // throws error, undefined if ended
 ```
 
+### iterate
+
+```js
+for await (const chunk of promiseReadable.iterate(size)) {}
+```
+
+This method returns async iterator which returns a content of the stream
+chunk-by-chunk with defined size.
+
+### async iterator
+
+```js
+for await (const chunk of promiseReadable) {}
+```
+
+The `PromiseReadable` object is an async iterator which returns a content of
+the stream chunk-by-chunk with the default size.
+
 ### destroy
 
 ```js

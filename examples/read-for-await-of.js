@@ -15,7 +15,7 @@ async function main() {
 
   let total = 0
 
-  for (let chunk; (chunk = await rstream.read()); ) {
+  for await (const chunk of rstream) {
     console.log(`Read ${chunk.length} bytes chunk`)
     total += chunk.length
   }

@@ -1,5 +1,11 @@
 # Changelog
 
+## v5.0.0 2019-07-14
+
+- `PromiseReadable` implements `AsyncIterable` so it is possible to use
+  `for await (const chunk of promiseReadable)` loop.
+- New method `iterate` is provided.
+
 ## v4.2.1 2019-06-04
 
 - Minor tweaks in README.
