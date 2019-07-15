@@ -191,7 +191,7 @@ for await (const chunk of promiseReadable.iterate(chunkSize)) {}
 This method returns async iterator which returns a content of the stream
 chunk-by-chunk with defined `chunkSize`.
 
-### async iterator
+### Symbol.asyncIterator
 
 ```js
 for await (const chunk of promiseReadable) {}
