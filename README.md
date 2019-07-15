@@ -18,7 +18,8 @@ object fulfilled when [`open`](https://nodejs.org/api/fs.html#fs_event_open),
 occurred.
 
 The promisified stream provides async iterator so it is possible to use it with
-[`for await...of`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of) statement.
+[`for await...of`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of)
+statement.
 
 ## Requirements
 
