@@ -1,5 +1,9 @@
 # Changelog
 
+## v5.0.1 2019-07-15
+
+- Minor tweaks in README.
+
 ## v5.0.0 2019-07-14
 
 - `PromiseReadable` implements `AsyncIterable` so it is possible to use
