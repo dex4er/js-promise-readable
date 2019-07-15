@@ -17,6 +17,9 @@ object fulfilled when [`open`](https://nodejs.org/api/fs.html#fs_event_open),
 [`error`](https://nodejs.org/api/stream.html#stream_event_error_1) events
 occurred.
 
+The promisified stream provides async iterator so it is possible to use it with
+[`for await...of`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of) statement.
+
 ## Requirements
 
 This module requires Node >= 6.
@@ -181,11 +184,11 @@ await promiseReadable.once("error") // throws error, undefined if ended
 ### iterate
 
 ```js
-for await (const chunk of promiseReadable.iterate(size)) {}
+for await (const chunk of promiseReadable.iterate(chunkSize)) {}
 ```
 
 This method returns async iterator which returns a content of the stream
-chunk-by-chunk with defined size.
+chunk-by-chunk with defined `chunkSize`.
 
 ### async iterator
 
@@ -194,7 +197,7 @@ for await (const chunk of promiseReadable) {}
 ```
 
 The `PromiseReadable` object is an async iterator which returns a content of
-the stream chunk-by-chunk with the default size.
+the stream chunk-by-chunk with the default `chunkSize`.
 
 ### destroy
 
