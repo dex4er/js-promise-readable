@@ -26,11 +26,11 @@
     "core-js": "^3.2.1"
   },
   "devDependencies": {
-    "@types/chai": "^4.2.3",
+    "@types/chai": "^4.2.5",
     "@types/dirty-chai": "^2.0.2",
     "@types/mocha": "^5.2.7",
-    "@types/node": "^12.7.11",
-    "@types/semver": "^6.0.2",
+    "@types/node": "^12.12.7",
+    "@types/semver": "^6.2.0",
     "chai": "^4.2.0",
     "changelog-parser": "^2.8.0",
     "coveralls": "^3.0.6",
