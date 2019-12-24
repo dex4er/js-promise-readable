@@ -1,6 +1,6 @@
 {
   "name": "promise-readable",
-  "version": "5.0.3",
+  "version": "5.0.4",
   "description": "Return promise for readable stream",
   "main": "lib/promise-readable.js",
   "typings": "lib/promise-readable.d.ts",

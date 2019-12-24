@@ -39,7 +39,7 @@ export class PromiseReadable<TReadable extends ReadableStream> implements AsyncI
       const readableHandler = () => {
         const chunk = stream.read(size)
 
-        if (chunk) {
+        if (chunk !== null) {
           removeListeners()
           resolve(chunk)
         }

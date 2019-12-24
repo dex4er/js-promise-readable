@@ -1,5 +1,9 @@
 # Changelog
 
+## v5.0.4 2019-12-24
+
+- Chunk might be an empty string: fixes #32.
+
 ## v5.0.3 2019-10-07
 
 - Use `mocha-steps` for testing.

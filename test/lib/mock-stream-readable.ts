@@ -13,13 +13,14 @@ export class MockStreamReadable extends Readable {
 
   private encoding?: string
   private error?: Error
+  private nonEmpty?: boolean
 
   read(size: number = 1024): any {
     if (this.error) {
       this.emit("error", this.error)
       return null
     }
-    if (this.buffer.length === 0) {
+    if (!this.nonEmpty) {
       if (!this.ended) {
         this.ended = true
         this.emit("end")
@@ -49,6 +50,7 @@ export class MockStreamReadable extends Readable {
     return this
   }
   append(chunk: Buffer): void {
+    this.nonEmpty = true
     this.buffer = Buffer.concat([this.buffer, chunk])
   }
   setError(err: Error): void {

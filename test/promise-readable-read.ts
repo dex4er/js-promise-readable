@@ -98,8 +98,38 @@ Feature("Test promise-readable module for read method", () => {
     })
   })
 
+  Scenario("Read empty string from stream", () => {
+    let chunk: string | undefined
+    let promiseReadable: PromiseReadable<MockStreamReadable>
+    let stream: MockStreamReadable
+
+    Given("Readable object", () => {
+      stream = new MockStreamReadable()
+    })
+
+    And("PromiseReadable object", () => {
+      promiseReadable = new PromiseReadable(stream)
+    })
+
+    When("stream contains empty string", () => {
+      stream.append(Buffer.from(""))
+    })
+
+    And("I set encoding", () => {
+      promiseReadable.setEncoding("utf8")
+    })
+
+    And("I call read method", async () => {
+      chunk = (await promiseReadable.read()) as string | undefined
+    })
+
+    Then("promise returns undefined value", () => {
+      expect(chunk).to.equal("")
+    })
+  })
+
   Scenario("Read empty stream", () => {
-    let chunk: string | Buffer | undefined
+    let chunk: Buffer | undefined
     let promiseReadable: PromiseReadable<MockStreamReadable>
     let stream: MockStreamReadable
 
@@ -112,7 +142,7 @@ Feature("Test promise-readable module for read method", () => {
     })
 
     When("I call read method", async () => {
-      chunk = await promiseReadable.read()
+      chunk = (await promiseReadable.read()) as Buffer | undefined
     })
 
     Then("promise returns undefined value", () => {
