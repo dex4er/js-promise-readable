@@ -185,7 +185,8 @@ await promiseReadable.once("error") // throws error, undefined if ended
 ### iterate
 
 ```js
-for await (const chunk of promiseReadable.iterate(chunkSize)) {}
+for await (const chunk of promiseReadable.iterate(chunkSize)) {
+}
 ```
 
 This method returns async iterator which returns a content of the stream
@@ -194,7 +195,8 @@ chunk-by-chunk with defined `chunkSize`.
 ### Symbol.asyncIterator
 
 ```js
-for await (const chunk of promiseReadable) {}
+for await (const chunk of promiseReadable) {
+}
 ```
 
 The `PromiseReadable` object is an async iterator which returns a content of
