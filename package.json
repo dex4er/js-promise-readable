@@ -23,7 +23,7 @@
     "node": ">=6.0.0"
   },
   "dependencies": {
-    "core-js": "^3.6.0"
+    "core-js": "^3.6.1"
   },
   "devDependencies": {
     "@types/chai": "^4.2.7",
