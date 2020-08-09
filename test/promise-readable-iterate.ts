@@ -250,7 +250,9 @@ Feature("Test promise-readable module for iterate method", () => {
     })
 
     Then("iterator is rejected", () => {
-      expect(error).to.be.an("error").with.property("message", "boom")
+      expect(error)
+        .to.be.an("error")
+        .with.property("message", "boom")
     })
 
     And("PromiseReadable object can be destroyed", () => {
@@ -293,7 +295,9 @@ Feature("Test promise-readable module for iterate method", () => {
     })
 
     Then("iterator is rejected", () => {
-      expect(error).to.be.an("error").with.property("message", "boom")
+      expect(error)
+        .to.be.an("error")
+        .with.property("message", "boom")
     })
   })
 })
