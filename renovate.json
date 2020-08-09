@@ -5,7 +5,8 @@
     "group:definitelyTyped",
     "group:linters",
     "group:monorepos",
-    "group:testNonMajor"
+    "group:testNonMajor",
+    "group:typescript-eslintMonorepo"
   ],
   "rangeStrategy": "bump",
   "semanticCommits": false
