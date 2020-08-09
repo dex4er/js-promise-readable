@@ -3,11 +3,11 @@ import chai, {expect} from "chai"
 import dirtyChai from "dirty-chai"
 chai.use(dirtyChai)
 
+import {PromiseReadable} from "../src/promise-readable"
+
 import {And, Feature, Given, Scenario, Then, When} from "./lib/steps"
 
 import {MockStreamReadable} from "./lib/mock-stream-readable"
-
-import {PromiseReadable} from "../src/promise-readable"
 
 Feature('Test promise-readable module for once("error") method', () => {
   Scenario("Wait for error from stream without error", () => {
@@ -74,9 +74,7 @@ Feature('Test promise-readable module for once("error") method', () => {
     })
 
     Then("promise is rejected", () => {
-      expect(error)
-        .to.be.an("error")
-        .with.property("message", "boom")
+      expect(error).to.be.an("error").with.property("message", "boom")
     })
   })
 
@@ -108,9 +106,7 @@ Feature('Test promise-readable module for once("error") method', () => {
     })
 
     Then("promise is rejected", () => {
-      expect(error)
-        .to.be.an("error")
-        .with.property("message", "boom")
+      expect(error).to.be.an("error").with.property("message", "boom")
     })
   })
 

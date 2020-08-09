@@ -1,17 +1,18 @@
+import {PassThrough} from "stream"
+
 import chai, {expect} from "chai"
 
 import dirtyChai from "dirty-chai"
 chai.use(dirtyChai)
 
 import semver from "semver"
-import {PassThrough} from "stream"
+
+import {PromiseReadable} from "../src/promise-readable"
 
 import {And, Feature, Given, Scenario, Then} from "./lib/steps"
 
 import {MockPromiseDuplex} from "./lib/mock-promise-duplex"
 import {MockStreamReadable} from "./lib/mock-stream-readable"
-
-import {PromiseReadable} from "../src/promise-readable"
 
 if (semver.gte(process.version, "6.11.3")) {
   Feature("Test promise-readable with instanceof operator", () => {

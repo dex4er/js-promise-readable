@@ -16,11 +16,11 @@ async function main() {
   let total = 0
 
   for (let chunk; (chunk = await rstream.read()); ) {
-    console.log(`Read ${chunk.length} bytes chunk`)
+    console.info(`Read ${chunk.length} bytes chunk`)
     total += chunk.length
   }
 
-  console.log(`Read ${total} bytes in total`)
+  console.info(`Read ${total} bytes in total`)
 
   rstream.destroy()
 }

@@ -3,11 +3,11 @@ import chai, {expect} from "chai"
 import dirtyChai from "dirty-chai"
 chai.use(dirtyChai)
 
+import {PromiseReadable} from "../src/promise-readable"
+
 import {And, Feature, Given, Scenario, Then, When} from "./lib/steps"
 
 import {MockStreamReadable} from "./lib/mock-stream-readable"
-
-import {PromiseReadable} from "../src/promise-readable"
 
 Feature("Test promise-readable module for async iterator", () => {
   Scenario("Read chunks from stream", () => {
@@ -165,9 +165,7 @@ Feature("Test promise-readable module for async iterator", () => {
       promiseReadable = new PromiseReadable(stream)
     })
 
-    When("stream is closed", () => {
-      return stream.close()
-    })
+    When("stream is closed", () => stream.close())
 
     And("I get an iterator", () => {
       iterator = promiseReadable[Symbol.asyncIterator]()
@@ -252,9 +250,7 @@ Feature("Test promise-readable module for async iterator", () => {
     })
 
     Then("iterator is rejected", () => {
-      expect(error)
-        .to.be.an("error")
-        .with.property("message", "boom")
+      expect(error).to.be.an("error").with.property("message", "boom")
     })
 
     And("PromiseReadable object can be destroyed", () => {
@@ -297,9 +293,7 @@ Feature("Test promise-readable module for async iterator", () => {
     })
 
     Then("iterator is rejected", () => {
-      expect(error)
-        .to.be.an("error")
-        .with.property("message", "boom")
+      expect(error).to.be.an("error").with.property("message", "boom")
     })
   })
 })

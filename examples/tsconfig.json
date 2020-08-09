@@ -2,8 +2,6 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "baseUrl": "../",
-    "lib": ["es2018"],
-    "target": "es2018",
     "noEmit": true
   },
   "exclude": []

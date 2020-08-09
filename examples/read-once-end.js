@@ -2,15 +2,15 @@
 
 "use strict"
 
-var fs = require("fs")
+const fs = require("fs")
 
-var PromiseReadable = require("../lib/promise-readable").default
+const {PromiseReadable} = require("../lib/promise-readable")
 
-var rstream = new PromiseReadable(fs.createReadStream(process.argv[2] || "/etc/hosts"))
+const rstream = new PromiseReadable(fs.createReadStream(process.argv[2] || "/etc/hosts"))
 
 rstream.stream.pipe(process.stdout)
 
-rstream.once("end").then(function() {
+rstream.once("end").then(function () {
   console.info("-- End of file")
   rstream.destroy()
 })

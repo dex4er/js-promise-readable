@@ -1,10 +1,10 @@
 import {expect} from "chai"
 
+import {PromiseReadable} from "../src/promise-readable"
+
 import {And, Feature, Given, Scenario, Then, When} from "./lib/steps"
 
 import {MockStreamReadable} from "./lib/mock-stream-readable"
-
-import {PromiseReadable} from "../src/promise-readable"
 
 Feature('Test promise-readable module for once("close") method', () => {
   Scenario("Wait for open from stream", () => {
@@ -59,9 +59,7 @@ Feature('Test promise-readable module for once("close") method', () => {
     })
 
     Then("promise is rejected", () => {
-      expect(error)
-        .to.be.an("error")
-        .with.property("message", "once open after close")
+      expect(error).to.be.an("error").with.property("message", "once open after close")
     })
   })
 
@@ -89,9 +87,7 @@ Feature('Test promise-readable module for once("close") method', () => {
     })
 
     Then("promise is rejected", () => {
-      expect(error)
-        .to.be.an("error")
-        .with.property("message", "once open after destroy")
+      expect(error).to.be.an("error").with.property("message", "once open after destroy")
     })
   })
 
@@ -119,9 +115,7 @@ Feature('Test promise-readable module for once("close") method', () => {
     })
 
     Then("promise is rejected", () => {
-      expect(error)
-        .to.be.an("error")
-        .with.property("message", "boom")
+      expect(error).to.be.an("error").with.property("message", "boom")
     })
   })
 
@@ -149,9 +143,7 @@ Feature('Test promise-readable module for once("close") method', () => {
     })
 
     Then("promise is rejected", () => {
-      expect(error)
-        .to.be.an("error")
-        .with.property("message", "boom")
+      expect(error).to.be.an("error").with.property("message", "boom")
     })
   })
 })

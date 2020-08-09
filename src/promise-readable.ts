@@ -10,16 +10,16 @@ interface ReadableStream extends NodeJS.ReadableStream {
 }
 
 export class PromiseReadable<TReadable extends ReadableStream> implements AsyncIterable<Buffer | string> {
-  static [Symbol.hasInstance](instance: any): boolean {
-    return instance._isPromiseReadable
-  }
-
   readonly _isPromiseReadable: boolean = true
 
   _errored?: Error
 
   constructor(readonly stream: TReadable) {
     stream.on("error", this.errorHandler)
+  }
+
+  static [Symbol.hasInstance](instance: any): boolean {
+    return instance._isPromiseReadable
   }
 
   read(size?: number): Promise<Buffer | string | undefined> {
