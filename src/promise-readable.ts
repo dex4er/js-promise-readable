@@ -138,7 +138,7 @@ export class PromiseReadable<TReadable extends ReadableStream> implements AsyncI
     })
   }
 
-  setEncoding(encoding: string): this {
+  setEncoding(encoding: BufferEncoding): this {
     this.stream.setEncoding(encoding)
     return this
   }

@@ -11,7 +11,7 @@ export class MockStreamReadable extends Readable {
 
   private buffer = Buffer.alloc(0)
 
-  private encoding?: string
+  private encoding?: BufferEncoding
   private error?: Error
   private nonEmpty?: boolean
 
@@ -45,7 +45,7 @@ export class MockStreamReadable extends Readable {
     this.paused = false
     return this
   }
-  setEncoding(encoding: string): this {
+  setEncoding(encoding: BufferEncoding): this {
     this.encoding = encoding
     return this
   }
