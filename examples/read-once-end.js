@@ -10,7 +10,7 @@ const rstream = new PromiseReadable(fs.createReadStream(process.argv[2] || "/etc
 
 rstream.stream.pipe(process.stdout)
 
-rstream.once("end").then(function() {
+rstream.once("end").then(function () {
   console.info("-- End of file")
   rstream.destroy()
 })
