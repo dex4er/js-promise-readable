@@ -4,7 +4,7 @@
 
 - Requires Node >= 10.
 - Converted from tslint to eslint.
-- Uses @types/node v14.npm
+- Uses @types/node v14
 
 ## v5.0.4 2019-12-24
 
