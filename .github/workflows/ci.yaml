@@ -1,0 +1,78 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - "**"
+  pull_request:
+    branches:
+      - main
+      - master
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  node_current:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: current
+
+      - name: Install required dependencies
+        run: npm install
+
+      - name: Audit dependencies
+        run: npm audit
+
+      - name: Run linters
+        run: npm run lint
+
+      - name: Run packer
+        run: npm run pack
+
+      - name: Run tests with coverage
+        run: npx nyc --no-clean --reporter=lcov npm run test:spec -- --reporter dot --color
+
+      - name: Show coverage report
+        run: npx nyc report --color && npx nyc report --reporter=text-lcov | npx coveralls
+
+      - name: Clean after tests
+        run: npm run clean
+
+      - name: Check untracked files
+        run: for f in $(git ls-files --others --exclude-standard); do git diff --no-index --stat --exit-code /dev/null $f; done
+
+  node:
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version:
+          - "22"
+          - "20"
+          - "18"
+          - "16"
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install required dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm run test:spec -- --reporter dot --color
