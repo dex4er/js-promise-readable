@@ -35,8 +35,8 @@ jobs:
       - name: Run linters
         run: npm run lint
 
-      - name: Run packer
-        run: npm run pack
+      - name: Pack
+        run: npm pack
 
       - name: Run tests with coverage
         run: npm run test:coverage
