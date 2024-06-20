@@ -42,7 +42,7 @@ jobs:
         run: npm run test:coverage
 
       - name: Send coverage report
-        run: coveralls < coverage/lcov.info
+        run: npx coveralls < coverage/lcov.info
 
       - name: Clean after tests
         run: npm run clean
