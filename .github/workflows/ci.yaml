@@ -39,10 +39,15 @@ jobs:
         run: npm pack
 
       - name: Run tests with coverage
-        run: npm run test:coverage
+        run: npm run test:coverage:spec -- --reporter dot --color
+
+      - name: Show coverage report
+        run: npm run test:coverage:report
 
       - name: Send coverage report
         run: npx coveralls < coverage/lcov.info
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
 
       - name: Clean after tests
         run: npm run clean

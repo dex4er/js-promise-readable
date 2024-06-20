@@ -69,11 +69,14 @@
     "lint:eslint": "eslint .",
     "lint:prettier": "prettier --ignore-path .gitignore --list-different '**/*.{js,json,md,ts,yml}'",
     "lint:markdownlint": "markdownlint \"*.md\"",
+    "postpublish": "node -e \"require(\\\"changelog-parser\\\")(\\\"CHANGELOG.md\\\").then(ch => console.log(ch.versions.filter(v => v.version === \\\"$npm_package_version\\\").map(v => \\\"v$npm_package_version\\n\\n\\\" + v.body).concat(\\\"Release v$npm_package_version\\\")[0]))\" | xargs -0 git tag v$npm_package_version -a -m && git push --tags",
     "prepack": "npm run compile",
     "prepublishOnly": "npm run test",
     "pretest": "npm run lint",
     "test": "npm run test:spec",
     "test:spec": "mocha",
-    "test:coverage": "c8 --no-clean --reporter=lcov npm run test:spec && c8 report --reporter=text-summary --color"
+    "test:coverage": "npm run test:coverage:spec && npm run test:coverage:report",
+    "test:coverage:spec": "c8 --no-clean --reporter=lcov npm run test:spec",
+    "test:coverage:report": "c8 report --reporter=text-summary --color"
   }
 }
