@@ -39,7 +39,7 @@ jobs:
         run: npm pack
 
       - name: Run tests with coverage
-        run: npm run test:coverage:spec -- --reporter dot --color
+        run: npm run test:coverage:spec -- -- --reporter dot --color
 
       - name: Show coverage report
         run: npm run test:coverage:report
