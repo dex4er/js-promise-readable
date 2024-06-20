@@ -35,7 +35,15 @@ jobs:
       - name: Install required dependencies
         run: npm install
 
-      - name: Publish
+      - name: Publish package
         run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
+
+      - name: Parse changelog
+        run: sed -n -e '/^## /{n; :a; /^## /q; p; n; ba}' -e 1d CHANGELOG.md | sed '1d' > ${{ github.workspace }}-CHANGELOG.txt
+
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          body_path: ${{ github.workspace }}-CHANGELOG.txt
