@@ -1,5 +1,9 @@
 # Changelog
 
+## v7.0.1 2024-06-20
+
+- Removed index.js as the module is ESM now.
+
 ## v7.0.0 2024-06-20
 
 - Converted to ESM module.

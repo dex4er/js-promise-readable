@@ -1,6 +1,6 @@
 {
   "name": "promise-readable",
-  "version": "7.0.0",
+  "version": "7.0.1",
   "description": "Return promise for readable stream",
   "type": "module",
   "exports": {
