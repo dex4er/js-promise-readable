@@ -23,6 +23,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Check if package version matches
+        run: test "${GITHUB_REF##*/}" = "v$(jq -r .version package.json)"
+
       - name: Setup node
         uses: actions/setup-node@v4
         with:
