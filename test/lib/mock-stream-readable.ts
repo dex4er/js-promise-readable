@@ -3,7 +3,7 @@ import {Readable} from "stream"
 export class MockStreamReadable extends Readable {
   readable = true
 
-  closed = false
+  _closed = false
   destroyed = false
 
   ended = false
@@ -14,6 +14,11 @@ export class MockStreamReadable extends Readable {
   private encoding?: BufferEncoding
   private error?: Error
   private nonEmpty?: boolean
+
+  // @ts-expect-error in mock class
+  get closed() {
+    return this._closed
+  }
 
   read(size: number = 1024): any {
     if (this.error) {
@@ -32,10 +37,11 @@ export class MockStreamReadable extends Readable {
     return this.encoding ? chunk.toString(this.encoding) : chunk
   }
   close(): void {
-    this.closed = true
+    this._closed = true
   }
-  destroy(): void {
+  destroy(_error?: Error): this {
     this.destroyed = true
+    return this
   }
   pause(): this {
     this.paused = true

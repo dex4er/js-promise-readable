@@ -21,13 +21,13 @@ object fulfilled when [`open`](https://nodejs.org/api/fs.html#fs_event_open),
 [`error`](https://nodejs.org/api/stream.html#stream_event_error_1) events
 occurred.
 
-The promisified stream provides async iterator so it is possible to use it with
-[`for await...of`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of)
+The promisified stream provides an async iterator so it is possible to use it
+with [`for await...of`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of)
 statement.
 
 ## Requirements
 
-This module requires Node >= 6.
+This module requires Node >= 16.
 
 ## Installation
 
@@ -44,15 +44,7 @@ npm install -D @types/node
 ## Usage
 
 ```js
-const {PromiseReadable} = require("promise-readable")
-```
-
-_Typescript_:
-
-```ts
 import PromiseReadable from "promise-readable"
-// or
-import {PromiseReadable} from "promise-readable"
 ```
 
 ### constructor
@@ -66,16 +58,6 @@ const promiseReadable = new PromiseReadable(stream)
 _Example:_
 
 ```js
-const fs = require("fs")
-const {PromiseReadable} = require("promise-readable")
-
-const stream = fs.createReadStream("/etc/hosts")
-const promiseReadable = new PromiseReadable(stream)
-```
-
-_Typescript:_
-
-```ts
 import fs from "fs"
 import PromiseReadable from "promise-readable"
 
@@ -103,9 +85,9 @@ console.log(promiseReadable.stream.flags)
 const chunk = await promiseReadable.read(chunkSize)
 ```
 
-This method returns `Promise` which is fulfilled when stream can return one
-chunk (by `read` method or `data` event) or stream is ended (`end` or `close`
-events).
+This method returns `Promise` which is fulfilled when the stream can return
+one chunk (by `read` method or `data` event) or the stream is ended (`end` or
+`close` events).
 
 _Example:_
 
@@ -131,8 +113,8 @@ console.log("stream is ended")
 const content = await promiseReadable.readAll()
 ```
 
-This method returns `Promise` which is fulfilled when stream is ended or
-closed. It is resolved to `undefined` value if stream is already ended or
+This method returns `Promise` which is fulfilled when the stream is ended or
+closed. It is resolved to `undefined` value if the stream is already ended or
 closed.
 
 The content from the stream is buffered and then `Promise` returns this
@@ -144,10 +126,10 @@ concatenated content.
 promiseReadable = promiseReadable.setEncoding(encoding)
 ```
 
-By default `read` and `readAll` methods returns `Buffer` objects.
+By default `read` and `readAll` methods return `Buffer` objects.
 
-This method sets the character encoding for data read from the stream. It might
-be used if original stream does not provide `encoding` option.
+This method sets the character encoding for data read from the stream. It
+might be used if the original stream does not provide `encoding` option.
 
 The method returns this object.
 
@@ -166,11 +148,11 @@ const asString = await promiseReadable.read()
 const result = await promiseReadable.once(event)
 ```
 
-This method returns `Promise` which is fulfilled when stream emits `event`. The
-result of this event is returned or `undefined` value if stream is already
-ended.
+This method returns `Promise` which is fulfilled when the stream emits
+`event`. The result of this event is returned or `undefined`` value if the
+stream has already ended.
 
-The promise will reject on error.
+The promise will be rejected on error.
 
 _Example:_
 
@@ -193,8 +175,8 @@ for await (const chunk of promiseReadable.iterate(chunkSize)) {
 }
 ```
 
-This method returns async iterator which returns a content of the stream
-chunk-by-chunk with defined `chunkSize`.
+This method returns an async iterator which returns the content of the stream
+chunk-by-chunk with a defined `chunkSize`.
 
 ### Symbol.asyncIterator
 
@@ -203,7 +185,7 @@ for await (const chunk of promiseReadable) {
 }
 ```
 
-The `PromiseReadable` object is an async iterator which returns a content of
+The `PromiseReadable` object is an async iterator that returns the content of
 the stream chunk-by-chunk with the default `chunkSize`.
 
 ### destroy
@@ -223,6 +205,6 @@ This method calls `destroy` method on stream and cleans up all own handlers.
 
 ## License
 
-Copyright (c) 2017-2019 Piotr Roszatycki <mailto:piotr.roszatycki@gmail.com>
+Copyright (c) 2017-2024 Piotr Roszatycki <mailto:piotr.roszatycki@gmail.com>
 
 [MIT](https://opensource.org/licenses/MIT)

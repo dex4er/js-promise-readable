@@ -1,7 +1,4 @@
-import chai, {expect} from "chai"
-
-import dirtyChai from "dirty-chai"
-chai.use(dirtyChai)
+import {expect} from "chai"
 
 import {PromiseReadable} from "../src/promise-readable"
 
@@ -146,7 +143,7 @@ Feature("Test promise-readable module for read method", () => {
     })
 
     Then("promise returns undefined value", () => {
-      expect(chunk).to.be.undefined()
+      expect(chunk).to.be.undefined
     })
   })
 
@@ -170,7 +167,7 @@ Feature("Test promise-readable module for read method", () => {
     })
 
     Then("promise returns undefined value", () => {
-      expect(chunk).to.be.undefined()
+      expect(chunk).to.be.undefined
     })
   })
 
@@ -196,7 +193,7 @@ Feature("Test promise-readable module for read method", () => {
     })
 
     Then("promise returns undefined value", () => {
-      expect(chunk).to.be.undefined()
+      expect(chunk).to.be.undefined
     })
 
     And("PromiseReadable object can be destroyed", () => {
@@ -209,7 +206,7 @@ Feature("Test promise-readable module for read method", () => {
   })
 
   Scenario("Read stream with error", () => {
-    let error: Error
+    let error: any
     let promiseReadable: PromiseReadable<MockStreamReadable>
     let stream: MockStreamReadable
 
@@ -245,7 +242,7 @@ Feature("Test promise-readable module for read method", () => {
   })
 
   Scenario("Read stream with emitted error", () => {
-    let error: Error
+    let error: any
     let promiseReadable: PromiseReadable<MockStreamReadable>
     let stream: MockStreamReadable
 

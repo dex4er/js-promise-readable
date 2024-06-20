@@ -1,13 +1,10 @@
-import chai, {expect} from "chai"
+import {expect} from "chai"
 
-import dirtyChai from "dirty-chai"
-chai.use(dirtyChai)
+import {PromiseReadable} from "../src/promise-readable.js"
 
-import {PromiseReadable} from "../src/promise-readable"
+import {And, Feature, Given, Scenario, Then, When} from "./lib/steps.js"
 
-import {And, Feature, Given, Scenario, Then, When} from "./lib/steps"
-
-import {MockStreamReadable} from "./lib/mock-stream-readable"
+import {MockStreamReadable} from "./lib/mock-stream-readable.js"
 
 Feature('Test promise-readable module for once("end") method', () => {
   Scenario("Wait for end from stream", () => {
@@ -42,12 +39,12 @@ Feature('Test promise-readable module for once("end") method', () => {
     })
 
     Then("promise returns no result", () => {
-      expect(ended).to.be.true()
+      expect(ended).to.be.true
     })
   })
 
   Scenario("Wait for end from stream with error", () => {
-    let error: Error
+    let error: any
     let promiseReadable: PromiseReadable<MockStreamReadable>
     let stream: MockStreamReadable
 
@@ -79,7 +76,7 @@ Feature('Test promise-readable module for once("end") method', () => {
   })
 
   Scenario("Wait for end from stream with emitted error", () => {
-    let error: Error
+    let error: any
     let promiseReadable: PromiseReadable<MockStreamReadable>
     let stream: MockStreamReadable
 

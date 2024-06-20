@@ -1,10 +1,10 @@
 import {expect} from "chai"
 
-import {PromiseReadable} from "../src/promise-readable"
+import {PromiseReadable} from "../src/promise-readable.js"
 
-import {And, Feature, Given, Scenario, Then, When} from "./lib/steps"
+import {And, Feature, Given, Scenario, Then, When} from "./lib/steps.js"
 
-import {MockStreamReadable} from "./lib/mock-stream-readable"
+import {MockStreamReadable} from "./lib/mock-stream-readable.js"
 
 Feature('Test promise-readable module for once("close") method', () => {
   Scenario("Wait for open from stream", () => {
@@ -36,7 +36,7 @@ Feature('Test promise-readable module for once("close") method', () => {
   })
 
   Scenario("Wait for open from closed stream", () => {
-    let error: Error
+    let error: any
     let promiseReadable: PromiseReadable<MockStreamReadable>
     let stream: MockStreamReadable
 
@@ -64,7 +64,7 @@ Feature('Test promise-readable module for once("close") method', () => {
   })
 
   Scenario("Wait for open from destroyed stream", () => {
-    let error: Error
+    let error: any
     let promiseReadable: PromiseReadable<MockStreamReadable>
     let stream: MockStreamReadable
 
@@ -92,7 +92,7 @@ Feature('Test promise-readable module for once("close") method', () => {
   })
 
   Scenario("Wait for open from stream with error", () => {
-    let error: Error
+    let error: any
     let promiseReadable: PromiseReadable<MockStreamReadable>
     let stream: MockStreamReadable
 
@@ -120,7 +120,7 @@ Feature('Test promise-readable module for once("close") method', () => {
   })
 
   Scenario("Wait for open from stream with emitted error", () => {
-    let error: Error
+    let error: any
     let promiseReadable: PromiseReadable<MockStreamReadable>
     let stream: MockStreamReadable
 

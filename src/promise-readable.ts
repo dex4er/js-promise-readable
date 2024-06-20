@@ -1,7 +1,5 @@
 /// <reference types="node" />
 
-import "core-js/modules/es.symbol.async-iterator"
-
 interface ReadableStream extends NodeJS.ReadableStream {
   closed?: boolean
   destroyed?: boolean
@@ -33,7 +31,7 @@ export class PromiseReadable<TReadable extends ReadableStream> implements AsyncI
       }
 
       if (!stream.readable || stream.closed || stream.destroyed) {
-        return resolve()
+        return resolve(undefined)
       }
 
       const readableHandler = () => {
@@ -47,12 +45,12 @@ export class PromiseReadable<TReadable extends ReadableStream> implements AsyncI
 
       const closeHandler = () => {
         removeListeners()
-        resolve()
+        resolve(undefined)
       }
 
       const endHandler = () => {
         removeListeners()
-        resolve()
+        resolve(undefined)
       }
 
       const errorHandler = (err: Error) => {
@@ -90,7 +88,7 @@ export class PromiseReadable<TReadable extends ReadableStream> implements AsyncI
       }
 
       if (!stream.readable || stream.closed || stream.destroyed) {
-        return resolve()
+        return resolve(undefined)
       }
 
       const dataHandler = (chunk: Buffer | string) => {
@@ -103,7 +101,7 @@ export class PromiseReadable<TReadable extends ReadableStream> implements AsyncI
 
       const closeHandler = () => {
         removeListeners()
-        resolve()
+        resolve(undefined)
       }
 
       const endHandler = () => {

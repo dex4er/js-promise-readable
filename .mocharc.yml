@@ -1,9 +1,10 @@
 color: true
 diff: true
+loader: ts-node/esm
+no-warnings: true
 package: ./package.json
-require:
-  - ts-node/register
-  - source-map-support/register
-  - mocha-steps
+spec:
+  - test/*.ts
 timeout: 90000
+throw-deprecation: true
 ui: bdd

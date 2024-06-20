@@ -1,13 +1,10 @@
-import chai, {expect} from "chai"
+import {expect} from "chai"
 
-import dirtyChai from "dirty-chai"
-chai.use(dirtyChai)
+import {PromiseReadable} from "../src/promise-readable.js"
 
-import {PromiseReadable} from "../src/promise-readable"
+import {And, Feature, Given, Scenario, Then, When} from "./lib/steps.js"
 
-import {And, Feature, Given, Scenario, Then, When} from "./lib/steps"
-
-import {MockStreamReadable} from "./lib/mock-stream-readable"
+import {MockStreamReadable} from "./lib/mock-stream-readable.js"
 
 Feature("Test promise-readable module for readAll method", () => {
   Scenario("Read all from stream", () => {
@@ -116,7 +113,7 @@ Feature("Test promise-readable module for readAll method", () => {
     })
 
     Then("promise returns undefined value", () => {
-      expect(content).to.be.undefined()
+      expect(content).to.be.undefined
     })
   })
 
@@ -142,12 +139,12 @@ Feature("Test promise-readable module for readAll method", () => {
     })
 
     Then("promise returns undefined value", () => {
-      expect(content).to.be.undefined()
+      expect(content).to.be.undefined
     })
   })
 
   Scenario("Read all from stream with error", () => {
-    let error: Error
+    let error: any
     let promiseReadable: PromiseReadable<MockStreamReadable>
     let stream: MockStreamReadable
 
@@ -179,7 +176,7 @@ Feature("Test promise-readable module for readAll method", () => {
   })
 
   Scenario("Read all from stream with emitted error", () => {
-    let error: Error
+    let error: any
     let promiseReadable: PromiseReadable<MockStreamReadable>
     let stream: MockStreamReadable
 

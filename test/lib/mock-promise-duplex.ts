@@ -1,6 +1,6 @@
 import {Duplex} from "stream"
 
-import {PromiseReadable} from "../../src/promise-readable"
+import {PromiseReadable} from "../../src/promise-readable.js"
 
 export class MockPromiseDuplex<TDuplex extends Duplex> extends PromiseReadable<TDuplex> {
   static readonly _isPromiseWritable: boolean = true

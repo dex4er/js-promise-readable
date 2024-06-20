@@ -30,7 +30,7 @@ jobs:
         run: npm install
 
       - name: Audit dependencies
-        run: npm audit
+        run: npm audit --audit-level high
 
       - name: Run linters
         run: npm run lint
@@ -39,10 +39,10 @@ jobs:
         run: npm run pack
 
       - name: Run tests with coverage
-        run: npx nyc --no-clean --reporter=lcov npm run test:spec -- --reporter dot --color
+        run: npm run test:coverage
 
-      - name: Show coverage report
-        run: npx nyc report --color && npx nyc report --reporter=text-lcov | npx coveralls
+      - name: Send coverage report
+        run: coveralls < coverage/lcov.info
 
       - name: Clean after tests
         run: npm run clean

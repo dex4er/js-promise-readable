@@ -1,13 +1,10 @@
-import chai, {expect} from "chai"
+import {expect} from "chai"
 
-import dirtyChai from "dirty-chai"
-chai.use(dirtyChai)
+import {PromiseReadable} from "../src/promise-readable.js"
 
-import {PromiseReadable} from "../src/promise-readable"
+import {And, Feature, Given, Scenario, Then, When} from "./lib/steps.js"
 
-import {And, Feature, Given, Scenario, Then, When} from "./lib/steps"
-
-import {MockStreamReadable} from "./lib/mock-stream-readable"
+import {MockStreamReadable} from "./lib/mock-stream-readable.js"
 
 Feature("Test promise-readable module for iterate method", () => {
   Scenario("Read chunks from stream", () => {
@@ -37,7 +34,7 @@ Feature("Test promise-readable module for iterate method", () => {
     })
 
     Then("iterator is not done", () => {
-      expect(result.done).to.be.false()
+      expect(result.done).to.be.false
     })
 
     And("iterator returns chunk", () => {
@@ -53,7 +50,7 @@ Feature("Test promise-readable module for iterate method", () => {
     })
 
     Then("iterator is not done", () => {
-      expect(result.done).to.be.false()
+      expect(result.done).to.be.false
     })
 
     And("iterator returns another chunk", () => {
@@ -100,7 +97,7 @@ Feature("Test promise-readable module for iterate method", () => {
     })
 
     Then("iterator is not done", () => {
-      expect(result.done).to.be.false()
+      expect(result.done).to.be.false
     })
 
     And("iterator returns chunk", () => {
@@ -116,7 +113,7 @@ Feature("Test promise-readable module for iterate method", () => {
     })
 
     Then("iterator is not done", () => {
-      expect(result.done).to.be.false()
+      expect(result.done).to.be.false
     })
 
     And("iterator returns another chunk", () => {
@@ -147,7 +144,7 @@ Feature("Test promise-readable module for iterate method", () => {
     })
 
     Then("iterator is done", () => {
-      expect(result.done).to.be.true()
+      expect(result.done).to.be.true
     })
   })
 
@@ -176,7 +173,7 @@ Feature("Test promise-readable module for iterate method", () => {
     })
 
     Then("iterator is done", () => {
-      expect(result.done).to.be.true()
+      expect(result.done).to.be.true
     })
   })
 
@@ -207,7 +204,7 @@ Feature("Test promise-readable module for iterate method", () => {
     })
 
     Then("iterator is done", () => {
-      expect(result.done).to.be.true()
+      expect(result.done).to.be.true
     })
 
     And("PromiseReadable object can be destroyed", () => {
@@ -221,7 +218,7 @@ Feature("Test promise-readable module for iterate method", () => {
 
   Scenario("Read stream with error", () => {
     let iterator: AsyncIterableIterator<Buffer | string>
-    let error: Error
+    let error: any
     let promiseReadable: PromiseReadable<MockStreamReadable>
     let stream: MockStreamReadable
 
@@ -264,7 +261,7 @@ Feature("Test promise-readable module for iterate method", () => {
 
   Scenario("Read stream with emitted error", () => {
     let iterator: AsyncIterableIterator<Buffer | string>
-    let error: Error
+    let error: any
     let promiseReadable: PromiseReadable<MockStreamReadable>
     let stream: MockStreamReadable
 

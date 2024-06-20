@@ -1,7 +1,14 @@
 {
   "name": "promise-readable",
-  "version": "6.0.0",
+  "version": "7.0.0",
   "description": "Return promise for readable stream",
+  "type": "module",
+  "exports": {
+    ".": {
+      "default": "./lib/promise-readable.js",
+      "typings": "./lib/promise-readable.d.ts"
+    }
+  },
   "main": "lib/promise-readable.js",
   "typings": "lib/promise-readable.d.ts",
   "repository": {
@@ -20,40 +27,35 @@
   },
   "homepage": "http://github.com/dex4er/js-promise-readable",
   "engines": {
-    "node": ">=10.0.0"
-  },
-  "dependencies": {
-    "core-js": "~3.6.5"
+    "node": ">=16.0.0"
   },
   "devDependencies": {
-    "@types/chai": "~4.2.12",
-    "@types/core-js": "~2.5.3",
-    "@types/dirty-chai": "~2.0.2",
-    "@types/mocha": "~8.0.1",
-    "@types/node": "~14.0.27",
-    "@types/semver": "~7.3.1",
-    "@typescript-eslint/eslint-plugin": "~3.8.0",
-    "@typescript-eslint/eslint-plugin-tslint": "~3.8.0",
-    "@typescript-eslint/parser": "~3.8.0",
-    "chai": "~4.2.0",
-    "changelog-parser": "~2.8.0",
-    "coveralls": "~3.1.0",
-    "cross-env": "~7.0.2",
-    "dirty-chai": "~2.0.1",
-    "eslint": "~7.6.0",
-    "eslint-config-prettier": "~6.11.0",
-    "eslint-plugin-import": "~2.22.0",
-    "eslint-plugin-jsdoc": "~30.2.1",
-    "eslint-plugin-node": "~11.1.0",
-    "markdownlint-cli": "~0.23.2",
-    "mocha": "~8.1.1",
-    "mocha-steps": "~1.3.0",
-    "nyc": "~15.1.0",
-    "prettier": "~2.0.5",
-    "semver": "~7.3.2",
-    "shx": "~0.3.2",
-    "ts-node": "~8.10.2",
-    "typescript": "~3.9.7"
+    "@eslint/js": "^9.5.0",
+    "@tsconfig/node16": "^16.1.3",
+    "@types/chai": "^4.3.16",
+    "@types/core-js": "^2.5.8",
+    "@types/eslint__js": "^8.42.3",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "^20.14.6",
+    "@types/semver": "^7.5.8",
+    "@typescript-eslint/parser": "^7.13.1",
+    "c8": "^10.1.2",
+    "chai": "^5.1.1",
+    "changelog-parser": "^3.0.1",
+    "coveralls": "^3.1.1",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "markdownlint-cli": "^0.41.0",
+    "mocha": "^10.4.0",
+    "mocha-steps": "^1.3.0",
+    "prettier": "^3.3.2",
+    "semver": "^7.6.2",
+    "shx": "^0.3.4",
+    "ts-node": "^10.9.2",
+    "tslib": "^2.6.3",
+    "typescript": "^5.4.5",
+    "typescript-eslint": "^7.13.1"
   },
   "scripts": {
     "compile": "tsc --pretty --project .",
@@ -64,15 +66,14 @@
     "lint:tsc:examples": "tsc --noEmit --pretty --project examples",
     "lint:tsc:src": "tsc --noEmit --pretty --project .",
     "lint:tsc:test": "tsc --noEmit --pretty --project test",
-    "lint:eslint": "eslint --ext .js,.ts .",
+    "lint:eslint": "eslint .",
     "lint:prettier": "prettier --ignore-path .gitignore --list-different '**/*.{js,json,md,ts,yml}'",
     "lint:markdownlint": "markdownlint \"*.md\"",
-    "postpublish": "node -e \"require(\\\"changelog-parser\\\")(\\\"CHANGELOG.md\\\").then(ch => console.log(ch.versions.filter(v => v.version === \\\"$npm_package_version\\\").map(v => \\\"v$npm_package_version\\n\\n\\\" + v.body).concat(\\\"Release v$npm_package_version\\\")[0]))\" | xargs -0 git tag v$npm_package_version -a -m && git push --tags",
     "prepack": "npm run compile",
     "prepublishOnly": "npm run test",
     "pretest": "npm run lint",
     "test": "npm run test:spec",
-    "test:spec": "$NYC mocha \"test/*.ts\"",
-    "test:coverage": "npm run clean:coverage && cross-env NYC=\"nyc --no-clean --reporter=lcov\" npm run test:spec && nyc report --reporter=text-summary --color"
+    "test:spec": "mocha",
+    "test:coverage": "c8 --no-clean --reporter=lcov npm run test:spec && c8 report --reporter=text-summary --color"
   }
 }

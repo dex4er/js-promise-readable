@@ -1,10 +1,8 @@
 #!/usr/bin/env node
 
-"use strict"
+import fs from "fs"
 
-const fs = require("fs")
-
-const {PromiseReadable} = require("../lib/promise-readable")
+import PromiseReadable from "../lib/promise-readable.js"
 
 const rstream = new PromiseReadable(fs.createReadStream(process.argv[2] || "/etc/hosts"))
 
