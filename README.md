@@ -58,7 +58,7 @@ const promiseReadable = new PromiseReadable(stream)
 _Example:_
 
 ```js
-import fs from "fs"
+import fs from "node:fs"
 import PromiseReadable from "promise-readable"
 
 const stream = fs.createReadStream("/etc/hosts")

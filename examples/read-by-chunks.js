@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import fs from "fs"
+import fs from "node:fs"
 
 import PromiseReadable from "../lib/promise-readable.js"
 

@@ -1,5 +1,9 @@
 # Changelog
 
+## v7.0.5 2024-06-21
+
+- Use "node:" prefix for Node.js modules.
+
 ## v7.0.4 2024-06-21
 
 - Correct Readme badges.

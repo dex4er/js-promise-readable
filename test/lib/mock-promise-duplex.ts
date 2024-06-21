@@ -1,4 +1,4 @@
-import {Duplex} from "stream"
+import {Duplex} from "node:stream"
 
 import {PromiseReadable} from "../../src/promise-readable.js"
 

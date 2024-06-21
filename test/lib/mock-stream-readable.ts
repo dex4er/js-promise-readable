@@ -1,4 +1,4 @@
-import {Readable} from "stream"
+import {Readable} from "node:stream"
 
 export class MockStreamReadable extends Readable {
   readable = true
