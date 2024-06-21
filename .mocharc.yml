@@ -6,6 +6,7 @@ node-option:
   - no-warnings
   - loader=ts-node/esm
 package: ./package.json
+reporter: dot
 spec:
   - test/*.ts
 timeout: 90000
