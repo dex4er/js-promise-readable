@@ -3,8 +3,6 @@
   "compilerOptions": {
     "declaration": true,
     "importHelpers": true,
-    "module": "es2020",
-    "moduleResolution": "node",
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "noUnusedLocals": true,
