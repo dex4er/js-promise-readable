@@ -1,5 +1,9 @@
 # Changelog
 
+## v7.0.4 2024-06-21
+
+- Correct Readme badges.
+
 ## v7.0.3 2024-06-21
 
 - Correct Readme badges.
