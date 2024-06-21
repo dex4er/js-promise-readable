@@ -191,10 +191,12 @@ the stream chunk-by-chunk with the default `chunkSize`.
 ### destroy
 
 ```js
-promiseReadable.destroy()
+promiseReadable = promiseReadable.destroy()
 ```
 
 This method calls `destroy` method on stream and cleans up all own handlers.
+
+The method returns this object.
 
 ## See also
 

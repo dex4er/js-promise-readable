@@ -1,5 +1,9 @@
 # Changelog
 
+## v8.0.1 2024-06-21
+
+- Fixed documentation for `destroy` method.
+
 ## v8.0.0 2024-06-21
 
 - `destroy` method returns `this`.
