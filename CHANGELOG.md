@@ -1,5 +1,9 @@
 # Changelog
 
+## v8.0.0 2024-06-21
+
+- `destroy` method returns `this`.
+
 ## v7.0.5 2024-06-21
 
 - Use "node:" prefix for Node.js modules.

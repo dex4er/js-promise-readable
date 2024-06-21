@@ -4,7 +4,7 @@ interface ReadableStream extends NodeJS.ReadableStream {
   closed?: boolean
   destroyed?: boolean
 
-  destroy?(): void
+  destroy?(error?: Error): this
 }
 
 export class PromiseReadable<TReadable extends ReadableStream> implements AsyncIterable<Buffer | string> {
@@ -253,13 +253,15 @@ export class PromiseReadable<TReadable extends ReadableStream> implements AsyncI
     return this.iterate()
   }
 
-  destroy(): void {
+  destroy(): this {
     if (this.stream) {
       this.stream.removeListener("error", this.errorHandler)
       if (typeof this.stream.destroy === "function") {
         this.stream.destroy()
       }
     }
+
+    return this
   }
 
   private readonly errorHandler = (err: Error): void => {
