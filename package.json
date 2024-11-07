@@ -5,8 +5,8 @@
   "type": "module",
   "exports": {
     ".": {
-      "default": "./lib/promise-readable.js",
-      "typings": "./lib/promise-readable.d.ts"
+      "typings": "./lib/promise-readable.d.ts",
+      "default": "./lib/promise-readable.js"
     }
   },
   "main": "lib/promise-readable.js",
